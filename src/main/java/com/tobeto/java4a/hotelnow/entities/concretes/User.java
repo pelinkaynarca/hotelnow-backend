@@ -1,28 +1,24 @@
-package com.tobeto.java4a.hotelnow.entities;
+package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import com.tobeto.java4a.hotelnow.core.enums.Gender;
+import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Getter
-@Setter
+
+
+
+@EqualsAndHashCode(callSuper = true)
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
-public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
+public class User extends BaseEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
@@ -43,7 +39,7 @@ public class User implements UserDetails {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private List<Role> authorities;
+    private Role authorities;
 
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)

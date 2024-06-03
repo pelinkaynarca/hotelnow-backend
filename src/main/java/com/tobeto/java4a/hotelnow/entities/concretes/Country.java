@@ -1,0 +1,21 @@
+package com.tobeto.java4a.hotelnow.entities.concretes;
+
+import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "countries")
+public class Country extends BaseEntity {
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<City> cities;
+}

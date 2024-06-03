@@ -1,4 +1,4 @@
-package com.tobeto.java4a.hotelnow.entities;
+package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import org.springframework.security.core.GrantedAuthority;
 
