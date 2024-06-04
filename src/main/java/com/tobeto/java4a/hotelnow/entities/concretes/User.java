@@ -7,66 +7,86 @@ import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-
-
-
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Builder
+@Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity implements UserDetails {
-    @Column(name = "password")
-    private String password;
 
-    @Column(name = "email")
-    private String email;
+	@Id
+	@Column(name = "id")
+	private int id;
 
-    @Column(name = "first_name")
-    private String firstName;
+	@Column(name = "password")
+	private String password;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column(name = "email")
+	private String email;
 
-    @Column(name = "phone")
-    private String phone;
+	@Column(name = "first_name")
+	private String firstName;
 
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Role authorities;
+	@Column(name = "phone")
+	private String phone;
 
-    @Column(name = "gender")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+	@Column(name = "birth_date")
+	private LocalDate birthDate;
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
+	@Column(name = "role")
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	@Column(name = "gender")
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Staff staff;
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Customer customer;
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@Override
+	public List<Role> getAuthorities() {
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(this.role);
+		return roles;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

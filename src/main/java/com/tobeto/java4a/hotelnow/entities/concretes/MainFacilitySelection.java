@@ -1,11 +1,19 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
-import jakarta.persistence.*;
-import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -22,4 +30,5 @@ public class MainFacilitySelection extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "option_id")
     private MainFacilityOption mainFacilityOption;
+    
 }

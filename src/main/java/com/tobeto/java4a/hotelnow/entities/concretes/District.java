@@ -4,8 +4,8 @@ import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
