@@ -4,6 +4,8 @@ import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,4 +15,7 @@ import lombok.*;
 public class FacilityCategory extends BaseEntity {
     @Column(name = "title")
     private String title;
+
+    @OneToMany(mappedBy = "facilityCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FacilityDetailOption> facilityDetailOptions;
 }

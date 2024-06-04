@@ -4,6 +4,8 @@ import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,4 +20,7 @@ public class District extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
+
+    @OneToMany(mappedBy = "district", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Neighborhood> neighborhoods;
 }

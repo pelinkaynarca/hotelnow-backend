@@ -2,15 +2,13 @@ package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,5 +24,8 @@ public class Neighborhood extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "district_id")
     private District district;
+
+    @OneToMany(mappedBy = "neighborhood", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Hotel> hotels;
     
 }
