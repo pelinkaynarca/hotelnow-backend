@@ -60,9 +60,7 @@ public class User extends BaseEntity implements UserDetails {
 
 	@Override
 	public List<Role> getAuthorities() {
-		List<Role> roles = new ArrayList<Role>();
-		roles.add(this.role);
-		return roles;
+		return List.of(this.role);
 	}
 
 	@Override
