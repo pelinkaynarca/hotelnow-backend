@@ -10,6 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListMainFacilitySelectionResponse {
+
+    private int id;
+
     private boolean display;
 
     private String hotelName;

@@ -1,4 +1,4 @@
-package com.tobeto.java4a.hotelnow.services.dtos.responses.cancelationreasons;
+package com.tobeto.java4a.hotelnow.services.dtos.responses.cancellationreasons;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListCancelationReasonResponse {
+public class ListCancellationReasonResponse {
 
     private int id;
 

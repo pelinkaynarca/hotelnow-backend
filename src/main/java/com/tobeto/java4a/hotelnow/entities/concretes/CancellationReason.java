@@ -14,13 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cancelation_reasons")
-public class CancelationReason extends BaseEntity {
+@Table(name = "cancellation_reasons")
+public class CancellationReason extends BaseEntity {
 
 	@Column(name = "reason")
 	private String reason;
 
-	@OneToMany(mappedBy = "cancelationReason", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "cancellationReason", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<BookingHistory> bookingHistories;
 
 }

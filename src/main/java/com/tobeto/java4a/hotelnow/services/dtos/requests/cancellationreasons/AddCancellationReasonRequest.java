@@ -1,4 +1,4 @@
-package com.tobeto.java4a.hotelnow.services.dtos.requests.cancelationreasons;
+package com.tobeto.java4a.hotelnow.services.dtos.requests.cancellationreasons;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddCancelationReasonRequest {
+public class AddCancellationReasonRequest {
 
     @NotBlank
     @Size(min = 2, max = 100)
