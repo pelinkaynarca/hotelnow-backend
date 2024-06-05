@@ -34,6 +34,7 @@ public class Staff extends User {
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;
 
+	@Override
 	public int getId() {
 		return this.id;
 	}
