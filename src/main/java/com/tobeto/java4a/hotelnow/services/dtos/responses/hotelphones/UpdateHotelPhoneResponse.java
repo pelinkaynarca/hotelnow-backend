@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdatePhoneResponse {
+public class UpdateHotelPhoneResponse {
 
     private String phone;
 
