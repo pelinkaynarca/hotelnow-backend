@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListNeighborhoodResponse {
 
+    private int id;
+
     private String name;
 
 }

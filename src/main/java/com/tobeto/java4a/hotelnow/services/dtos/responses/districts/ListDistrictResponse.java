@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListDistrictResponse {
 
+    private int id;
+
     private String name;
 
 }

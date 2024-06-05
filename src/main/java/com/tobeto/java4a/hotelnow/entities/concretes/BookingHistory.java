@@ -41,6 +41,6 @@ public class BookingHistory extends BaseEntity {
 	private Booking booking;
 	
 	@ManyToOne
-	@JoinColumn(name = "cancelation_reason_id")
-	private CancelationReason cancelationReason;
+	@JoinColumn(name = "cancellation_reason_id")
+	private CancellationReason cancellationReason;
 }

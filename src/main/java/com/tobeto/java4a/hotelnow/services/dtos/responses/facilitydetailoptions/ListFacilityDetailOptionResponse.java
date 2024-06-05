@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListFacilityDetailOptionResponse {
 
+    private int id;
+
     private String description;
 
     private String categoryTitle;
