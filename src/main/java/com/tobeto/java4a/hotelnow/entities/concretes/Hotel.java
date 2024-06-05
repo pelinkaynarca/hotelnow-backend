@@ -33,6 +33,9 @@ public class Hotel extends BaseEntity {
     @Column(name = "check_out_time")
     private LocalTime checkOutTime;
 
+    @Column(name = "active")
+    private boolean active;
+
     @ManyToOne
     @JoinColumn(name = "neighborhood_id")
     private Neighborhood neighborhood;
