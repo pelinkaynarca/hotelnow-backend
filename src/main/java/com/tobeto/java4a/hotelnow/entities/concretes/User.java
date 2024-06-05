@@ -19,10 +19,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity implements UserDetails {
 
-	@Id
-	@Column(name = "id")
-	private int id;
-
 	@Column(name = "password")
 	private String password;
 
