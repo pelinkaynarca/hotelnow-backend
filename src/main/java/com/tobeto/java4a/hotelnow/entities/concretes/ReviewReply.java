@@ -29,12 +29,13 @@ public class ReviewReply extends BaseEntity {
     @JoinColumn(name = "staff_id")
     private Staff staff;
 
-    @Column(name = "response")
-    private String response;
+    @Column(name = "reply")
+    private String reply;
 
     @Column(name= "approved")
     private boolean approved;
 
     @Column(name= "responded_at")
     private LocalDate respondedAt;
+    
 }
