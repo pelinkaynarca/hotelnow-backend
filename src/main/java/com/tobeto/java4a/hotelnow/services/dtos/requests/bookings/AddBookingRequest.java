@@ -20,6 +20,9 @@ public class AddBookingRequest {
 	@Min(value = 1)
 	private int hotelId;
 	
+	@Min(value = 1)
+	private int customerId;
+	
 	@NotNull
 	@FutureOrPresent
 	private LocalDate checkInDate;
