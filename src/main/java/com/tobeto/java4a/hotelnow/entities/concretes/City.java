@@ -24,13 +24,13 @@ import lombok.Setter;
 @Entity
 @Table(name = "cities")
 public class City extends BaseEntity {
-    @Column(name = "name")
+    @Column(name = "name", length = 50)
     private String name;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<District> districts;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "country_id")
     private Country country;
 }
