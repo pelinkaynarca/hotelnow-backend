@@ -1,10 +1,13 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes;
 
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
+import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeMainFacilitySelection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,4 +28,6 @@ public class AddRoomTypeResponse {
     private boolean display;
 
     private Currency currency;
+
+    List<RoomTypeMainFacilitySelection> roomTypeMainFacilitySelections;
 }

@@ -14,8 +14,13 @@ import lombok.Setter;
 public class AddRoomTypeMainFacilitySelectionRequest {
 
     @Min(value = 1)
-    private int categoryId;
+    private int roomTypeId;
+
+    @Min(value = 1)
+    private int optionId;
 
     @NotBlank
-    private String description;
+    private String title;
+
+    private boolean display;
 }

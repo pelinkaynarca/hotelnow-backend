@@ -17,8 +17,13 @@ public class UpdateRoomTypeMainFacilitySelectionRequest {
     private int id;
 
     @Min(value = 1)
-    private int categoryId;
+    private int roomTypeId;
+
+    @Min(value = 1)
+    private int optionId;
 
     @NotBlank
-    private String description;
+    private String title;
+
+    private boolean display;
 }

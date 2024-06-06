@@ -13,7 +13,11 @@ public class AddRoomTypeMainFacilitySelectionResponse {
 
     private int id;
 
-    private int categoryId;
+    private int roomTypeId;
 
-    private String description;
+    private int optionId;
+
+    private String title;
+
+    private boolean display;
 }
