@@ -16,5 +16,5 @@ public class AddRoomTypeFacilityDetailOptionResponse {
 
     private String description;
 
-    private String roomTypeFacilityCategoryTitle;
+    private String categoryTitle;
 }
