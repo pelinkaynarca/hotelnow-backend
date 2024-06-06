@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateHotelPhoneResponse {
 
+    private int id;
+
     private String phone;
 
 }

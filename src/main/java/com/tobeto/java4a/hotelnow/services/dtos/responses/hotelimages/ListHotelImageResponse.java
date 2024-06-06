@@ -15,4 +15,6 @@ public class ListHotelImageResponse {
 
     private String url;
 
+    private String hotelName;
+
 }

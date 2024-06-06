@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface FacilityDetailOptionRepository extends JpaRepository<FacilityDetailOption, Integer> {
 
-    @Query("select fdo from FacilityDetailOption fdo where fdo.category.id = :categoryId")
-    List<FacilityDetailOption> findByCategoryId(@Param("categoryId") int categoryId);
+   @Query("select fdo from FacilityDetailOption fdo where fdo.facilityCategory.id = :categoryId")
+   List<FacilityDetailOption> findByCategoryId(@Param("categoryId") int categoryId);
 
 }
