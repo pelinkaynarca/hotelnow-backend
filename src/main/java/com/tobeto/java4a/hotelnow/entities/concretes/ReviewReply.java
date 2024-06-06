@@ -18,8 +18,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "review_responses")
-public class ReviewResponse extends BaseEntity {
+@Table(name = "review_replies")
+public class ReviewReply extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "review_id")

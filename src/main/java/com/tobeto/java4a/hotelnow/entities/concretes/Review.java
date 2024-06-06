@@ -47,6 +47,6 @@ public class Review extends BaseEntity {
 	@JoinColumn(name = "booking_id")
 	private Booking booking;
 
-	@OneToMany(mappedBy = "review",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<ReviewResponse> reviewResponses;
+	@OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ReviewReply> reviewReplies;
 }
