@@ -15,7 +15,7 @@ public class ListRoomTypeMainFacilitySelectionResponse {
 
     private String roomTypeName;
 
-    private String optionName;
+    private String optionTitle;
 
     private String title;
 

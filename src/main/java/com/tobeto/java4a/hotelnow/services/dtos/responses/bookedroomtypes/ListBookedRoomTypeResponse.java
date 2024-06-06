@@ -13,7 +13,7 @@ public class ListBookedRoomTypeResponse {
 
     private int id;
 
-    private String bookingName;
+    private String bookingHotelName;
 
     private String roomTypeName;
 

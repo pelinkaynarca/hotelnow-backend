@@ -15,7 +15,7 @@ public interface BookedRoomTypeMapper {
 
     BookedRoomTypeMapper  INSTANCE = Mappers.getMapper(BookedRoomTypeMapper.class);
 
-    @Mapping(target = "bookingName", source = "booking.name")
+    @Mapping(target = "bookingHotelName", source = "booking.hotel.name")
     @Mapping(target = "roomTypeName", source = "roomType.name")
     ListBookedRoomTypeResponse listResponseFromBookedRoomType(BookedRoomType bookedRoomType);
 

@@ -16,7 +16,7 @@ public interface RoomTypeMainFacilitySelectionMapper {
     RoomTypeMainFacilitySelectionMapper INSTANCE = Mappers.getMapper(RoomTypeMainFacilitySelectionMapper.class);
 
     @Mapping(target = "roomTypeName", source = "roomType.name")
-    @Mapping(target = "optionName", source = "roomTypeMainFacilityOption.name")
+    @Mapping(target = "optionTitle", source = "roomTypeMainFacilityOption.title")
     ListRoomTypeMainFacilitySelectionResponse listResponseFromRoomTypeMainFacilitySelection(RoomTypeMainFacilitySelection roomTypeMainFacilitySelection);
 
     @Mapping(target = "id", ignore = true)
