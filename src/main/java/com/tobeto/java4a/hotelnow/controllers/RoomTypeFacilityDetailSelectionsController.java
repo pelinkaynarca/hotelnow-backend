@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/room-type-facility-detail-selections")
 @AllArgsConstructor
-public class RoomTypeFacilityDetailSelectionController {
+public class RoomTypeFacilityDetailSelectionsController {
 
     private RoomTypeFacilityDetailSelectionService roomTypeFacilityDetailSelectionService;
 

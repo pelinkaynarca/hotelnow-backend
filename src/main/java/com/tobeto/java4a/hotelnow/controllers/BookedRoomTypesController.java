@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/booked-room-types")
 @AllArgsConstructor
-public class BookedRoomTypeController{
+public class BookedRoomTypesController {
 
     private BookedRoomTypeService bookedRoomTypeService;
 

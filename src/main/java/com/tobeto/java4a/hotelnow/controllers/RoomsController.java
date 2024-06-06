@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rooms")
 @AllArgsConstructor
-public class RoomController {
+public class RoomsController {
 
     private RoomService roomService;
 

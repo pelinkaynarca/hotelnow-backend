@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/room-type-images")
 @AllArgsConstructor
-public class RoomTypeImageController {
+public class RoomTypeImagesController {
 
     private RoomTypeImageService roomTypeImageService;
 
