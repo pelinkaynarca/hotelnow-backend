@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateRoomTypeFacilityOptionResponse {
+public class UpdateRoomTypeFacilityCategoryResponse {
 
     private int id;
 
