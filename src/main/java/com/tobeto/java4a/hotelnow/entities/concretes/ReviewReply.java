@@ -35,7 +35,7 @@ public class ReviewReply extends BaseEntity {
     @Column(name= "approved")
     private boolean approved;
 
-    @Column(name= "responded_at")
-    private LocalDate respondedAt;
+    @Column(name= "replied_at")
+    private LocalDate repliedAt;
     
 }
