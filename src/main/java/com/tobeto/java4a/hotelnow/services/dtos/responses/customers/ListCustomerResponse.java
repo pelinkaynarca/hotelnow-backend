@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListCustomerResponse extends ListUserResponse {
 	
-	private String countryId;
+	private String nationalityId;
 	
 	private String countryName;
 
