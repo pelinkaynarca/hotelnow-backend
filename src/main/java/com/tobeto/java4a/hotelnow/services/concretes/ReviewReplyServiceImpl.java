@@ -10,6 +10,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.AddReview
 import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.UpdateReviewReplyRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.AddReviewReplyResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.ListReviewReplyResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.UpdateReviewReplyResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,7 +45,7 @@ public class ReviewReplyServiceImpl implements ReviewReplyService{
 	}
 
 	@Override
-	public UpdateReviewReplyRequest update(UpdateReviewReplyRequest request) {
+	public UpdateReviewReplyResponse update(UpdateReviewReplyRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}

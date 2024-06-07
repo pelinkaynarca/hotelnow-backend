@@ -6,6 +6,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.AddReview
 import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.UpdateReviewReplyRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.AddReviewReplyResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.ListReviewReplyResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.UpdateReviewReplyResponse;
 
 public interface ReviewReplyService {
 	
@@ -17,6 +18,6 @@ public interface ReviewReplyService {
 	
 	AddReviewReplyResponse add(AddReviewReplyRequest request);
 	
-	UpdateReviewReplyRequest update(UpdateReviewReplyRequest request);
+	UpdateReviewReplyResponse update(UpdateReviewReplyRequest request);
 
 }
