@@ -4,7 +4,6 @@ import com.tobeto.java4a.hotelnow.repositories.HotelRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.HotelService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.AddHotelRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.UpdateHotelRequest;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelphones.ListHotelPhoneResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.AddHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.UpdateHotelResponse;
@@ -36,11 +35,6 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<ListHotelResponse> getByStars(Byte stars) {
-        return List.of();
-    }
-
-    @Override
-    public List<ListHotelPhoneResponse> getPhonesByHotelId(int hotelId) {
         return List.of();
     }
 
