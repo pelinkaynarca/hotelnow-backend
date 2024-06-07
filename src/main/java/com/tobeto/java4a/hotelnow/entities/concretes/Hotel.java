@@ -47,7 +47,7 @@ public class Hotel extends BaseEntity {
     private List<Staff> staffs;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<HotelImage> hotelImages;
+    private List<HotelImage> hotelImages;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HotelPhone> hotelPhones;

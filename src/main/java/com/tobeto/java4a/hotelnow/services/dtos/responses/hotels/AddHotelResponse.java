@@ -27,4 +27,6 @@ public class AddHotelResponse {
     private LocalTime checkOutTime;
 
     private String neighborhoodName;
+
+
 }
