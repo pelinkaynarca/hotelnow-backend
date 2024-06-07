@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface RoomTypeFacilityDetailOptionService {
 
+    List<ListRoomTypeFacilityDetailOptionResponse> getByCategoryId(int categoryId);
     AddRoomTypeFacilityDetailOptionResponse add(AddRoomTypeFacilityDetailOptionRequest request);
     UpdateRoomTypeFacilityDetailOptionResponse update(UpdateRoomTypeFacilityDetailOptionRequest request);
     void delete(int id);
-    List<ListRoomTypeFacilityDetailOptionResponse> getByCategoryId(int categoryId);
 
 }

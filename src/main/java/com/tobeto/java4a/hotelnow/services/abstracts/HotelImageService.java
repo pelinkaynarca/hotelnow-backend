@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface HotelImageService {
 
+    List<ListHotelImageResponse> getByHotelId(int hotelId);
     AddHotelImageResponse add(AddHotelImageRequest request);
     void delete(int id);
-    List<ListHotelImageResponse> getByHotelId(int hotelId);
 }

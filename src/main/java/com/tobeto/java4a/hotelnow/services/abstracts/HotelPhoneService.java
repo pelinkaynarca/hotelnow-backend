@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface HotelPhoneService {
 
+    List<ListHotelPhoneResponse> getByHotelId(int hotelId);
     AddHotelPhoneResponse add(AddHotelPhoneRequest request);
     UpdateHotelPhoneResponse update(UpdateHotelPhoneRequest request);
     void delete(int id);
-    List<ListHotelPhoneResponse> getByHotelId(int hotelId);
 
 }
