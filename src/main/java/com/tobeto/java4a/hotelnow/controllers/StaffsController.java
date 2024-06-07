@@ -46,7 +46,7 @@ public class StaffsController {
 	}
 	
 	@PutMapping
-	public UpdateStaffResponse add(@RequestBody @Valid UpdateStaffRequest request) {
+	public UpdateStaffResponse update(@RequestBody @Valid UpdateStaffRequest request) {
 		return staffService.update(request);
 	}
 
