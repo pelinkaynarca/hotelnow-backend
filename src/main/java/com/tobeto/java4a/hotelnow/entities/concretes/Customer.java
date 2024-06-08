@@ -42,6 +42,9 @@ public class Customer extends User{
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Booking> bookings;
 	
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Review> reviews;
+	
 	public int getId() {
 		return this.id;
 	}
