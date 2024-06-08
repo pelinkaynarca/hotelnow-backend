@@ -30,6 +30,6 @@ public interface BookingMapper {
 	@Mapping(target = "hotel.id", expression = "java(addBookingRequest.getHotelId())")
 	@Mapping(target = "customer", source = "customer")
 	@Mapping(target = "bookedRoomTypes", source = "bookedRoomTypes")
-	Booking bookingFromAddRequest(AddBookingRequest request, Customer customer, List<BookedRoomType> bookedRoomTypes);
+	Booking bookingFromAddRequest(AddBookingRequest addBookingRequest, Customer customer, List<BookedRoomType> bookedRoomTypes);
 
 }
