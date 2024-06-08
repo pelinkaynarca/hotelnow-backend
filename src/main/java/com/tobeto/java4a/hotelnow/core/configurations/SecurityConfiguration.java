@@ -47,7 +47,7 @@ public class SecurityConfiguration {
 
 		http.csrf(AbstractHttpConfigurer::disable)
 		.authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URLS).permitAll()
-				.requestMatchers("/api/v1/**").authenticated()
+//				.requestMatchers("/api/v1/**").authenticated()
 				.anyRequest().permitAll())
 		.httpBasic(AbstractHttpConfigurer::disable);
 
