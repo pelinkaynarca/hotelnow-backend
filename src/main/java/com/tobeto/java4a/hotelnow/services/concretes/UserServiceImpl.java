@@ -8,6 +8,9 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.users.AddUserResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.users.ListUserResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.users.UpdateUserResponse;
 import lombok.AllArgsConstructor;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,4 +43,9 @@ public class UserServiceImpl implements UserService {
     public void delete(int id) {
 
     }
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return userRepository.findByEmailIgnoreCase(username).orElseThrow();
+	}
 }

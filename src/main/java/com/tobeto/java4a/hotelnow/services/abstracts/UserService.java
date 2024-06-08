@@ -8,7 +8,9 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.users.UpdateUserRespon
 
 import java.util.List;
 
-public interface UserService {
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface UserService extends UserDetailsService{
     List<ListUserResponse> getAll();
     ListUserResponse getById(int id);
     AddUserResponse add(AddUserRequest request);
