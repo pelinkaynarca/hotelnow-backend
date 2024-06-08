@@ -1,7 +1,5 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.bookinghistories;
 
-import java.time.LocalDateTime;
-
 import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +17,7 @@ public class AddBookingHistoryRequest {
 
 	private int bookingId;
 
-	private LocalDateTime editedAt;
+//	private LocalDateTime editedAt;
 
 	private BookingStatus status;
 
