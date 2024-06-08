@@ -9,6 +9,7 @@ import org.mapstruct.factory.Mappers;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.entities.concretes.Review;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.reviews.AddReviewRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.reviews.UpdateReviewRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.AddReviewResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.UpdateReviewResponse;
@@ -37,5 +38,13 @@ public interface ReviewMapper {
 	@Mapping(target = "customer", source = "customer")
 	@Mapping(target = "reviewedAt", source = "reviewedAt")
 	Review reviewFromAddRequest(AddReviewRequest addReviewRequest, Customer customer, LocalDateTime reviewedAt);
+	
+	@Mapping(target = "reviewReplies", ignore = true)
+	@Mapping(target = "rating", ignore = true)
+	@Mapping(target = "booking", ignore = true)
+	@Mapping(target = "customer", ignore = true)
+	@Mapping(target = "review", ignore = true)
+	@Mapping(target = "reviewedAt", ignore = true)
+	Review reviewFromUpdateRequest(UpdateReviewRequest updateReviewRequest);
 
 }
