@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.UpdateStaffRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.AddStaffResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.ListStaffResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.UpdateStaffResponse;
@@ -32,5 +33,11 @@ public interface StaffMapper {
 	@Mapping(target = "hotel", ignore = true)
 	@Mapping(target = "customer", ignore = true)
 	Staff staffFromAddRequest(AddStaffRequest addStaffRequest);
+	
+	@Mapping(target = "role", ignore = true)
+	@Mapping(target = "staff", ignore = true)
+	@Mapping(target = "hotel", ignore = true)
+	@Mapping(target = "customer", ignore = true)
+	Staff staffFromUpdateRequest(UpdateStaffRequest updateStaffRequest);
 
 }
