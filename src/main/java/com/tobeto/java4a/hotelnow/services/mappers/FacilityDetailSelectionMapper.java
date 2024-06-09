@@ -1,5 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -23,6 +25,12 @@ public interface FacilityDetailSelectionMapper {
 	@Mapping(target = "option", source = "facilityDetailOption")
 	ListFacilityDetailSelectionResponse listResponseFromFacilityDetailSelection(
 			FacilityDetailSelection facilityDetailSelection);
+	
+	@Mapping(target = "option.categoryTitle", ignore = true)
+	@Mapping(target = "hotelId", source = "hotel.id")
+	@Mapping(target = "option", source = "facilityDetailOption")
+	List<ListFacilityDetailSelectionResponse> listResponseListFromFacilityDetailSelectionList(
+			List<FacilityDetailSelection> facilityDetailSelections);
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "hotel", source = "hotel")
