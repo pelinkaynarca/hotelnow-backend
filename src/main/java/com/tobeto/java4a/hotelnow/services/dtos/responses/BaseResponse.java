@@ -1,5 +1,4 @@
-package com.tobeto.java4a.hotelnow.services.dtos.responses.responsemodels;
-
+package com.tobeto.java4a.hotelnow.services.dtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class ResponseModel<T> {
+public class BaseResponse<T> {
     private int statusCode;
     private String statusMessage;
     private T result;
