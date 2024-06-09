@@ -44,14 +44,6 @@ public class User extends BaseEntity implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Staff staff;
-
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Customer customer;
-
 	@Override
 	public List<Role> getAuthorities() {
 		return List.of(this.role);

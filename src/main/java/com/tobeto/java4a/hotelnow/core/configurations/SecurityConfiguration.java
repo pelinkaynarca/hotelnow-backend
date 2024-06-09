@@ -11,23 +11,25 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.tobeto.java4a.hotelnow.core.filters.JwtFilter;
 import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
-
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-	
+
 	private final UserService userService;
-	
+	private final JwtFilter jwtFilter;
+
 	private static final String[] WHITE_LIST_URLS = { "/swagger-ui/**", "/v3/api-docs/**", "/api/v1/auth/**" };
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -36,20 +38,21 @@ public class SecurityConfiguration {
 
 		return provider;
 	}
-	
+
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
-	
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http.csrf(AbstractHttpConfigurer::disable)
-		.authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URLS).permitAll()
+				.authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URLS).permitAll()
 //				.requestMatchers("/api/v1/**").authenticated()
-				.anyRequest().permitAll())
-		.httpBasic(AbstractHttpConfigurer::disable);
+						.anyRequest().permitAll())
+				.httpBasic(AbstractHttpConfigurer::disable)
+				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);;
 
 		return http.build();
 	}
