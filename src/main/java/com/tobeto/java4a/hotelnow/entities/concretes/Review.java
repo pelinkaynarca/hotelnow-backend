@@ -3,6 +3,9 @@ package com.tobeto.java4a.hotelnow.entities.concretes;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 
 import jakarta.persistence.CascadeType;
@@ -33,20 +36,22 @@ public class Review extends BaseEntity {
 	@Column(name = "rating", nullable = false)
 	private byte rating;
 
-	@Column(name = "reviewed_at", nullable = false)
+	@Generated
+	@ColumnDefault("now()")
+	@Column(name = "reviewed_at", nullable = false, updatable = false)
 	private LocalDateTime reviewedAt;
 
 	@Column(name = "approved", nullable = false)
 	private boolean approved;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	@OneToOne
+	@OneToOne(optional = false)
 	@JoinColumn(name = "booking_id")
 	private Booking booking;
 
-	@OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ReviewReply> reviewReplies;
 }

@@ -2,6 +2,9 @@ package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+
 import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 
@@ -25,21 +28,23 @@ import lombok.Setter;
 @Table(name = "booking_histories")
 public class BookingHistory extends BaseEntity {
 
-	@Column(name = "edited_at")
+	@Generated
+	@ColumnDefault("now()")
+	@Column(name = "edited_at", nullable = false, updatable = false)
 	private LocalDateTime editedAt;
 
-	@Column(name = "status")
+	@Column(name = "status", length = 10, nullable = false, updatable = false)
 	@Enumerated(EnumType.STRING)
 	private BookingStatus status;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "user_id")
 	private User user;
 
-	@ManyToOne
-	@JoinColumn(name = "booking_id", nullable = false)
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "booking_id")
 	private Booking booking;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cancellation_reason_id")
 	private CancellationReason cancellationReason;

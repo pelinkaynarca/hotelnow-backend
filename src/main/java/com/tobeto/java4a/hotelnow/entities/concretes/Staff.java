@@ -30,12 +30,12 @@ public class Staff extends User {
 	@Column(name = "id")
 	private int id;
 
-	@OneToOne
+	@OneToOne(optional = false)
 	@MapsId
 	@JoinColumn(name = "id")
 	private User user;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;
 

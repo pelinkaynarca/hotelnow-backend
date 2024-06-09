@@ -24,27 +24,27 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "customers")
-public class Customer extends User{
+public class Customer extends User {
 
 	@Id
-    @Column(name = "id")
+	@Column(name = "id")
 	private int id;
-	
-	@OneToOne
+
+	@OneToOne(optional = false)
 	@MapsId
 	@JoinColumn(name = "id")
 	private User user;
-	
-	@ManyToOne
+
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "nationality_id")
 	private Country country;
-	
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Booking> bookings;
-	
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Review> reviews;
-	
+
 	public int getId() {
 		return this.id;
 	}

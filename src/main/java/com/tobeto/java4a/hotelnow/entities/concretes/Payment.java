@@ -12,7 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,30 +25,30 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "payments")
-public class Payment extends BaseEntity{
+public class Payment extends BaseEntity {
 
-	@Column(name = "total_price")
+	@Column(name = "total_price", nullable = false)
 	private int totalPrice;
-	
-	@Column(name = "card_no")
+
+	@Column(name = "card_no", nullable = false)
 	private String cardNo;
-	
-	@Column(name = "payment_date")
+
+	@Column(name = "payment_date", nullable = false)
 	private LocalDateTime paymentDate;
-	
-	@Column(name = "payment_type")
+
+	@Column(name = "payment_type", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PaymentType paymentType;
-	
-	@Column(name = "payment_status")
+
+	@Column(name = "payment_status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PaymentStatus paymentStatus;
-	
-	@Column(name = "currency")
+
+	@Column(name = "currency", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Currency currency;
-	
-	@ManyToOne
+
+	@OneToOne(optional = false)
 	@JoinColumn(name = "booking_id")
 	private Booking booking;
 }

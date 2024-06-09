@@ -11,7 +11,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
 
 @Getter
 @Setter
@@ -21,21 +24,23 @@ import java.time.LocalDate;
 @Table(name = "review_replies")
 public class ReviewReply extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "review_id")
-    private Review review;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "review_id")
+	private Review review;
 
-    @ManyToOne
-    @JoinColumn(name = "staff_id")
-    private Staff staff;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "staff_id")
+	private Staff staff;
 
-    @Column(name = "reply")
-    private String reply;
+	@Column(name = "reply", nullable = false)
+	private String reply;
 
-    @Column(name= "approved")
-    private boolean approved;
+	@Column(name = "approved", nullable = false)
+	private boolean approved;
 
-    @Column(name= "replied_at")
-    private LocalDate repliedAt;
-    
+	@Generated
+	@ColumnDefault("now()")
+	@Column(name = "replied_at", nullable = false, updatable = false)
+	private LocalDateTime repliedAt;
+
 }

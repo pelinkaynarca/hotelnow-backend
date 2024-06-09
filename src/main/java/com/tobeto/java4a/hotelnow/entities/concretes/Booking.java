@@ -40,17 +40,20 @@ public class Booking extends BaseEntity {
 	@Column(name = "guest_count", nullable = false)
 	private short guestCount;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;
 
-	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Review review;
+	
+	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private Payment payment;
 
-	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<BookedRoomType> bookedRoomTypes;
 }
