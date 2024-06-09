@@ -31,7 +31,7 @@ public class StaffsController {
 	
 	@GetMapping("/{id}")
 	public ListStaffResponse getById(@PathVariable int id) {
-		return staffService.getById(id);
+		return staffService.getResponseById(id);
 	}
 	
 	@GetMapping("/by-hotel-id/{hotelId}")

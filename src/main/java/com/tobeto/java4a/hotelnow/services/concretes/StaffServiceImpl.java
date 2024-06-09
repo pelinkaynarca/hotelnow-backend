@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.repositories.StaffRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequest;
@@ -18,10 +19,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class StaffServiceImpl implements StaffService {
 	
-	private StaffRepository staffRepository;
+	private final StaffRepository staffRepository;
 
 	@Override
-	public ListStaffResponse getById(int id) {
+	public ListStaffResponse getResponseById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -42,6 +43,11 @@ public class StaffServiceImpl implements StaffService {
 	public UpdateStaffResponse update(UpdateStaffRequest request) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Staff getById(int id) {
+		return staffRepository.findById(id).orElseThrow();
 	}
 
 }
