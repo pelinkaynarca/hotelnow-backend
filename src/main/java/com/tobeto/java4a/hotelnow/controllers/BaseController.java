@@ -9,20 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BaseController {
 
-    protected <T> ResponseEntity<ResponseModel<T>> OK(T result) {
-        ResponseModel<T> responseModel = new ResponseModel<>();
-        responseModel.setStatusCode(200);
-        responseModel.setStatusMessage(Messages.Success.SUCCESSFULLY_LISTED);
-        responseModel.setResult(result);
+	protected <T> ResponseEntity<ResponseModel<T>> OK(T result) {
+		ResponseModel<T> responseModel = new ResponseModel<>();
+		responseModel.setStatusCode(HttpStatus.OK.value());
+		responseModel.setStatusMessage(Messages.Success.SUCCESSFULLY_LISTED);
+		responseModel.setResult(result);
 
-        return ResponseEntity.status(HttpStatus.OK).body(responseModel);
-    }
-    protected <T> ResponseEntity<ResponseModel<T>> NOT_FOUND() {
-        ResponseModel<T> responseModel = new ResponseModel<>();
-        responseModel.setStatusCode(404);
-        responseModel.setStatusMessage(Messages.Error.NOT_FOUND);
-        responseModel.setResult(null);
+		return ResponseEntity.status(HttpStatus.OK).body(responseModel);
+	}
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseModel);
-    }
+	protected <T> ResponseEntity<ResponseModel<T>> NOT_FOUND() {
+		ResponseModel<T> responseModel = new ResponseModel<>();
+		responseModel.setStatusCode(HttpStatus.NOT_FOUND.value());
+		responseModel.setStatusMessage(Messages.Error.NOT_FOUND);
+		responseModel.setResult(null);
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseModel);
+	}
 }
