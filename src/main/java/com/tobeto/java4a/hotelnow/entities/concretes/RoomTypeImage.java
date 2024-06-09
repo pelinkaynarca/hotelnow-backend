@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "room_types_images")
+@Table(name = "room_type_images")
 public class RoomTypeImage extends BaseEntity {
 
     @ManyToOne

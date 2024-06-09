@@ -25,7 +25,6 @@ public interface RoomTypeMapper {
     @Mapping(target = "roomTypeImages", ignore = true)
     @Mapping(target = "rooms", ignore = true)
     @Mapping(target = "bookedRoomTypes", ignore = true)
-    @Mapping(target = "roomTypeMainFacilityDetailSelections", source = "roomTypeMainFacilitySelections")
     RoomType roomTypeFromAddRequest(AddRoomTypeRequest request);
 
     AddRoomTypeResponse addResponseFromRoomType(RoomType roomType);
@@ -34,7 +33,6 @@ public interface RoomTypeMapper {
     @Mapping(target = "roomTypeImages", ignore = true)
     @Mapping(target = "rooms", ignore = true)
     @Mapping(target = "bookedRoomTypes", ignore = true)
-    @Mapping(target = "roomTypeMainFacilityDetailSelections", source = "roomTypeMainFacilitySelections")
     RoomType roomTypeFromUpdateRequest(UpdateRoomTypeRequest request);
 
     UpdateRoomTypeResponse updateResponseFromRoomType(RoomType room);
