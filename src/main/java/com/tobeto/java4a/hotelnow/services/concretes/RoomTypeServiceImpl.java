@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.RoomType;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
@@ -7,10 +8,12 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.UpdateRoomTyp
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.AddRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.ListRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.UpdateRoomTypeResponse;
+import com.tobeto.java4a.hotelnow.services.mappers.RoomTypeMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -20,7 +23,10 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
     @Override
     public List<ListRoomTypeResponse> getAll() {
-        return List.of();
+        List<RoomType> roomTypes = roomTypeRepository.findAll();
+        return roomTypes.stream()
+                .map(RoomTypeMapper.INSTANCE::listResponseFromRoomType)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -30,21 +36,28 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
     @Override
     public ListRoomTypeResponse getById(int id) {
-        return null;
+         RoomType roomType = roomTypeRepository.findById(id)
+                .orElse(null);
+        return RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
     }
 
     @Override
     public AddRoomTypeResponse add(AddRoomTypeRequest request) {
-        return null;
+        RoomType roomType = RoomTypeMapper.INSTANCE.roomTypeFromAddRequest(request);
+        roomType = roomTypeRepository.save(roomType);
+        return RoomTypeMapper.INSTANCE.addResponseFromRoomType(roomType);
     }
 
     @Override
     public UpdateRoomTypeResponse update(UpdateRoomTypeRequest request) {
-        return null;
+        RoomType roomType = RoomTypeMapper.INSTANCE.roomTypeFromUpdateRequest(request);
+        roomType = roomTypeRepository.save(roomType);
+        return RoomTypeMapper.INSTANCE.updateResponseFromRoomType(roomType);
     }
 
     @Override
     public void delete(int id) {
-
+        roomTypeRepository.deleteById(id);
     }
+
 }
