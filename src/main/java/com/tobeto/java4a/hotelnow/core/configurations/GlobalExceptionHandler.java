@@ -1,6 +1,5 @@
 package com.tobeto.java4a.hotelnow.core.configurations;
 
-
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.BusinessProblemDetails;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.ValidationProblemDetails;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
@@ -18,7 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({BusinessException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public BusinessProblemDetails handleRuntimeException(BusinessException exception) {
-        return new BusinessProblemDetails();
+        return new BusinessProblemDetails(exception.getMessage());
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})

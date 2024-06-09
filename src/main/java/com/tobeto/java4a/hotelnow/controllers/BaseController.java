@@ -1,29 +1,19 @@
 package com.tobeto.java4a.hotelnow.controllers;
 
-import com.tobeto.java4a.hotelnow.services.dtos.responses.responsemodels.ResponseModel;
-import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
-import org.springframework.http.HttpStatus;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 public class BaseController {
 
-	protected <T> ResponseEntity<ResponseModel<T>> OK(T result) {
-		ResponseModel<T> responseModel = new ResponseModel<>();
-		responseModel.setStatusCode(HttpStatus.OK.value());
-		responseModel.setStatusMessage(Messages.Success.SUCCESSFULLY_LISTED);
-		responseModel.setResult(result);
+    protected<T> ResponseEntity<BaseResponse<T>> sendResponse(int statusCode, String statusMessage, T result) {
+        BaseResponse<T> responseModels = new BaseResponse<>();
+        responseModels.setStatusCode(statusCode);
+        responseModels.setStatusMessage(statusMessage);
+        responseModels.setResult(result);
 
-		return ResponseEntity.status(HttpStatus.OK).body(responseModel);
-	}
-
-	protected <T> ResponseEntity<ResponseModel<T>> NOT_FOUND() {
-		ResponseModel<T> responseModel = new ResponseModel<>();
-		responseModel.setStatusCode(HttpStatus.NOT_FOUND.value());
-		responseModel.setStatusMessage(Messages.Error.NOT_FOUND);
-		responseModel.setResult(null);
-
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseModel);
-	}
+        return ResponseEntity.status(statusCode).body(responseModels);
+    }
 }
