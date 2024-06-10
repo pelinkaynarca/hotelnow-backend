@@ -1,7 +1,5 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -29,15 +27,11 @@ public interface StaffMapper {
 	
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "role", ignore = true)
-	@Mapping(target = "staff", ignore = true)
 	@Mapping(target = "hotel", ignore = true)
-	@Mapping(target = "customer", ignore = true)
 	Staff staffFromAddRequest(AddStaffRequest addStaffRequest);
 	
 	@Mapping(target = "role", ignore = true)
-	@Mapping(target = "staff", ignore = true)
 	@Mapping(target = "hotel", ignore = true)
-	@Mapping(target = "customer", ignore = true)
 	Staff staffFromUpdateRequest(UpdateStaffRequest updateStaffRequest);
 
 }

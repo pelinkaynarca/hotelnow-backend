@@ -20,9 +20,9 @@ public interface CustomerMapper {
 	@Mapping(target = "nationalityId", source = "country.id")
 	ListCustomerResponse listResponseFromCustomer(Customer customer);
 	
+	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "role", ignore = true)
-	@Mapping(target = "staff", ignore = true)
-	@Mapping(target = "customer", ignore = true)
+	@Mapping(target = "country.id", source = "nationalityId")
 	Customer customerFromAddRequest(AddCustomerRequest request);
 	
 	@Mapping(target = "nationalityId", source = "country.id")
@@ -32,8 +32,6 @@ public interface CustomerMapper {
 	UpdateCustomerResponse updateResponseFromCustomer(Customer customer);
 	
 	@Mapping(target = "role", ignore = true)
-	@Mapping(target = "staff", ignore = true)
-	@Mapping(target = "customer", ignore = true)
 	Customer customerFromUpdateRequest(UpdateCustomerRequest request);
 
 }
