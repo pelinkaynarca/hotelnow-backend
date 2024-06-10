@@ -2,6 +2,9 @@ package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
 import com.tobeto.java4a.hotelnow.core.enums.PaymentStatus;
 import com.tobeto.java4a.hotelnow.core.enums.PaymentType;
@@ -33,6 +36,8 @@ public class Payment extends BaseEntity {
 	@Column(name = "card_no", nullable = false)
 	private String cardNo;
 
+	@Generated
+	@ColumnDefault(value = "now()")
 	@Column(name = "payment_date", nullable = false)
 	private LocalDateTime paymentDate;
 

@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 
 import jakarta.persistence.CascadeType;
@@ -28,6 +31,8 @@ import lombok.Setter;
 @Table(name = "bookings")
 public class Booking extends BaseEntity {
 
+	@Generated
+	@ColumnDefault(value = "now()")
 	@Column(name = "booked_at", nullable = false)
 	private LocalDateTime bookedAt;
 
@@ -50,7 +55,7 @@ public class Booking extends BaseEntity {
 
 	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Review review;
-	
+
 	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Payment payment;
 
