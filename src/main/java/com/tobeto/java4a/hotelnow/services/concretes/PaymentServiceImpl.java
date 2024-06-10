@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 	
-	private PaymentRepository paymentRepository;
+	private final PaymentRepository paymentRepository;
 
 	@Override
 	public ListPaymentResponse getByBookingId(int bookingId) {

@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ReviewReplyServiceImpl implements ReviewReplyService{
 	
-	private ReviewReplyRepository reviewReplyRepository;
+	private final ReviewReplyRepository reviewReplyRepository;
 
 	@Override
 	public ListReviewReplyResponse getById(int id) {

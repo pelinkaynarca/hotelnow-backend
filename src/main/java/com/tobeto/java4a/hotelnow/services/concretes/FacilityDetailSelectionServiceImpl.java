@@ -19,15 +19,15 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailselectio
 import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailselections.UpdateFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.FacilityDetailSelectionMapper;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FacilityDetailSelectionServiceImpl implements FacilityDetailSelectionService {
 
-	private FacilityDetailSelectionRepository facilityDetailSelectionRepository;
-	private UserService userService;
-	private StaffService staffService;
+	private final FacilityDetailSelectionRepository facilityDetailSelectionRepository;
+	private final UserService userService;
+	private final StaffService staffService;
 
 	@Override
 	public ListFacilityDetailSelectionResponse getById(int id) {
