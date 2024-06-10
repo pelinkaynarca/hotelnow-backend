@@ -20,6 +20,8 @@ public interface BookingMapper {
 
 	@Mapping(target = "hotelId", source = "hotel.id")
 	ListBookingResponse listResponseFromBooking(Booking booking);
+	
+	List<ListBookingResponse> listResponsesFromBookings(List<Booking> bookings);
 
 	@Mapping(target = "hotelId", source = "hotel.id")
 	AddBookingResponse addResponseFromBooking(Booking booking);
