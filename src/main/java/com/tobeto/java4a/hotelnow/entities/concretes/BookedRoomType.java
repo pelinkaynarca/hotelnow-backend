@@ -19,14 +19,14 @@ import lombok.Setter;
 @Table(name = "booked_room_types")
 public class BookedRoomType extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id")
-    private Booking booking;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "booking_id")
+	private Booking booking;
 
-    @ManyToOne
-    @JoinColumn(name = "room_type_id")
-    private RoomType roomType;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "room_type_id")
+	private RoomType roomType;
 
-    @Column(name = "room_count")
-    private int roomCount;
+	@Column(name = "room_count", nullable = false)
+	private int roomCount;
 }
