@@ -1,6 +1,10 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.bookings;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.tobeto.java4a.hotelnow.services.dtos.requests.bookedroomtypes.AddBookedRoomTypeRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.payments.AddPaymentRequest;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -20,8 +24,8 @@ public class AddBookingRequest {
 	@Min(value = 1)
 	private int hotelId;
 	
-	@Min(value = 1)
-	private int customerId;
+//	@Min(value = 1)
+//	private int customerId;
 	
 	@NotNull
 	@FutureOrPresent
@@ -33,5 +37,9 @@ public class AddBookingRequest {
 	
 	@Min(value = 1)
 	private int guestCount;
+	
+	private List<AddBookedRoomTypeRequest> bookedRoomTypes;
+	
+	private AddPaymentRequest payment;
 
 }

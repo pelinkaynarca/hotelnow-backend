@@ -6,6 +6,9 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.bookedroomtypes.UpdateB
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookedroomtypes.AddBookedRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookedroomtypes.ListBookedRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookedroomtypes.UpdateBookedRoomTypeResponse;
+
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -23,6 +26,8 @@ public interface BookedRoomTypeMapper {
     @Mapping(target = "booking.id", source = "bookingId")
     @Mapping(target = "roomType.id", source = "roomTypeId")
     BookedRoomType bookedRoomTypeFromAddRequest(AddBookedRoomTypeRequest request);
+    
+    List<BookedRoomType> bookedRoomTypesFromAddRequests(List<AddBookedRoomTypeRequest> addBookedRoomTypeRequests);
 
     @Mapping(target = "bookingId", source = "booking.id")
     @Mapping(target = "roomTypeId", source = "roomType.id")

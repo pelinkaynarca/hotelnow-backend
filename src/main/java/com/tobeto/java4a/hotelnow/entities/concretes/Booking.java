@@ -61,4 +61,7 @@ public class Booking extends BaseEntity {
 
 	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<BookedRoomType> bookedRoomTypes;
+	
+	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<BookingHistory> bookingHistories; 
 }

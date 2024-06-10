@@ -27,7 +27,7 @@ public class BookingsController {
 
 	@GetMapping("/{id}")
 	public ListBookingResponse getById(@PathVariable int id) {
-		return bookingService.getById(id);
+		return bookingService.getResponseById(id);
 	}
 
 	@GetMapping("/by-customer-id/{customerId}")

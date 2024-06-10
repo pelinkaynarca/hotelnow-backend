@@ -2,6 +2,7 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 
 import org.springframework.stereotype.Service;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.Payment;
 import com.tobeto.java4a.hotelnow.repositories.PaymentRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.PaymentService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.payments.AddPaymentRequest;
@@ -34,6 +35,11 @@ public class PaymentServiceImpl implements PaymentService {
 	public UpdatePaymentResponse update(UpdatePaymentRequest request) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Payment addPayment(Payment payment) {
+		return paymentRepository.save(payment);
 	}
 
 }

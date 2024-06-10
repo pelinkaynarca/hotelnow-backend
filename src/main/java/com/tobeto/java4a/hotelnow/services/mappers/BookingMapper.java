@@ -1,12 +1,10 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
 import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import com.tobeto.java4a.hotelnow.entities.concretes.BookedRoomType;
 import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.AddBookingRequest;
@@ -20,18 +18,19 @@ public interface BookingMapper {
 
 	@Mapping(target = "hotelId", source = "hotel.id")
 	ListBookingResponse listResponseFromBooking(Booking booking);
-	
+
 	List<ListBookingResponse> listResponsesFromBookings(List<Booking> bookings);
 
 	@Mapping(target = "hotelId", source = "hotel.id")
 	AddBookingResponse addResponseFromBooking(Booking booking);
 
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "payment", ignore = true)
 	@Mapping(target = "bookedAt", ignore = true)
 	@Mapping(target = "review", ignore = true)
 	@Mapping(target = "hotel.id", expression = "java(addBookingRequest.getHotelId())")
+	@Mapping(target = "bookedRoomTypes", ignore = true)
 	@Mapping(target = "customer", source = "customer")
-	@Mapping(target = "bookedRoomTypes", source = "bookedRoomTypes")
-	Booking bookingFromAddRequest(AddBookingRequest addBookingRequest, Customer customer, List<BookedRoomType> bookedRoomTypes);
+	Booking bookingFromAddRequest(AddBookingRequest addBookingRequest, Customer customer);
 
 }

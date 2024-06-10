@@ -28,7 +28,7 @@ public interface PaymentMapper {
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "paymentDate", ignore = true)
 	@Mapping(target = "booking.id", source = "bookingId")
-	Payment paymentFromAddRequest(AddPaymentRequest addPaymentRequest);
+	Payment paymentFromAddRequest(AddPaymentRequest addPaymentRequest, Integer bookingId);
 	
 	@Mapping(target = "booking.id", source = "bookingId")
 	Payment paymentFromUpdateRequest(UpdatePaymentRequest updatePaymentRequest);

@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.abstracts;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.Payment;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.payments.AddPaymentRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.payments.UpdatePaymentRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.payments.AddPaymentResponse;
@@ -11,6 +12,8 @@ public interface PaymentService {
 	ListPaymentResponse getByBookingId(int bookingId);
 	
 	AddPaymentResponse add(AddPaymentRequest request);
+	
+	Payment addPayment(Payment payment);
 	
 	UpdatePaymentResponse update(UpdatePaymentRequest request);
 

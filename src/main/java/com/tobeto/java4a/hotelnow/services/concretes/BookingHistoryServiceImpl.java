@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.BookingHistory;
 import com.tobeto.java4a.hotelnow.repositories.BookingHistoryRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookingHistoryService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookinghistories.AddBookingHistoryRequest;
@@ -16,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class BookingHistoryServiceImpl implements BookingHistoryService{
 	
-	private BookingHistoryRepository bookingHistoryRepository;
+	private final BookingHistoryRepository bookingHistoryRepository;
 
 	@Override
 	public List<ListBookingHistoryResponse> getByBookingId(int bookingId) {
@@ -28,6 +29,11 @@ public class BookingHistoryServiceImpl implements BookingHistoryService{
 	public AddBookingHistoryResponse add(AddBookingHistoryRequest request) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public BookingHistory addBookingHistory(BookingHistory bookingHistory) {
+		return bookingHistoryRepository.save(bookingHistory);
 	}
 
 }

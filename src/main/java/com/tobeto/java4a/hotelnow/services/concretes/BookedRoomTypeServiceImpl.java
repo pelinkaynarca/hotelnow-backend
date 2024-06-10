@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.BookedRoomType;
 import com.tobeto.java4a.hotelnow.repositories.BookedRoomTypeRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookedRoomTypeService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookedroomtypes.AddBookedRoomTypeRequest;
@@ -42,4 +43,9 @@ public class BookedRoomTypeServiceImpl implements BookedRoomTypeService {
     public void delete(int id) {
 
     }
+
+	@Override
+	public List<BookedRoomType> addAll(List<BookedRoomType> bookedRoomTypes) {
+		return bookedRoomTypeRepository.saveAll(bookedRoomTypes);
+	}
 }
