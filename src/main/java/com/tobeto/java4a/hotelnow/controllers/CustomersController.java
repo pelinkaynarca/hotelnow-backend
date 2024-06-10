@@ -29,7 +29,7 @@ public class CustomersController {
 	
 	@GetMapping("/{id}")
 	public ListCustomerResponse getById(@PathVariable int id) {
-		return customerService.getById(id);
+		return customerService.getResponseById(id);
 	}
 	
 	@PostMapping
