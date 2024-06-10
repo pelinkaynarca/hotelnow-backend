@@ -28,7 +28,7 @@ import lombok.Setter;
 public class Payment extends BaseEntity {
 
 	@Column(name = "total_price", nullable = false)
-	private int totalPrice;
+	private double totalPrice;
 
 	@Column(name = "card_no", nullable = false)
 	private String cardNo;
