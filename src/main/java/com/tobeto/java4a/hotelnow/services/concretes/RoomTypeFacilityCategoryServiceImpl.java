@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeFacilityCategory;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeFacilityCategoryRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeFacilityCategoryService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypefacilitycategories.AddRoomTypeFacilityCategoryRequest;
@@ -21,7 +22,13 @@ public class RoomTypeFacilityCategoryServiceImpl implements RoomTypeFacilityCate
     public List<ListRoomTypeFacilityCategoryResponse> getAll() { return List.of(); }
 
     @Override
-    public ListRoomTypeFacilityCategoryResponse getById(int id) {
+    public RoomTypeFacilityCategory getById(int id) {
+        return null;
+    }
+
+
+    @Override
+    public ListRoomTypeFacilityCategoryResponse getResponseById(int id) {
         return null;
     }
 
