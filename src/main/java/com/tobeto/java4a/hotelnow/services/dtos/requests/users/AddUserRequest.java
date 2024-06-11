@@ -35,7 +35,7 @@ public class AddUserRequest {
     @Size(min = 6)
     private String password;
 
-    @NotBlank
+    @NotNull
     private LocalDate birthDate;
 
 }
