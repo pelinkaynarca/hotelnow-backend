@@ -1,8 +1,10 @@
 package com.tobeto.java4a.hotelnow.core.configurations;
 
 import com.tobeto.java4a.hotelnow.controllers.BaseController;
+import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.AuthorizationProblemDetails;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.BusinessProblemDetails;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.ValidationProblemDetails;
+import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationException;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
@@ -37,5 +39,13 @@ public class GlobalExceptionHandler extends BaseController {
 		}
 		return sendResponse(HttpStatus.BAD_REQUEST.value(), Messages.Error.CUSTOM_BAD_REQUEST,
 				new ValidationProblemDetails(errorMessages));
+	}
+	
+	@ExceptionHandler({ AuthorizationException.class })
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ResponseEntity<BaseResponse<AuthorizationProblemDetails>> handleAuthorizationException(
+			AuthorizationException exception) {
+		return sendResponse(HttpStatus.FORBIDDEN.value(), Messages.Error.AUTHORIZATION_VIOLATION,
+				new AuthorizationProblemDetails(exception.getMessage()));
 	}
 }
