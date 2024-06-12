@@ -1,12 +1,12 @@
 package com.tobeto.java4a.hotelnow.controllers;
 
 import com.tobeto.java4a.hotelnow.services.abstracts.HotelPhoneService;
-import com.tobeto.java4a.hotelnow.services.dtos.requests.hotelimages.AddHotelImageRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotelphones.AddHotelPhoneRequest;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages.AddHotelImageResponse;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages.ListHotelImageResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.hotelphones.UpdateHotelPhoneRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelphones.AddHotelPhoneResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelphones.ListHotelPhoneResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelphones.UpdateHotelPhoneResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +25,13 @@ public class HotelPhonesController {
     }
 
     @PostMapping
-    public AddHotelPhoneResponse add(@RequestBody AddHotelPhoneRequest request) {
+    public AddHotelPhoneResponse add(@Valid @RequestBody AddHotelPhoneRequest request) {
         return hotelPhoneService.add(request);
+    }
+
+    @PutMapping
+    public UpdateHotelPhoneResponse add(@Valid @RequestBody UpdateHotelPhoneRequest request) {
+        return hotelPhoneService.update(request);
     }
 
     @DeleteMapping

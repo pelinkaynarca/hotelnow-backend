@@ -1,10 +1,8 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.hotelphones;
 
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Getter
 @Setter
@@ -12,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddHotelPhoneRequest {
 
-    @Pattern(regexp = "^$|[0-9]{10}")
+    @Pattern(regexp = "^[0-9]{11}$")
     private String phone;
 
 }

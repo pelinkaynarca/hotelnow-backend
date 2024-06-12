@@ -16,7 +16,7 @@ public class UpdateHotelPhoneRequest {
     @Min(value = 1)
     private int id;
 
-    @Pattern(regexp = "^$|[0-9]{10}")
+    @Pattern(regexp = "^[0-9]{11}$")
     private String phone;
 
 }

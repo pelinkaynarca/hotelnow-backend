@@ -15,4 +15,6 @@ public class AddHotelPhoneResponse {
 
     private String phone;
 
+    private String hotelId;
+
 }
