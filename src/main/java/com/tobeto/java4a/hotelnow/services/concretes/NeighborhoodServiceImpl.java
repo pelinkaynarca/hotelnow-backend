@@ -32,4 +32,9 @@ public class NeighborhoodServiceImpl implements NeighborhoodService {
                 .map(NeighborhoodMapper.INSTANCE::listResponseFromNeighborhood)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Neighborhood getById(int id) {
+        return neighborhoodRepository.findById(id).orElse(null);
+    }
 }
