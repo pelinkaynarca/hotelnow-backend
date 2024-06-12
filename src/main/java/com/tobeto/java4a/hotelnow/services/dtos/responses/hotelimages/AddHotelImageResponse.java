@@ -15,4 +15,6 @@ public class  AddHotelImageResponse {
 
     private String url;
 
+    private int hotelId;
+
 }

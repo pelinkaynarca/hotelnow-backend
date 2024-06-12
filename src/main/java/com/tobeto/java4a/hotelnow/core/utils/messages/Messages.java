@@ -11,6 +11,8 @@ public class Messages {
 		public static final String CUSTOM_BOOKING_HISTORY_NOT_FOUND = "No booking history found.";
 		public static final String CUSTOM_CUSTOMER_NOT_FOUND = "Customer(s) not found.";
 		public static final String CUSTOM_REVIEW_NOT_FOUND = "Review(s) not found.";
+        public static final String CUSTOM_HOTEL_IMAGE_NOT_FOUND = "Hotel image(s) not found.";
+        public static final String CUSTOM_HOTEL_NOT_FOUND = "Hotel(s) not found.";
 	}
 
 	public static class Success {

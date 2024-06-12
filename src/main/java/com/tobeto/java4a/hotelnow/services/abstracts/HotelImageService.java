@@ -9,6 +9,7 @@ import java.util.List;
 public interface HotelImageService {
 
     List<ListHotelImageResponse> getByHotelId(int hotelId);
+    ListHotelImageResponse getById(int id);
     AddHotelImageResponse add(AddHotelImageRequest request);
     void delete(int id);
 }
