@@ -9,7 +9,9 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.payments.UpdatePayment
 
 public interface PaymentService {
 	
-	ListPaymentResponse getByBookingId(int bookingId);
+	Payment getByBookingId(int bookingId);
+	
+	ListPaymentResponse getResponseByBookingId(int bookingId);
 	
 	AddPaymentResponse add(AddPaymentRequest request);
 	

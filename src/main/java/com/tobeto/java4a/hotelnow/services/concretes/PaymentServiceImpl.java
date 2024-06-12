@@ -10,31 +10,42 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.payments.UpdatePaymentR
 import com.tobeto.java4a.hotelnow.services.dtos.responses.payments.AddPaymentResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.payments.ListPaymentResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.payments.UpdatePaymentResponse;
+import com.tobeto.java4a.hotelnow.services.mappers.PaymentMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class PaymentServiceImpl implements PaymentService {
-	
+
 	private final PaymentRepository paymentRepository;
+//	private final BookingService bookingService;
 
 	@Override
-	public ListPaymentResponse getByBookingId(int bookingId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Payment getByBookingId(int bookingId) {
+		return paymentRepository.findByBookingId(bookingId).orElseThrow();
+	}
+
+	@Override
+	public ListPaymentResponse getResponseByBookingId(int bookingId) {
+		Payment payment = getByBookingId(bookingId);
+		ListPaymentResponse listPaymentResponse = PaymentMapper.INSTANCE.listResponseFromPayment(payment);
+		return listPaymentResponse;
 	}
 
 	@Override
 	public AddPaymentResponse add(AddPaymentRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Payment payment = PaymentMapper.INSTANCE.paymentFromAddRequest(request);
+		Payment savedPayment = addPayment(payment);
+		return PaymentMapper.INSTANCE.addResponseFromPayment(savedPayment);
 	}
 
 	@Override
 	public UpdatePaymentResponse update(UpdatePaymentRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Payment payment = getByBookingId(request.getBookingId());
+		payment = PaymentMapper.INSTANCE.paymentFromUpdateRequest(request);
+		Payment savedPayment = paymentRepository.save(payment);
+		return PaymentMapper.INSTANCE.updateResponseFromPayment(savedPayment);
 	}
 
 	@Override

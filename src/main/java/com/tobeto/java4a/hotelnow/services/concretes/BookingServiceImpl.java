@@ -88,8 +88,9 @@ public class BookingServiceImpl implements BookingService {
 		// Save payment info
 		AddPaymentRequest addPaymentRequest = request.getPayment();
 		addPaymentRequest.setPaymentStatus(PaymentStatus.WITHDRAW);
+		addPaymentRequest.setBookingId(savedBooking.getId());
 		Payment savedPayment = paymentService
-				.addPayment(PaymentMapper.INSTANCE.paymentFromAddRequest(addPaymentRequest, savedBooking.getId()));
+				.addPayment(PaymentMapper.INSTANCE.paymentFromAddRequest(addPaymentRequest));
 		savedBooking.setPayment(savedPayment);
 
 		// Save the first booking history info
