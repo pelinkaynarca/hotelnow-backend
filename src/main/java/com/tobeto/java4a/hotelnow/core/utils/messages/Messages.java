@@ -8,6 +8,7 @@ public class Messages {
         public static final String CUSTOM_ROOM_TYPE_NOT_FOUND = "The requested Room Type was not found.";
         public static final String CUSTOM_STAFF_NOT_FOUND = "Staff(s) not found.";
         public static final String AUTHORIZATION_VIOLATION = "You are not authorized to do this operation.";
+        public static final String CUSTOM_PAYMENT_NOT_FOUND = "Payment not found.";
     }
 
     public static class Success {
