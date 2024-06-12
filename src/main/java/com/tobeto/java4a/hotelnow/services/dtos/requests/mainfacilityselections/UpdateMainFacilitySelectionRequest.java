@@ -17,6 +17,4 @@ public class UpdateMainFacilitySelectionRequest {
 
     private boolean display;
 
-    @Min(value = 1)
-    private int optionId;
 }

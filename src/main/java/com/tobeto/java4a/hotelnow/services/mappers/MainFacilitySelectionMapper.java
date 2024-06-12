@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.Hotel;
 import com.tobeto.java4a.hotelnow.entities.concretes.MainFacilitySelection;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.AddMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.UpdateMainFacilitySelectionRequest;
@@ -15,20 +16,25 @@ public interface MainFacilitySelectionMapper {
 
     MainFacilitySelectionMapper INSTANCE = Mappers.getMapper(MainFacilitySelectionMapper.class);
 
+    @Mapping(target = "hotelId", source = "hotel.id")
     @Mapping(target = "hotelName", source = "hotel.name")
-    @Mapping(target = "mainFacilityOptionTitle", source = "mainFacilityOption.title")
+    @Mapping(target = "optionId", source = "mainFacilityOption.id")
+    @Mapping(target = "optionTitle", source = "mainFacilityOption.title")
     ListMainFacilitySelectionResponse listResponseFromMainFacilitySelection(MainFacilitySelection mainFacilitySelection);
 
-    @Mapping(target = "mainFacilityOption.id", source = "optionId")
-    MainFacilitySelection mainFacilitySelectionFromAddRequest(AddMainFacilitySelectionRequest request);
+    @Mapping(target = "mainFacilityOption.id", source = "request.optionId")
+    @Mapping(target = "hotel", source = "hotel")
+    MainFacilitySelection mainFacilitySelectionFromAddRequest(AddMainFacilitySelectionRequest request, Hotel hotel);
 
-    @Mapping(target = "mainFacilityOptionTitle", source = "mainFacilityOption.title")
+    @Mapping(target = "hotelId", source = "hotel.id")
+    @Mapping(target = "optionId", source = "mainFacilityOption.id")
     AddMainFacilitySelectionResponse addResponseFromMainFacilitySelection(MainFacilitySelection mainFacilitySelection);
 
-    @Mapping(target = "mainFacilityOption.id", source = "optionId")
-    MainFacilitySelection mainFacilitySelectionFromUpdateRequest(UpdateMainFacilitySelectionRequest request);
+    @Mapping(target = "id", source = "request.id")
+    MainFacilitySelection mainFacilitySelectionFromUpdateRequest(UpdateMainFacilitySelectionRequest request, Hotel hotel);
 
-    @Mapping(target = "mainFacilityOptionTitle", source = "mainFacilityOption.title")
+    @Mapping(target = "hotelId", source = "hotel.id")
+    @Mapping(target = "optionId", source = "mainFacilityOption.id")
     UpdateMainFacilitySelectionResponse updateResponseFromMainFacilitySelection(MainFacilitySelection mainFacilitySelection);
 
 }

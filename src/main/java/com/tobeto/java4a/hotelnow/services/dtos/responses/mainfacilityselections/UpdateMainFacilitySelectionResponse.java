@@ -11,7 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateMainFacilitySelectionResponse {
 
+    private int id;
+
     private boolean display;
 
-    private String mainFacilityOptionTitle;
+    private int optionId;
+
+    private int hotelId;
 }

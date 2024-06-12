@@ -15,7 +15,12 @@ public class ListMainFacilitySelectionResponse {
 
     private boolean display;
 
+    private int optionId;
+
+    private String optionTitle;
+
+    private int hotelId;
+
     private String hotelName;
 
-    private String mainFacilityOptionTitle;
 }

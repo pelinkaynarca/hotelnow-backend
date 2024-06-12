@@ -16,4 +16,5 @@ public class AddMainFacilitySelectionRequest {
 
     @Min(value = 1)
     private int optionId;
+
 }
