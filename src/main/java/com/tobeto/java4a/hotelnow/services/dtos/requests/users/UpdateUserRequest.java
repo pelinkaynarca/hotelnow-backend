@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+import com.tobeto.java4a.hotelnow.core.enums.Gender;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -40,5 +42,7 @@ public class UpdateUserRequest {
 
     @NotBlank
     private LocalDate birthDate;
+    
+    private Gender gender;
 
 }

@@ -22,6 +22,9 @@ public interface CustomerMapper {
 	
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "role", ignore = true)
+	@Mapping(target = "reviews", ignore = true)
+	@Mapping(target = "bookings", ignore = true)
+	@Mapping(target = "authorities", ignore = true)
 	@Mapping(target = "country.id", source = "nationalityId")
 	Customer customerFromAddRequest(AddCustomerRequest request);
 	
@@ -32,6 +35,10 @@ public interface CustomerMapper {
 	UpdateCustomerResponse updateResponseFromCustomer(Customer customer);
 	
 	@Mapping(target = "role", ignore = true)
+	@Mapping(target = "reviews", ignore = true)
+	@Mapping(target = "authorities", ignore = true)
+	@Mapping(target = "bookings", ignore = true)
+	@Mapping(target = "country.id", source = "nationalityId")
 	Customer customerFromUpdateRequest(UpdateCustomerRequest request);
 
 }

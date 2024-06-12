@@ -15,8 +15,10 @@ public interface CustomerService {
 	
 	AddCustomerResponse add(AddCustomerRequest request);
 	
+	Customer addCustomer(Customer customer);
+	
 	UpdateCustomerResponse update(UpdateCustomerRequest request);
 	
-	void delete(int id);
+	void deleteById(int id);
 
 }
