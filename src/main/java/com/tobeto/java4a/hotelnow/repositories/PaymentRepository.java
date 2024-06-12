@@ -10,7 +10,7 @@ import com.tobeto.java4a.hotelnow.entities.concretes.Payment;
 
 public interface PaymentRepository extends JpaRepository<Payment, Integer>{
 	
-	@Query("select p from Payment p where p.booking.id = :bookingId limit 1")
+	@Query("select p from Payment p where p.booking.id = :bookingId")
 	Optional<Payment> findByBookingId(@Param("bookingId") int bookingId);
 
 }
