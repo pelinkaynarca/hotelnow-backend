@@ -18,6 +18,6 @@ public class ListDistrictResponse {
 
     private String name;
 
-    private List<String> neighborhoodNames;
+    private List<ListNeighborhoodResponse> neighborhoods;
 
 }
