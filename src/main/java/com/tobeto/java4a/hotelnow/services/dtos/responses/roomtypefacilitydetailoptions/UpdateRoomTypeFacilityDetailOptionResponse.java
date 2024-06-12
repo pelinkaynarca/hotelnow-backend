@@ -13,6 +13,6 @@ public class UpdateRoomTypeFacilityDetailOptionResponse {
 
     private String description;
 
-    private String categoryTitle;
+    private int categoryId;
 
 }

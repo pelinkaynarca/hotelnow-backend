@@ -8,9 +8,12 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailoptions.
 import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailoptions.UpdateFacilityDetailOptionResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface FacilityDetailOptionMapper {
+
+    FacilityDetailOptionMapper INSTANCE = Mappers.getMapper(FacilityDetailOptionMapper.class);
 
     @Mapping(target = "categoryTitle", source = "facilityCategory.title")
     ListFacilityDetailOptionResponse listResponseFromFacilityDetailOption(FacilityDetailOption facilityDetailOption);
