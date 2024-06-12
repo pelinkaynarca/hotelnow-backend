@@ -9,7 +9,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.bookinghistories.ListB
 
 public interface BookingHistoryService {
 	
-	List<ListBookingHistoryResponse> getByBookingId(int bookingId);
+	List<ListBookingHistoryResponse> getResponsesByBookingId(int bookingId);
 	
 	AddBookingHistoryResponse add(AddBookingHistoryRequest request);
 	

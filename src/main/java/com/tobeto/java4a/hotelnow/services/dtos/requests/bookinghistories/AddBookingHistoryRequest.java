@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddBookingHistoryRequest {
 
-	private int userId;
+//	private int userId;
 
 	private int bookingId;
 

@@ -1,6 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,6 +22,8 @@ public interface BookingHistoryMapper {
 	@Mapping(target = "cancellationReasonId", expression = "java(bookingHistory.getCancellationReason()!=null?bookingHistory.getCancellationReason().getId():null)")
 	@Mapping(target = "cancellationReason", expression = "java(bookingHistory.getCancellationReason()!=null?bookingHistory.getCancellationReason().getReason():null)")
 	ListBookingHistoryResponse listResponseFromBookingHistory(BookingHistory bookingHistory);
+	
+	List<ListBookingHistoryResponse> listResponsesFromBookingHistories(List<BookingHistory> bookingHistories);
 
 	@Mapping(target = "bookingId", source = "booking.id")
 	@Mapping(target = "userId", source = "user.id")
@@ -31,11 +33,11 @@ public interface BookingHistoryMapper {
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "booking.id", expression = "java(addBookingHistoryRequest.getBookingId())")
-	@Mapping(target = "user.id", expression = "java(addBookingHistoryRequest.getUserId())")
-	@Mapping(target = "editedAt", source = "editedAt")
+//	@Mapping(target = "user.id", expression = "java(addBookingHistoryRequest.getUserId())")
+	@Mapping(target = "user.id", source = "userId")
+	@Mapping(target = "editedAt", ignore = true)
 	@Mapping(target = "cancellationReason", expression = "java(mapCancellationReasonForAddRequest(addBookingHistoryRequest.getCancellationReasonId()))")
-	BookingHistory bookingHistoryfromAddRequest(AddBookingHistoryRequest addBookingHistoryRequest,
-			LocalDateTime editedAt);
+	BookingHistory bookingHistoryfromAddRequest(AddBookingHistoryRequest addBookingHistoryRequest, Integer userId);
 
 	default CancellationReason mapCancellationReasonForAddRequest(Integer cancellationReasonId) {
 		CancellationReason cancellationReason = null;
