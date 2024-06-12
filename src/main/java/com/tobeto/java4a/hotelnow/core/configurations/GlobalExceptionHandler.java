@@ -24,7 +24,7 @@ public class GlobalExceptionHandler extends BaseController {
 	@ExceptionHandler({ BusinessException.class })
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ResponseEntity<BaseResponse<BusinessProblemDetails>> handleRuntimeException(BusinessException exception) {
-		return sendResponse(HttpStatus.BAD_REQUEST.value(), Messages.Error.CUSTOM_BAD_REQUEST,
+		return sendResponse(HttpStatus.BAD_REQUEST, Messages.Error.CUSTOM_BAD_REQUEST,
 				new BusinessProblemDetails(exception.getMessage()));
 	}
 
@@ -37,7 +37,7 @@ public class GlobalExceptionHandler extends BaseController {
 		for (FieldError error : errors) {
 			errorMessages.add(error.getDefaultMessage());
 		}
-		return sendResponse(HttpStatus.BAD_REQUEST.value(), Messages.Error.CUSTOM_BAD_REQUEST,
+		return sendResponse(HttpStatus.BAD_REQUEST, Messages.Error.CUSTOM_BAD_REQUEST,
 				new ValidationProblemDetails(errorMessages));
 	}
 	
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler extends BaseController {
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ResponseEntity<BaseResponse<AuthorizationProblemDetails>> handleAuthorizationException(
 			AuthorizationException exception) {
-		return sendResponse(HttpStatus.FORBIDDEN.value(), Messages.Error.AUTHORIZATION_VIOLATION,
+		return sendResponse(HttpStatus.FORBIDDEN, Messages.Error.AUTHORIZATION_VIOLATION,
 				new AuthorizationProblemDetails(exception.getMessage()));
 	}
 }

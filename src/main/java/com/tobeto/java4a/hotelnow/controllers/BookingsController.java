@@ -30,26 +30,26 @@ public class BookingsController extends BaseController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<BaseResponse<ListBookingResponse>> getById(@PathVariable int id) {
-		return sendResponse(HttpStatus.OK.value(), Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.getResponseById(id));
 	}
 
 	@GetMapping("/by-customer-id/{customerId}")
 	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getByCustomerId(@PathVariable int customerId) {
-		return sendResponse(HttpStatus.OK.value(), Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.getByCustomerId(customerId));
 	}
 
 	@GetMapping("/by-hotel-id/{hotelId}")
 	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getByHotelId(@PathVariable int hotelId) {
-		return sendResponse(HttpStatus.OK.value(), Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.getByHotelId(hotelId));
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<BaseResponse<AddBookingResponse>> add(@RequestBody @Valid AddBookingRequest request) {
-		return sendResponse(HttpStatus.CREATED.value(), Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.add(request));
 	}
 

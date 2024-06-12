@@ -36,9 +36,9 @@ public class StaffsController extends BaseController {
 	public ResponseEntity<BaseResponse<ListStaffResponse>> getById(@PathVariable int id) {
 		ListStaffResponse listStaffResponse = staffService.getResponseById(id);
 		if (listStaffResponse == null) {
-			return sendResponse(HttpStatus.NOT_FOUND.value(), Messages.Error.CUSTOM_STAFF_NOT_FOUND, null);
+			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_STAFF_NOT_FOUND, null);
 		} else {
-			return sendResponse(HttpStatus.OK.value(), Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listStaffResponse);
+			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listStaffResponse);
 		}
 	}
 
@@ -46,9 +46,9 @@ public class StaffsController extends BaseController {
 	public ResponseEntity<BaseResponse<List<ListStaffResponse>>> getByCustomerId(@PathVariable int hotelId) {
 		List<ListStaffResponse> listStaffResponses = staffService.getByHotelId(hotelId);
 		if (listStaffResponses == null || listStaffResponses.size() == 0) {
-			return sendResponse(HttpStatus.NOT_FOUND.value(), Messages.Error.CUSTOM_STAFF_NOT_FOUND, null);
+			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_STAFF_NOT_FOUND, null);
 		} else {
-			return sendResponse(HttpStatus.OK.value(), Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listStaffResponses);
+			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listStaffResponses);
 		}
 	}
 
@@ -56,13 +56,13 @@ public class StaffsController extends BaseController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<BaseResponse<AddStaffResponse>> add(@RequestBody @Valid AddStaffRequest request) {
 		AddStaffResponse addStaffResponse = staffService.add(request);
-		return sendResponse(HttpStatus.OK.value(), Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addStaffResponse);
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addStaffResponse);
 	}
 
 	@PutMapping
 	public ResponseEntity<BaseResponse<UpdateStaffResponse>> update(@RequestBody @Valid UpdateStaffRequest request) {
 		UpdateStaffResponse updateStaffResponse = staffService.update(request);
-		return sendResponse(HttpStatus.OK.value(), Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, updateStaffResponse);
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, updateStaffResponse);
 	}
 
 }
