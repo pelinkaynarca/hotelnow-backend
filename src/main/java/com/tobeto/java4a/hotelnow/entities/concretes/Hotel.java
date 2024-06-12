@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,9 +28,11 @@ public class Hotel extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    @JsonFormat(pattern = "HH:mm")
     @Column(name = "check_in_time")
     private LocalTime checkInTime;
 
+    @JsonFormat(pattern = "HH:mm")
     @Column(name = "check_out_time")
     private LocalTime checkOutTime;
 

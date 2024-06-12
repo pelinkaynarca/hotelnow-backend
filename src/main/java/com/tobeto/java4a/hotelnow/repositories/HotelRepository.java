@@ -1,8 +1,6 @@
 package com.tobeto.java4a.hotelnow.repositories;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.Hotel;
-import com.tobeto.java4a.hotelnow.entities.concretes.HotelImage;
-import com.tobeto.java4a.hotelnow.entities.concretes.HotelPhone;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +15,4 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
     List<Hotel> findByActive(boolean active);
 
     List<Hotel> findByStars(Byte stars);
-
 }

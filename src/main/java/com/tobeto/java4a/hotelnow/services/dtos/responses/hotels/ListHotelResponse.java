@@ -30,7 +30,7 @@ public class ListHotelResponse {
 
     private String neighborhoodName;
 
-    private List<String> phoneNumbers;
+    private List<ListHotelPhoneResponse> hotelPhones;
 
-    private List<String> imageUrls;
+    private List<ListHotelImageResponse> hotelImages;
 }
