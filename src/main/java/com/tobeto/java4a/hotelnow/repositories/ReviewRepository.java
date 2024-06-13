@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewStatus;
 import com.tobeto.java4a.hotelnow.entities.concretes.Review;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResponseByHotelId;
 
