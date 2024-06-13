@@ -65,14 +65,14 @@ public class ReviewRepliesController extends BaseController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<BaseResponse<AddReviewReplyResponse>> add(@RequestBody @Valid AddReviewReplyRequest request) {
 		AddReviewReplyResponse addReviewReplyResponse = reviewReplyService.add(request);
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addReviewReplyResponse);
+		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addReviewReplyResponse);
 	}
 
 	@PutMapping
 	public ResponseEntity<BaseResponse<UpdateReviewReplyResponse>> update(
 			@RequestBody @Valid UpdateReviewReplyRequest request) {
 		UpdateReviewReplyResponse updateReviewReplyResponse = reviewReplyService.update(request);
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, updateReviewReplyResponse);
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, updateReviewReplyResponse);
 	}
 
 }
