@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.ReviewReply;
 import com.tobeto.java4a.hotelnow.repositories.ReviewReplyRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.ReviewReplyService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.AddReviewReplyRequest;
@@ -21,11 +22,17 @@ public class ReviewReplyServiceImpl implements ReviewReplyService{
 	private final ReviewReplyRepository reviewReplyRepository;
 
 	@Override
-	public ListReviewReplyResponse getById(int id) {
+	public ListReviewReplyResponse getResponseById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@Override
+	public ReviewReply getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public List<ListReviewReplyResponse> getByReviewId(int reviewId) {
 		// TODO Auto-generated method stub

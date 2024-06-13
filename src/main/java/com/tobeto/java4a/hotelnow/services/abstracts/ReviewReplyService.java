@@ -2,6 +2,7 @@ package com.tobeto.java4a.hotelnow.services.abstracts;
 
 import java.util.List;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.ReviewReply;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.AddReviewReplyRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.UpdateReviewReplyRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.AddReviewReplyResponse;
@@ -10,7 +11,9 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.UpdateRe
 
 public interface ReviewReplyService {
 	
-	ListReviewReplyResponse getById(int id);
+	ListReviewReplyResponse getResponseById(int id);
+	
+	ReviewReply getById(int id);
 	
 	List<ListReviewReplyResponse> getByReviewId(int reviewId);
 	
