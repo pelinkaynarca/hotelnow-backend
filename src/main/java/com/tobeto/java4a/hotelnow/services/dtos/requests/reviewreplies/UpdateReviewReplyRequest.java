@@ -1,5 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies;
 
+import com.tobeto.java4a.hotelnow.core.enums.ReviewReplyStatus;
+
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +17,6 @@ public class UpdateReviewReplyRequest {
 	@Min(value = 1)
 	private int id;
 	
-	private boolean approved;
+	private ReviewReplyStatus status;
 
 }

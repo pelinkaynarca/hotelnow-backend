@@ -19,6 +19,10 @@ public interface ReviewReplyService {
 	
 	List<ListReviewReplyResponse> getByStaffId(int staffId);
 	
+	List<ListReviewReplyResponse> getApprovedReplyResponsesByReviewId(int reviewId);
+	
+	List<ListReviewReplyResponse> getPendingReplyResponses();
+	
 	AddReviewReplyResponse add(AddReviewReplyRequest request);
 	
 	UpdateReviewReplyResponse update(UpdateReviewReplyRequest request);

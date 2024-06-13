@@ -1,6 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,6 +22,8 @@ public interface ReviewReplyMapper {
 
 	@Mapping(target = "reviewId", source = "review.id")
 	ListReviewReplyResponse listResponseFromReviewReply(ReviewReply reviewReply);
+	
+	List<ListReviewReplyResponse> listResponsesFromReviewReplies(List<ReviewReply> reviewReplies);
 
 	@Mapping(target = "reviewId", source = "review.id")
 	AddReviewReplyResponse addResponseFromReviewReply(ReviewReply reviewReply);
@@ -30,17 +32,16 @@ public interface ReviewReplyMapper {
 	UpdateReviewReplyResponse updateResponseFromReviewReply(ReviewReply reviewReply);
 
 	@Mapping(target = "id", ignore = true)
-	@Mapping(target = "approved", ignore = true)
+	@Mapping(target = "status", ignore = true)
 	@Mapping(target = "review.id", expression = "java(addReviewReplyRequest.getReviewId())")
 	@Mapping(target = "staff", source = "staff")
-	@Mapping(target = "repliedAt", source = "repliedAt")
-	ReviewReply reviewReplyFromAddRequest(AddReviewReplyRequest addReviewReplyRequest, Staff staff,
-			LocalDateTime repliedAt);
+	@Mapping(target = "repliedAt", ignore = true)
+	ReviewReply reviewReplyFromAddRequest(AddReviewReplyRequest addReviewReplyRequest, Staff staff);
 
 	@Mapping(target = "repliedAt", ignore = true)
 	@Mapping(target = "reply", ignore = true)
 	@Mapping(target = "id", expression = "java(updateReviewReplyRequest.getId())")
-	@Mapping(target = "approved", expression = "java(updateReviewReplyRequest.isApproved())")
+	@Mapping(target = "status", expression = "java(updateReviewReplyRequest.getStatus())")
 	@Mapping(target = "review", source = "review")
 	@Mapping(target = "staff", source = "staff")
 	ReviewReply reviewReplyFromUpdateRequest(UpdateReviewReplyRequest updateReviewReplyRequest, Staff staff,

@@ -61,6 +61,16 @@ public class ReviewRepliesController extends BaseController {
 		}
 	}
 
+	@GetMapping("/pending-review-replies")
+	public ResponseEntity<BaseResponse<List<ListReviewReplyResponse>>> getPendingReviewReplies() {
+		List<ListReviewReplyResponse> listReviewReplyResponses = reviewReplyService.getPendingReplyResponses();
+		if (listReviewReplyResponses == null || listReviewReplyResponses.size() == 0) {
+			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_REVIEW_REPLY_NOT_FOUND, null);
+		} else {
+			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listReviewReplyResponses);
+		}
+	}
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<BaseResponse<AddReviewReplyResponse>> add(@RequestBody @Valid AddReviewReplyRequest request) {
