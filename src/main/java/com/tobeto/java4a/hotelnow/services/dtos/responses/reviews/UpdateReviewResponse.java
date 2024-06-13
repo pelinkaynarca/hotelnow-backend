@@ -1,5 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.reviews;
 
+import com.tobeto.java4a.hotelnow.core.enums.ReviewStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,6 @@ public class UpdateReviewResponse {
 
 	private byte rating;
 	
-	private boolean approved;
+	private ReviewStatus reviewStatus;
 	
 }

@@ -20,6 +20,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.reviews.UpdateReviewReq
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.AddReviewResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResponseByHotelId;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.UpdateReviewResponse;
 
 import jakarta.validation.Valid;
@@ -34,7 +35,7 @@ public class ReviewsController extends BaseController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<BaseResponse<ListReviewResponse>> getById(@PathVariable int id) {
-		ListReviewResponse listReviewResponse = reviewService.getById(id);
+		ListReviewResponse listReviewResponse = reviewService.getResponseById(id);
 		if (listReviewResponse == null) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_REVIEW_NOT_FOUND, null);
 		} else {
@@ -44,7 +45,7 @@ public class ReviewsController extends BaseController {
 
 	@GetMapping("/by-booking-id/{bookingId}")
 	public ResponseEntity<BaseResponse<ListReviewResponse>> getByBookingId(@PathVariable int bookingId) {
-		ListReviewResponse listReviewResponse = reviewService.getById(bookingId);
+		ListReviewResponse listReviewResponse = reviewService.getResponseById(bookingId);
 		if (listReviewResponse == null) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_REVIEW_NOT_FOUND, null);
 		} else {
@@ -53,8 +54,8 @@ public class ReviewsController extends BaseController {
 	}
 
 	@GetMapping("/by-hotel-id/{hotelId}")
-	public ResponseEntity<BaseResponse<List<ListReviewResponse>>> getByHotelId(@PathVariable int hotelId) {
-		List<ListReviewResponse> listReviewResponses = reviewService.getByHotelId(hotelId);
+	public ResponseEntity<BaseResponse<List<ListReviewResponseByHotelId>>> getByHotelId(@PathVariable int hotelId) {
+		List<ListReviewResponseByHotelId> listReviewResponses = reviewService.getByHotelId(hotelId);
 		if (listReviewResponses == null || listReviewResponses.size() == 0) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_REVIEW_NOT_FOUND, null);
 		} else {

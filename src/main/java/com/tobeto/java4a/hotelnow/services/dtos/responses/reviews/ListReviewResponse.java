@@ -2,6 +2,8 @@ package com.tobeto.java4a.hotelnow.services.dtos.responses.reviews;
 
 import java.time.LocalDateTime;
 
+import com.tobeto.java4a.hotelnow.core.enums.ReviewStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,6 @@ public class ListReviewResponse {
 	
 	private LocalDateTime reviewedAt;
 	
-	private boolean approved;
+	private ReviewStatus reviewStatus;
 
 }

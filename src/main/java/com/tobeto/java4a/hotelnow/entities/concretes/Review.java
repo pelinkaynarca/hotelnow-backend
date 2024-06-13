@@ -6,12 +6,15 @@ import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Generated;
 
+import com.tobeto.java4a.hotelnow.core.enums.ReviewStatus;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -41,8 +44,9 @@ public class Review extends BaseEntity {
 	@Column(name = "reviewed_at", nullable = false, updatable = false)
 	private LocalDateTime reviewedAt;
 
-	@Column(name = "approved", nullable = false)
-	private boolean approved;
+	@Column(name = "status", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private ReviewStatus status;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "customer_id")
