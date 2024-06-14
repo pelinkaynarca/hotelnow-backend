@@ -5,34 +5,68 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypefacilitydetails
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypefacilitydetailselections.UpdateRoomTypeFacilityDetailSelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.AddRoomTypeFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.ListRoomTypeFacilityDetailSelectionResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.RoomTypeFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.UpdateRoomTypeFacilityDetailSelectionResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 @Mapper
 public interface RoomTypeFacilityDetailSelectionMapper {
 
     RoomTypeFacilityDetailSelectionMapper INSTANCE = Mappers.getMapper(RoomTypeFacilityDetailSelectionMapper.class);
 
-    @Mapping(target = "roomTypeName", source = "roomType.name")
     @Mapping(target = "optionDescription", source = "roomTypeFacilityDetailOption.description")
-    ListRoomTypeFacilityDetailSelectionResponse listResponseFromRoomTypeFacilityDetailSelection(RoomTypeFacilityDetailSelection RoomTypeFacilityDetailSelection);
+    RoomTypeFacilityDetailSelectionResponse listResponseSelection(RoomTypeFacilityDetailSelection selection);
+
+    @Mapping(target = "optionDescription", source = "roomTypeFacilityDetailOption.description")
+    RoomTypeFacilityDetailSelectionResponse toListResponseListFromSelectionList(RoomTypeFacilityDetailSelection selection);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roomType.id", source = "roomTypeId")
     @Mapping(target = "roomTypeFacilityDetailOption.id", source = "optionId")
-    RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelectionFromAddRequest(AddRoomTypeFacilityDetailSelectionRequest request);
+    RoomTypeFacilityDetailSelection selectionFromAddRequest(AddRoomTypeFacilityDetailSelectionRequest request);
 
     @Mapping(target = "roomTypeId", source = "roomType.id")
     @Mapping(target = "optionId", source = "roomTypeFacilityDetailOption.id")
-    AddRoomTypeFacilityDetailSelectionResponse addResponseFromRoomTypeFacilityDetailSelection(RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelection);
+    AddRoomTypeFacilityDetailSelectionResponse addResponseFromSelection(RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelection);
 
     @Mapping(target = "roomType.id", source = "roomTypeId")
     @Mapping(target = "roomTypeFacilityDetailOption.id", source = "optionId")
-    RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelectionFromUpdateRequest(UpdateRoomTypeFacilityDetailSelectionRequest request);
+    RoomTypeFacilityDetailSelection selectionFromUpdateRequest(UpdateRoomTypeFacilityDetailSelectionRequest request);
 
     @Mapping(target = "roomTypeId", source = "roomType.id")
     @Mapping(target = "optionId", source = "roomTypeFacilityDetailOption.id")
-    UpdateRoomTypeFacilityDetailSelectionResponse updateResponseFromRoomTypeFacilityDetailSelection(RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelection);
+    UpdateRoomTypeFacilityDetailSelectionResponse updateResponseFromSelection(RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelection);
+
+    default List<RoomTypeFacilityDetailSelectionResponse> mapSelectionsToResponses(List<RoomTypeFacilityDetailSelection> selections) {
+        return selections.stream()
+                .map(this::toListResponseListFromSelectionList)
+                .collect(Collectors.toList());
+    }
+
+    default List<ListRoomTypeFacilityDetailSelectionResponse> groupListResponses(List<RoomTypeFacilityDetailSelection> selections) {
+        Map<String, List<RoomTypeFacilityDetailSelection>> groupedByCategory = selections.stream()
+                .collect(Collectors.groupingBy(
+                        selection -> selection.getRoomType().getId() + "-" + selection.getRoomTypeFacilityDetailOption().getRoomTypeFacilityCategory().getTitle()
+                ));
+
+        return groupedByCategory.entrySet().stream()
+                .map(entry -> {
+                    String[] keys = entry.getKey().split("-");
+                    int roomTypeId = Integer.parseInt(keys[0]);
+                    String categoryName = keys[1];
+                    ListRoomTypeFacilityDetailSelectionResponse response = new ListRoomTypeFacilityDetailSelectionResponse();
+                    response.setRoomTypeId(roomTypeId);
+                    response.setCategoryName(categoryName);
+                    response.setRoomTypeFacilityDetailSelectionResponses(mapSelectionsToResponses(entry.getValue()));
+                    return response;
+                })
+                .collect(Collectors.toList());
+    }
 }

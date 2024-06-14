@@ -2,6 +2,7 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomType;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeRepository;
+import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeFacilityDetailSelectionService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.UpdateRoomTypeRequest;
@@ -20,12 +21,19 @@ import java.util.stream.Collectors;
 public class RoomTypeServiceImpl implements RoomTypeService {
 
     private RoomTypeRepository roomTypeRepository;
+    private RoomTypeFacilityDetailSelectionService roomTypeFacilityDetailSelectionService;
 
     @Override
     public List<ListRoomTypeResponse> getAll() {
         List<RoomType> roomTypes = roomTypeRepository.findAll();
         return roomTypes.stream()
-                .map(RoomTypeMapper.INSTANCE::listResponseFromRoomType)
+                .map(roomType -> {
+                    ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
+                    response.setRoomTypeFacilityDetailSelections(
+                            roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
+                    );
+                    return response;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -36,9 +44,14 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
     @Override
     public ListRoomTypeResponse getById(int id) {
-         RoomType roomType = roomTypeRepository.findById(id)
-                .orElse(null);
-        return RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
+        RoomType roomType = roomTypeRepository.findById(id).orElse(null);
+
+        ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
+        assert roomType != null;
+        response.setRoomTypeFacilityDetailSelections(
+                roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
+        );
+        return response;
     }
 
     @Override
@@ -59,5 +72,4 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     public void delete(int id) {
         roomTypeRepository.deleteById(id);
     }
-
 }
