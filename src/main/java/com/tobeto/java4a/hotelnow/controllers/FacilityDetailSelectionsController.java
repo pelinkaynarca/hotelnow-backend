@@ -36,7 +36,7 @@ public class FacilityDetailSelectionsController extends BaseController {
 	@GetMapping("/{id}")
 	public ResponseEntity<BaseResponse<ListFacilityDetailSelectionResponse>> getById(@PathVariable int id) {
 		ListFacilityDetailSelectionResponse listFacilityDetailSelectionResponse = facilityDetailSelectionService
-				.getById(id);
+				.getResponseById(id);
 		if (listFacilityDetailSelectionResponse == null) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_FACILITY_DETAIL_SELECTION_NOT_FOUND, null);
 		} else {
@@ -49,7 +49,7 @@ public class FacilityDetailSelectionsController extends BaseController {
 	public ResponseEntity<BaseResponse<List<ListFacilityDetailSelectionResponse>>> getByHotelId(
 			@PathVariable int hotelId) {
 		List<ListFacilityDetailSelectionResponse> listFacilityDetailSelectionResponses = facilityDetailSelectionService
-				.getByHotelId(hotelId);
+				.getResponseByHotelId(hotelId);
 		if (listFacilityDetailSelectionResponses == null || listFacilityDetailSelectionResponses.size() == 0) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_FACILITY_DETAIL_SELECTION_NOT_FOUND, null);
 		} else {
@@ -79,7 +79,7 @@ public class FacilityDetailSelectionsController extends BaseController {
 
 	@DeleteMapping
 	public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
-		facilityDetailSelectionService.delete(id);
+		facilityDetailSelectionService.deleteById(id);
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
 	}
 

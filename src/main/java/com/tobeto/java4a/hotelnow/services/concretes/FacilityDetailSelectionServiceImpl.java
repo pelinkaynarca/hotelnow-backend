@@ -30,19 +30,26 @@ public class FacilityDetailSelectionServiceImpl implements FacilityDetailSelecti
 	private final StaffService staffService;
 
 	@Override
-	public ListFacilityDetailSelectionResponse getById(int id) {
-		FacilityDetailSelection facilityDetailSelection = facilityDetailSelectionRepository.findById(id).orElse(null);
-
+	public ListFacilityDetailSelectionResponse getResponseById(int id) {
+		FacilityDetailSelection facilityDetailSelection = getById(id);
 		return FacilityDetailSelectionMapper.INSTANCE.listResponseFromFacilityDetailSelection(facilityDetailSelection);
 	}
 
 	@Override
-	public List<ListFacilityDetailSelectionResponse> getByHotelId(int hotelId) {
-		List<FacilityDetailSelection> facilityDetailSelections = facilityDetailSelectionRepository
-				.findByHotelId(hotelId);
-
+	public List<ListFacilityDetailSelectionResponse> getResponseByHotelId(int hotelId) {
+		List<FacilityDetailSelection> facilityDetailSelections = getByHotelId(hotelId);
 		return FacilityDetailSelectionMapper.INSTANCE
 				.listResponseListFromFacilityDetailSelectionList(facilityDetailSelections);
+	}
+
+	@Override
+	public FacilityDetailSelection getById(int id) {
+		return facilityDetailSelectionRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<FacilityDetailSelection> getByHotelId(int hotelId) {
+		return facilityDetailSelectionRepository.findByHotelId(hotelId);
 	}
 
 	@Override
@@ -70,8 +77,7 @@ public class FacilityDetailSelectionServiceImpl implements FacilityDetailSelecti
 	}
 
 	@Override
-	public void delete(int id) {
+	public void deleteById(int id) {
 		facilityDetailSelectionRepository.deleteById(id);
 	}
-
 }

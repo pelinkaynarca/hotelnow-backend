@@ -2,6 +2,7 @@ package com.tobeto.java4a.hotelnow.services.abstracts;
 
 import java.util.List;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.FacilityDetailSelection;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.facilitydetailselections.AddFacilityDetailSelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.facilitydetailselections.UpdateFacilityDetailSelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailselections.AddFacilityDetailSelectionResponse;
@@ -10,14 +11,18 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailselectio
 
 public interface FacilityDetailSelectionService {
 	
-	ListFacilityDetailSelectionResponse getById(int id);
+	ListFacilityDetailSelectionResponse getResponseById(int id);
 	
-	List<ListFacilityDetailSelectionResponse> getByHotelId(int hotelId);
+	FacilityDetailSelection getById(int id);
+	
+	List<ListFacilityDetailSelectionResponse> getResponseByHotelId(int hotelId);
+	
+	List<FacilityDetailSelection> getByHotelId(int hotelId);
 	
 	AddFacilityDetailSelectionResponse add(AddFacilityDetailSelectionRequest request);
 	
 	UpdateFacilityDetailSelectionResponse update(UpdateFacilityDetailSelectionRequest request);
 	
-	void delete(int id);
+	void deleteById(int id);
 
 }
