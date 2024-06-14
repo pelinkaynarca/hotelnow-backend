@@ -17,6 +17,7 @@ public interface RoomTypeMapper {
 
     @Mapping(target = "rooms", source = "rooms")
     @Mapping(target = "roomTypeFacilityDetailSelections", source = "roomTypeFacilityDetailSelections")
+    @Mapping(target = "roomTypeMainFacilitySelections", source = "roomTypeMainFacilitySelections")
     ListRoomTypeResponse listResponseFromRoomType(RoomType roomType);
 
     @Mapping(target = "id", ignore = true)

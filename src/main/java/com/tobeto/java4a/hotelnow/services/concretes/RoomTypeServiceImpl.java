@@ -3,6 +3,7 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomType;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeFacilityDetailSelectionService;
+import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeMainFacilitySelectionService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.UpdateRoomTypeRequest;
@@ -22,6 +23,8 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
     private RoomTypeRepository roomTypeRepository;
     private RoomTypeFacilityDetailSelectionService roomTypeFacilityDetailSelectionService;
+    private RoomTypeMainFacilitySelectionService roomTypeMainFacilitySelectionService;
+
 
     @Override
     public List<ListRoomTypeResponse> getAll() {
@@ -30,7 +33,10 @@ public class RoomTypeServiceImpl implements RoomTypeService {
                 .map(roomType -> {
                     ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
                     response.setRoomTypeFacilityDetailSelections(
-                            roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
+                            roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
+                    );
+                    response.setRoomTypeMainFacilitySelections(
+                            roomTypeMainFacilitySelectionService.getByRoomTypeId(roomType.getId())
                     );
                     return response;
                 })
@@ -49,7 +55,10 @@ public class RoomTypeServiceImpl implements RoomTypeService {
         ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
         assert roomType != null;
         response.setRoomTypeFacilityDetailSelections(
-                roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
+                roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
+        );
+        response.setRoomTypeMainFacilitySelections(
+                roomTypeMainFacilitySelectionService.getByRoomTypeId(roomType.getId())
         );
         return response;
     }
