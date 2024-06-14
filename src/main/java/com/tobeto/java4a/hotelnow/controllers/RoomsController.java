@@ -20,9 +20,9 @@ public class RoomsController {
 
     private RoomService roomService;
 
-    @GetMapping("/get-all")
-    public List<ListRoomResponse> getAll() {
-        return roomService.getAll();
+    @GetMapping("/by-room-type/{roomTypeId}")
+    public List<ListRoomResponse> getByRoomTypeId(@PathVariable int roomTypeId) {
+        return roomService.getByRoomTypeId(roomTypeId);
     }
 
     @GetMapping("/{id}")

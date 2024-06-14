@@ -5,6 +5,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypefacilitydetails
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypefacilitydetailselections.UpdateRoomTypeFacilityDetailSelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.AddRoomTypeFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.ListRoomTypeFacilityDetailSelectionResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.RoomTypeFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.UpdateRoomTypeFacilityDetailSelectionResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,13 +21,13 @@ public class RoomTypeFacilityDetailSelectionsController {
 
     private RoomTypeFacilityDetailSelectionService roomTypeFacilityDetailSelectionService;
 
-    @GetMapping("/get-all")
-    public List<ListRoomTypeFacilityDetailSelectionResponse> getAll() {
-        return roomTypeFacilityDetailSelectionService.getAll();
+    @GetMapping("/room-types/{roomTypeById}")
+    public List<ListRoomTypeFacilityDetailSelectionResponse> getByRoomTypeId(@PathVariable int roomTypeById) {
+        return roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomTypeById);
     }
 
     @GetMapping("/{id}")
-    public ListRoomTypeFacilityDetailSelectionResponse getById(@PathVariable int id) {
+    public RoomTypeFacilityDetailSelectionResponse getById(@PathVariable int id) {
         return roomTypeFacilityDetailSelectionService.getById(id);
     }
 

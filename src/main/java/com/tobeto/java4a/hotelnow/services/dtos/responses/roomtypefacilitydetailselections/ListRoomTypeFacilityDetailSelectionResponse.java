@@ -5,17 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListRoomTypeFacilityDetailSelectionResponse {
 
-    private int id;
+    private int roomTypeId;
 
-    private String roomTypeName;
+    private String categoryName;
 
-    private String optionDescription;
-
-    private boolean display;
+    private List<RoomTypeFacilityDetailSelectionResponse> roomTypeFacilityDetailSelectionResponses;
 }

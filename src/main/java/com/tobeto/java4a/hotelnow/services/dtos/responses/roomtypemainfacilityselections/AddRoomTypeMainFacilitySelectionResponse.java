@@ -17,7 +17,5 @@ public class AddRoomTypeMainFacilitySelectionResponse {
 
     private int optionId;
 
-    private String title;
-
     private boolean display;
 }

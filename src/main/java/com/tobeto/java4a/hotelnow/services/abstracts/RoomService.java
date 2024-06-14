@@ -9,7 +9,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.rooms.UpdateRoomRespon
 import java.util.List;
 
 public interface RoomService {
-    List<ListRoomResponse> getAll();
+    List<ListRoomResponse> getByRoomTypeId(int roomTypeId);
     ListRoomResponse getById(int id);
     AddRoomResponse add(AddRoomRequest request);
     UpdateRoomResponse update(UpdateRoomRequest request);

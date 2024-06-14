@@ -1,6 +1,5 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
-
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 import jakarta.persistence.CascadeType;
@@ -58,7 +57,7 @@ public class RoomType extends BaseEntity {
     private List<Room> rooms;
 
     @OneToMany(mappedBy = "roomType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<RoomTypeFacilityDetailSelection> roomTypeMainFacilityDetailSelections;
+    private List<RoomTypeFacilityDetailSelection> roomTypeFacilityDetailSelections;
 
     @OneToMany(mappedBy = "roomType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RoomTypeMainFacilitySelection> roomTypeMainFacilitySelections;

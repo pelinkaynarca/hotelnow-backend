@@ -1,10 +1,10 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes;
 
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
-import com.tobeto.java4a.hotelnow.entities.concretes.Room;
-import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeFacilityDetailSelection;
-import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeImage;
-import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeMainFacilitySelection;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.rooms.ListRoomResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.ListRoomTypeFacilityDetailSelectionResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypeimages.ListRoomTypeImageResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.ListRoomTypeMainFacilitySelectionResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,11 +32,11 @@ public class ListRoomTypeResponse {
 
     private Currency currency;
 
-    private List<RoomTypeImage> roomTypeImages;
+    private List<ListRoomTypeImageResponse> roomTypeImages;
 
-    private List<RoomTypeFacilityDetailSelection> roomTypeMainFacilityDetailSelections;
+    private List<ListRoomTypeFacilityDetailSelectionResponse> roomTypeFacilityDetailSelections;
 
-    private List<RoomTypeMainFacilitySelection> roomTypeMainFacilitySelections;
+    private List<ListRoomTypeMainFacilitySelectionResponse> roomTypeMainFacilitySelections;
 
-    private List<Room> rooms;
+    private List<ListRoomResponse> rooms;
 }

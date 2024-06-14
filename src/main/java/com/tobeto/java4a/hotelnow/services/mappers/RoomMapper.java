@@ -15,7 +15,7 @@ public interface RoomMapper {
 
     RoomMapper INSTANCE = Mappers.getMapper(RoomMapper.class);
 
-    @Mapping(target = "roomTypeName", source = "roomType.name")
+    @Mapping(target = "roomTypeId", source = "roomType.id")
     ListRoomResponse listResponseFromRoom(Room room);
 
     @Mapping(target = "id", ignore = true)
