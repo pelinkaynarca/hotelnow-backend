@@ -44,7 +44,7 @@ public class BookingHistoriesController extends BaseController {
 	public ResponseEntity<BaseResponse<AddBookingHistoryResponse>> add(
 			@RequestBody @Valid AddBookingHistoryRequest request) {
 		AddBookingHistoryResponse addBookingHistoryResponse = bookingHistoryService.add(request);
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addBookingHistoryResponse);
+		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addBookingHistoryResponse);
 	}
 
 }
