@@ -14,6 +14,7 @@ public class Messages {
         public static final String CUSTOM_HOTEL_IMAGE_NOT_FOUND = "Hotel image(s) not found.";
         public static final String CUSTOM_HOTEL_NOT_FOUND = "Hotel(s) not found.";
         public static final String CUSTOM_REVIEW_REPLY_NOT_FOUND = "Review reply(s) not found.";
+        public static final String CUSTOM_CITY_NOT_FOUND = "City(s) not found.";
 	}
 
 	public static class Success {
