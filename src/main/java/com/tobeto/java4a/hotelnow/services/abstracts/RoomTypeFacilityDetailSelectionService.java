@@ -1,6 +1,5 @@
 package com.tobeto.java4a.hotelnow.services.abstracts;
 
-import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeFacilityDetailSelection;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypefacilitydetailselections.AddRoomTypeFacilityDetailSelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypefacilitydetailselections.UpdateRoomTypeFacilityDetailSelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.AddRoomTypeFacilityDetailSelectionResponse;
@@ -16,6 +15,4 @@ public interface RoomTypeFacilityDetailSelectionService {
     AddRoomTypeFacilityDetailSelectionResponse add(AddRoomTypeFacilityDetailSelectionRequest request);
     UpdateRoomTypeFacilityDetailSelectionResponse update(UpdateRoomTypeFacilityDetailSelectionRequest request);
     void delete(int id);
-    List<ListRoomTypeFacilityDetailSelectionResponse> getResponse(List<RoomTypeFacilityDetailSelection> response);
-
 }

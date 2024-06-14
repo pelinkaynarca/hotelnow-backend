@@ -13,7 +13,7 @@ public class ListRoomTypeMainFacilitySelectionResponse {
 
     private int id;
 
-    private String roomTypeName;
+    private int roomTypeId;
 
     private String optionTitle;
 

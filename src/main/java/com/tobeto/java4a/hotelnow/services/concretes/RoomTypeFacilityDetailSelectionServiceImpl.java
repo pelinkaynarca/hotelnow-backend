@@ -54,8 +54,4 @@ public class RoomTypeFacilityDetailSelectionServiceImpl implements RoomTypeFacil
         selectionRepository.deleteById(id);
     }
 
-    @Override
-    public List<ListRoomTypeFacilityDetailSelectionResponse> getResponse(List<RoomTypeFacilityDetailSelection> responses) {
-        return RoomTypeFacilityDetailSelectionMapper.INSTANCE.groupListResponses(responses);
-    }
 }

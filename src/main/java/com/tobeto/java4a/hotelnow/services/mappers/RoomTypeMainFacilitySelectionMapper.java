@@ -15,24 +15,24 @@ public interface RoomTypeMainFacilitySelectionMapper {
 
     RoomTypeMainFacilitySelectionMapper INSTANCE = Mappers.getMapper(RoomTypeMainFacilitySelectionMapper.class);
 
-    @Mapping(target = "roomTypeName", source = "roomType.name")
+    @Mapping(target = "roomTypeId", source = "roomType.id")
     @Mapping(target = "optionTitle", source = "roomTypeMainFacilityOption.title")
-    ListRoomTypeMainFacilitySelectionResponse listResponseFromRoomTypeMainFacilitySelection(RoomTypeMainFacilitySelection roomTypeMainFacilitySelection);
+    ListRoomTypeMainFacilitySelectionResponse listResponseFromSelection(RoomTypeMainFacilitySelection selection);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roomType.id", source = "roomTypeId")
     @Mapping(target = "roomTypeMainFacilityOption.id", source = "optionId")
-    RoomTypeMainFacilitySelection roomTypeMainFacilitySelectionFromAddRequest(AddRoomTypeMainFacilitySelectionRequest request);
+    RoomTypeMainFacilitySelection selectionFromAddRequest(AddRoomTypeMainFacilitySelectionRequest request);
 
     @Mapping(target = "roomTypeId", source = "roomType.id")
     @Mapping(target = "optionId", source = "roomTypeMainFacilityOption.id")
-    AddRoomTypeMainFacilitySelectionResponse addResponseFromRoomTypeMainFacilitySelection(RoomTypeMainFacilitySelection roomTypeMainFacilitySelection);
+    AddRoomTypeMainFacilitySelectionResponse addResponseFromSelection(RoomTypeMainFacilitySelection response);
 
     @Mapping(target = "roomType.id", source = "roomTypeId")
     @Mapping(target = "roomTypeMainFacilityOption.id", source = "optionId")
-    RoomTypeMainFacilitySelection roomTypeMainFacilitySelectionFromUpdateRequest(UpdateRoomTypeMainFacilitySelectionRequest request);
+    RoomTypeMainFacilitySelection selectionFromUpdateRequest(UpdateRoomTypeMainFacilitySelectionRequest request);
 
     @Mapping(target = "roomTypeId", source = "roomType.id")
     @Mapping(target = "optionId", source = "roomTypeMainFacilityOption.id")
-    UpdateRoomTypeMainFacilitySelectionResponse updateResponseFromRoomTypeMainFacilitySelection(RoomTypeMainFacilitySelection roomTypeMainFacilitySelection);
+    UpdateRoomTypeMainFacilitySelectionResponse updateResponseFromSelection(RoomTypeMainFacilitySelection response);
 }

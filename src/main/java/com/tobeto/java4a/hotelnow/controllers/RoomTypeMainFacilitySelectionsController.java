@@ -20,9 +20,9 @@ public class RoomTypeMainFacilitySelectionsController {
 
     private RoomTypeMainFacilitySelectionService roomTypeMainFacilitySelectionService;
 
-    @GetMapping("/get-all")
-    public List<ListRoomTypeMainFacilitySelectionResponse> getAll() {
-        return roomTypeMainFacilitySelectionService.getAll();
+    @GetMapping("/room-types/{roomTypeId}")
+    public List<ListRoomTypeMainFacilitySelectionResponse> getByRoomTypeId(@PathVariable("roomTypeId") int roomTypeId) {
+        return roomTypeMainFacilitySelectionService.getByRoomTypeId(roomTypeId);
     }
 
     @GetMapping("/{id}")

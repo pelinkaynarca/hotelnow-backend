@@ -10,7 +10,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityse
 import java.util.List;
 
 public interface RoomTypeMainFacilitySelectionService {
-    List<ListRoomTypeMainFacilitySelectionResponse> getAll();
+    List<ListRoomTypeMainFacilitySelectionResponse> getByRoomTypeId(int roomTypeId);
     ListRoomTypeMainFacilitySelectionResponse getById(int id);
     AddRoomTypeMainFacilitySelectionResponse add(AddRoomTypeMainFacilitySelectionRequest request);
     UpdateRoomTypeMainFacilitySelectionResponse update(UpdateRoomTypeMainFacilitySelectionRequest request);
