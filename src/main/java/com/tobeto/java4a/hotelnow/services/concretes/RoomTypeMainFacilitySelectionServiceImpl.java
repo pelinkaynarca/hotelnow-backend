@@ -7,6 +7,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilitysel
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilityselections.UpdateRoomTypeMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.AddRoomTypeMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.ListRoomTypeMainFacilitySelectionResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.RoomTypeMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.UpdateRoomTypeMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.RoomTypeMainFacilitySelectionMapper;
 import lombok.AllArgsConstructor;
@@ -23,14 +24,12 @@ public class RoomTypeMainFacilitySelectionServiceImpl implements RoomTypeMainFac
 
     @Override
     public List<ListRoomTypeMainFacilitySelectionResponse> getByRoomTypeId(int roomTypeId) {
-        List<RoomTypeMainFacilitySelection> selection = selectionRepository.findByRoomTypeId(roomTypeId);
-        return selection.stream()
-                .map(RoomTypeMainFacilitySelectionMapper.INSTANCE::listResponseFromSelection)
-                .collect(Collectors.toList());
+        List<RoomTypeMainFacilitySelection> selections = selectionRepository.findByRoomTypeId(roomTypeId);
+        return RoomTypeMainFacilitySelectionMapper.INSTANCE.groupListResponses(selections);
     }
 
     @Override
-    public ListRoomTypeMainFacilitySelectionResponse getById(int id) {
+    public RoomTypeMainFacilitySelectionResponse getById(int id) {
         RoomTypeMainFacilitySelection selection = selectionRepository.findById(id).orElse(null);
         return RoomTypeMainFacilitySelectionMapper.INSTANCE.listResponseFromSelection(selection);
     }
@@ -54,5 +53,12 @@ public class RoomTypeMainFacilitySelectionServiceImpl implements RoomTypeMainFac
     @Override
     public void delete(int id) {
         selectionRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RoomTypeMainFacilitySelectionResponse> getResponse(List<RoomTypeMainFacilitySelection> selections) {
+        return selections.stream()
+                .map(RoomTypeMainFacilitySelectionMapper.INSTANCE::listResponseFromSelection)
+                .collect(Collectors.toList());
     }
 }

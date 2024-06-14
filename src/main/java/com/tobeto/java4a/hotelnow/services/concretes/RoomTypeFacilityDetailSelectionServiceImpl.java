@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -54,4 +55,10 @@ public class RoomTypeFacilityDetailSelectionServiceImpl implements RoomTypeFacil
         selectionRepository.deleteById(id);
     }
 
+    @Override
+    public List<RoomTypeFacilityDetailSelectionResponse> getResponse(List<RoomTypeFacilityDetailSelection> selections) {
+        return selections.stream()
+                .map(RoomTypeFacilityDetailSelectionMapper.INSTANCE::listResponseSelection)
+                .collect(Collectors.toList());
+    }
 }

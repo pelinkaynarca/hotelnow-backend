@@ -3,6 +3,7 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomType;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeFacilityDetailSelectionService;
+import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeImageService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeMainFacilitySelectionService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
@@ -24,7 +25,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     private RoomTypeRepository roomTypeRepository;
     private RoomTypeFacilityDetailSelectionService roomTypeFacilityDetailSelectionService;
     private RoomTypeMainFacilitySelectionService roomTypeMainFacilitySelectionService;
-
+    private RoomTypeImageService roomTypeImageService;
 
     @Override
     public List<ListRoomTypeResponse> getAll() {
@@ -32,11 +33,14 @@ public class RoomTypeServiceImpl implements RoomTypeService {
         return roomTypes.stream()
                 .map(roomType -> {
                     ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
+                    response.setRoomTypeImages(
+                            roomTypeImageService.getResponse(roomType.getRoomTypeImages())
+                    );
                     response.setRoomTypeFacilityDetailSelections(
-                            roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
+                            roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
                     );
                     response.setRoomTypeMainFacilitySelections(
-                            roomTypeMainFacilitySelectionService.getByRoomTypeId(roomType.getId())
+                            roomTypeMainFacilitySelectionService.getResponse(roomType.getRoomTypeMainFacilitySelections())
                     );
                     return response;
                 })
@@ -54,11 +58,14 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
         ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponseFromRoomType(roomType);
         assert roomType != null;
+        response.setRoomTypeImages(
+                roomTypeImageService.getResponse(roomType.getRoomTypeImages())
+        );
         response.setRoomTypeFacilityDetailSelections(
-                roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
+                roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
         );
         response.setRoomTypeMainFacilitySelections(
-                roomTypeMainFacilitySelectionService.getByRoomTypeId(roomType.getId())
+                roomTypeMainFacilitySelectionService.getResponse(roomType.getRoomTypeMainFacilitySelections())
         );
         return response;
     }

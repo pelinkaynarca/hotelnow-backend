@@ -15,6 +15,7 @@ public interface RoomTypeMapper {
 
     RoomTypeMapper INSTANCE = Mappers.getMapper(RoomTypeMapper.class);
 
+    @Mapping(target= "roomTypeImages", source = "roomTypeImages")
     @Mapping(target = "rooms", source = "rooms")
     @Mapping(target = "roomTypeFacilityDetailSelections", source = "roomTypeFacilityDetailSelections")
     @Mapping(target = "roomTypeMainFacilitySelections", source = "roomTypeMainFacilitySelections")
