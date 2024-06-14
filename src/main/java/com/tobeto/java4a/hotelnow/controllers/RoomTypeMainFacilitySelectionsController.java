@@ -5,6 +5,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilitysel
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilityselections.UpdateRoomTypeMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.AddRoomTypeMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.ListRoomTypeMainFacilitySelectionResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.RoomTypeMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.UpdateRoomTypeMainFacilitySelectionResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class RoomTypeMainFacilitySelectionsController {
     }
 
     @GetMapping("/{id}")
-    public ListRoomTypeMainFacilitySelectionResponse getById(@PathVariable int id) {
+    public RoomTypeMainFacilitySelectionResponse getById(@PathVariable int id) {
         return roomTypeMainFacilitySelectionService.getById(id);
     }
 

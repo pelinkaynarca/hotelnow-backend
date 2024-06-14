@@ -21,11 +21,9 @@ public interface RoomTypeFacilityDetailSelectionMapper {
 
     RoomTypeFacilityDetailSelectionMapper INSTANCE = Mappers.getMapper(RoomTypeFacilityDetailSelectionMapper.class);
 
-    @Mapping(target = "optionDescription", source = "roomTypeFacilityDetailOption.description")
-    RoomTypeFacilityDetailSelectionResponse listResponseSelection(RoomTypeFacilityDetailSelection selection);
 
     @Mapping(target = "optionDescription", source = "roomTypeFacilityDetailOption.description")
-    RoomTypeFacilityDetailSelectionResponse toListResponseListFromSelectionList(RoomTypeFacilityDetailSelection selection);
+    RoomTypeFacilityDetailSelectionResponse listResponseSelection(RoomTypeFacilityDetailSelection selection);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roomType.id", source = "roomTypeId")
@@ -46,7 +44,7 @@ public interface RoomTypeFacilityDetailSelectionMapper {
 
     default List<RoomTypeFacilityDetailSelectionResponse> mapSelectionsToResponses(List<RoomTypeFacilityDetailSelection> selections) {
         return selections.stream()
-                .map(this::toListResponseListFromSelectionList)
+                .map(this::listResponseSelection)
                 .collect(Collectors.toList());
     }
 
