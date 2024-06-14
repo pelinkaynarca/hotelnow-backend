@@ -1,11 +1,7 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +19,7 @@ public class RoomTypeImage extends BaseEntity {
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;
 
-    @Column(name="url")
-    private String url;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id", referencedColumnName = "id")
+    private File file;
 }

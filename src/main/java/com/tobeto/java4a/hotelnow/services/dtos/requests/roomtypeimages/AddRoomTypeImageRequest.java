@@ -1,11 +1,13 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypeimages;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +18,5 @@ public class AddRoomTypeImageRequest {
     @Min(value = 1)
     private int roomTypeId;
 
-    @NotBlank
-    private String url;
+    private List<MultipartFile> files;
 }
