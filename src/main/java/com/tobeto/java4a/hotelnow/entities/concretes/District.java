@@ -17,7 +17,7 @@ public class District extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "city_id")
     private City city;
 
