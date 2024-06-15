@@ -1,9 +1,12 @@
 package com.tobeto.java4a.hotelnow.controllers;
 
+import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.services.abstracts.NeighborhoodService;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.districts.ListDistrictResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.neighborhoods.ListNeighborhoodResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +17,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/neighborhoods")
 @AllArgsConstructor
-public class NeighborhoodsController {
+public class NeighborhoodsController extends BaseController {
 
     private NeighborhoodService neighborhoodService;
 
     @GetMapping
-    public List<ListNeighborhoodResponse> getAll() {
-        return neighborhoodService.getAll();
+    public ResponseEntity<BaseResponse<List<ListNeighborhoodResponse>>> getAll() {
+        return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, neighborhoodService.getAll());
     }
 
     @GetMapping("/by-district-id/{districtId}")
-    public List<ListNeighborhoodResponse> getByDistrictId(@PathVariable int districtId) {
-        return neighborhoodService.getByDistrictId(districtId);
+    public ResponseEntity<BaseResponse<List<ListNeighborhoodResponse>>> getByDistrictId(@PathVariable int districtId) {
+        List<ListNeighborhoodResponse> neighborhoodsToBeFound = neighborhoodService.getByDistrictId(districtId);
+        if (neighborhoodsToBeFound != null && !neighborhoodsToBeFound.isEmpty()) {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, neighborhoodsToBeFound);
+        }
+        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_NEIGHBORHOOD_NOT_FOUND, null);
     }
 
 }

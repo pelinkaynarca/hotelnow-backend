@@ -15,6 +15,17 @@ import java.util.stream.Collectors;
 @Service
 public class NeighborhoodServiceImpl implements NeighborhoodService {
 
+    @Override
+    public Neighborhood getById(int id) {
+        return neighborhoodRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ListNeighborhoodResponse getResponseById(int id) {
+        Neighborhood neighborhood = neighborhoodRepository.findById(id).orElseThrow();
+        return NeighborhoodMapper.INSTANCE.listResponseFromNeighborhood(neighborhood);
+    }
+
     private final NeighborhoodRepository neighborhoodRepository;
 
     @Override
@@ -33,8 +44,4 @@ public class NeighborhoodServiceImpl implements NeighborhoodService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Neighborhood getById(int id) {
-        return neighborhoodRepository.findById(id).orElse(null);
-    }
 }

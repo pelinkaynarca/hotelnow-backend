@@ -9,6 +9,7 @@ public interface NeighborhoodService {
 
     List<ListNeighborhoodResponse> getAll();
     List<ListNeighborhoodResponse> getByDistrictId(int districtId);
+    ListNeighborhoodResponse getResponseById(int id);
     Neighborhood getById(int id);
 
 }
