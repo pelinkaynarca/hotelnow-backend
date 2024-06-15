@@ -12,15 +12,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="files")
-public class File extends BaseEntity {
+@Table(name="images")
+public class Image extends BaseEntity {
 
-    @JoinColumn(name="file_name")
-    private String fileName;
+    @JoinColumn(name="image_name")
+    private String imageName;
 
     @JoinColumn(name = "path")
     private String path;
 
-    @OneToOne(mappedBy = "file", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private RoomTypeImage roomTypeImage;
 }

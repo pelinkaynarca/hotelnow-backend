@@ -1,7 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes;
 
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.files.ListFileResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.rooms.ListRoomResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.RoomTypeFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityselections.RoomTypeMainFacilitySelectionResponse;
@@ -32,7 +32,7 @@ public class ListRoomTypeResponse {
 
     private Currency currency;
 
-    private List<ListFileResponse> roomTypeImages;
+    private List<ListImageResponse> roomTypeImages;
 
     private List<RoomTypeFacilityDetailSelectionResponse> roomTypeFacilityDetailSelections;
 

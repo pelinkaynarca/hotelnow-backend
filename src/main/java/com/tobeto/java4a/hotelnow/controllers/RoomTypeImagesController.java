@@ -30,9 +30,9 @@ public class RoomTypeImagesController {
         return roomTypeImageService.getById(id);
     }
 
-    @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/upload-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AddRoomTypeImageResponse> add(@RequestParam("roomTypeId") int roomTypeId,
-                                                        @RequestParam("file") List<MultipartFile> files) {
+                                                        @RequestParam("image") List<MultipartFile> files) {
 
         AddRoomTypeImageRequest request = new AddRoomTypeImageRequest();
         request.setRoomTypeId(roomTypeId);

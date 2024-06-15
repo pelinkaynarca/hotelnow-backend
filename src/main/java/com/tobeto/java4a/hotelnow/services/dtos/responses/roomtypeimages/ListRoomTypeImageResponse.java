@@ -1,6 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypeimages;
 
-import com.tobeto.java4a.hotelnow.services.dtos.responses.files.ListFileResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +16,5 @@ public class ListRoomTypeImageResponse {
 
     private int roomTypeId;
 
-    private List<ListFileResponse> photos;
+    private List<ListImageResponse> photos;
 }

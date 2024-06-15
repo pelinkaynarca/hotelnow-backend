@@ -2,7 +2,7 @@ package com.tobeto.java4a.hotelnow.services.abstracts;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeImage;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypeimages.AddRoomTypeImageRequest;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.files.ListFileResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypeimages.AddRoomTypeImageResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypeimages.ListRoomTypeImageResponse;
 
@@ -13,5 +13,5 @@ public interface RoomTypeImageService {
     ListRoomTypeImageResponse getById(int id);
     AddRoomTypeImageResponse add(AddRoomTypeImageRequest request);
     void delete(int id);
-    List<ListFileResponse> getResponse(List<RoomTypeImage> roomTypeImages);
+    List<ListImageResponse> getResponse(List<RoomTypeImage> roomTypeImages);
 }

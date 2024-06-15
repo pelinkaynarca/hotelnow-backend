@@ -20,6 +20,6 @@ public class RoomTypeImage extends BaseEntity {
     private RoomType roomType;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "file_id", referencedColumnName = "id")
-    private File file;
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 }

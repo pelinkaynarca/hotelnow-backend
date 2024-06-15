@@ -1,4 +1,4 @@
-package com.tobeto.java4a.hotelnow.services.dtos.responses.files;
+package com.tobeto.java4a.hotelnow.services.dtos.responses.images;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListFileResponse {
+public class ListImageResponse {
 
     private int id;
 
-    private String fileName;
+    private String imageName;
 
     private String path;
 }
