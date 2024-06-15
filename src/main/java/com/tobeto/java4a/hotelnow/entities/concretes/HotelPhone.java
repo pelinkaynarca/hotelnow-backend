@@ -23,7 +23,7 @@ public class HotelPhone extends BaseEntity {
     @Column(name = "phone")
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 }

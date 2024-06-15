@@ -28,6 +28,12 @@ public class HotelPhoneServiceImpl implements HotelPhoneService {
 
 
     @Override
+    public ListHotelPhoneResponse getResponseById(int id) {
+        HotelPhone hotelPhone = hotelPhoneRepository.findById(id).orElseThrow();
+        return HotelPhoneMapper.INSTANCE.listResponseFromHotelPhone(hotelPhone);
+    }
+
+    @Override
     public List<ListHotelPhoneResponse> getByHotelId(int hotelId) {
         List<HotelPhone> hotelPhones = hotelPhoneRepository.findByHotelId(hotelId);
         return hotelPhones.stream()
