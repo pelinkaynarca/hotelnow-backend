@@ -17,5 +17,4 @@ public class UpdateMainFacilitySelectionResponse {
 
     private int optionId;
 
-    private int hotelId;
 }

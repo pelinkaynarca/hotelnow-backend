@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections;
 
+import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityoptions.ListMainFacilityOptionResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +16,6 @@ public class ListMainFacilitySelectionResponse {
 
     private boolean display;
 
-    private int optionId;
-
-    private String optionTitle;
-
-    private int hotelId;
-
-    private String hotelName;
+    private ListMainFacilityOptionResponse option;
 
 }

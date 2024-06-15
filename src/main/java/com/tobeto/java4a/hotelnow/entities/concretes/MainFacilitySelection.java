@@ -23,11 +23,11 @@ public class MainFacilitySelection extends BaseEntity {
     @Column(name = "display")
     private boolean display;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "option_id")
     private MainFacilityOption mainFacilityOption;
     

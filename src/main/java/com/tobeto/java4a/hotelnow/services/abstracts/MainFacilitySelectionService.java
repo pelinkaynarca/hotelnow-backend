@@ -10,7 +10,9 @@ import java.util.List;
 
 public interface MainFacilitySelectionService {
 
+    ListMainFacilitySelectionResponse getResponseById(int id);
     List<ListMainFacilitySelectionResponse> getByHotelId(int hotelId);
+    List<ListMainFacilitySelectionResponse> getByHotelIdAndDisplay(int hotelId, boolean display);
     AddMainFacilitySelectionResponse add(AddMainFacilitySelectionRequest request);
     UpdateMainFacilitySelectionResponse update(UpdateMainFacilitySelectionRequest request);
 }

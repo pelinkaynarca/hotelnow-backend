@@ -1,14 +1,17 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.Hotel;
+import com.tobeto.java4a.hotelnow.entities.concretes.MainFacilityOption;
 import com.tobeto.java4a.hotelnow.entities.concretes.MainFacilitySelection;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.AddMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.UpdateMainFacilitySelectionRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityoptions.ListMainFacilityOptionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.AddMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.ListMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.UpdateMainFacilitySelectionResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
@@ -16,10 +19,7 @@ public interface MainFacilitySelectionMapper {
 
     MainFacilitySelectionMapper INSTANCE = Mappers.getMapper(MainFacilitySelectionMapper.class);
 
-    @Mapping(target = "hotelId", source = "hotel.id")
-    @Mapping(target = "hotelName", source = "hotel.name")
-    @Mapping(target = "optionId", source = "mainFacilityOption.id")
-    @Mapping(target = "optionTitle", source = "mainFacilityOption.title")
+    @Mapping(target = "option", source = "mainFacilityOption")
     ListMainFacilitySelectionResponse listResponseFromMainFacilitySelection(MainFacilitySelection mainFacilitySelection);
 
     @Mapping(target = "mainFacilityOption.id", source = "request.optionId")
@@ -30,11 +30,17 @@ public interface MainFacilitySelectionMapper {
     @Mapping(target = "optionId", source = "mainFacilityOption.id")
     AddMainFacilitySelectionResponse addResponseFromMainFacilitySelection(MainFacilitySelection mainFacilitySelection);
 
-    @Mapping(target = "id", source = "request.id")
-    MainFacilitySelection mainFacilitySelectionFromUpdateRequest(UpdateMainFacilitySelectionRequest request, Hotel hotel);
+    @Mapping(target = "hotel", ignore = true)
+    @Mapping(target = "mainFacilityOption.id", ignore = true)
+    void updateMainFacilitySelectionFromUpdateRequest(UpdateMainFacilitySelectionRequest request, @MappingTarget MainFacilitySelection entity);
 
-    @Mapping(target = "hotelId", source = "hotel.id")
     @Mapping(target = "optionId", source = "mainFacilityOption.id")
     UpdateMainFacilitySelectionResponse updateResponseFromMainFacilitySelection(MainFacilitySelection mainFacilitySelection);
 
+    default ListMainFacilityOptionResponse mapMainFacilityOptionToResponse(MainFacilityOption mainFacilityOption) {
+        return MainFacilityOptionMapper.INSTANCE.listResponseFromMainFacilityOption(mainFacilityOption);
+    }
+
 }
+
+

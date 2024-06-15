@@ -2,7 +2,6 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.*;
 import com.tobeto.java4a.hotelnow.repositories.MainFacilitySelectionRepository;
-import com.tobeto.java4a.hotelnow.services.abstracts.MainFacilityOptionService;
 import com.tobeto.java4a.hotelnow.services.abstracts.MainFacilitySelectionService;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
 import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
@@ -26,11 +25,24 @@ public class MainFacilitySelectionServiceImpl implements MainFacilitySelectionSe
     private final MainFacilitySelectionRepository mainFacilitySelectionRepository;
     private final UserService userService;
     private final StaffService staffService;
-    private final MainFacilityOptionService mainFacilityOptionService;
+
+    @Override
+    public ListMainFacilitySelectionResponse getResponseById(int id) {
+        MainFacilitySelection mainFacilitySelection = mainFacilitySelectionRepository.findById(id).orElseThrow();
+        return MainFacilitySelectionMapper.INSTANCE.listResponseFromMainFacilitySelection(mainFacilitySelection);
+    }
 
     @Override
     public List<ListMainFacilitySelectionResponse> getByHotelId(int hotelId) {
         List<MainFacilitySelection> mainFacilitySelections = mainFacilitySelectionRepository.findByHotelId(hotelId);
+        return mainFacilitySelections.stream()
+                .map(MainFacilitySelectionMapper.INSTANCE::listResponseFromMainFacilitySelection)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ListMainFacilitySelectionResponse> getByHotelIdAndDisplay(int hotelId, boolean display) {
+        List<MainFacilitySelection> mainFacilitySelections = mainFacilitySelectionRepository.findByHotelIdAndDisplay(hotelId, display);
         return mainFacilitySelections.stream()
                 .map(MainFacilitySelectionMapper.INSTANCE::listResponseFromMainFacilitySelection)
                 .collect(Collectors.toList());
@@ -45,23 +57,18 @@ public class MainFacilitySelectionServiceImpl implements MainFacilitySelectionSe
 
         MainFacilitySelection mainFacilitySelection = MainFacilitySelectionMapper.INSTANCE.mainFacilitySelectionFromAddRequest(request, staff.getHotel());
 
-        MainFacilityOption mainFacilityOption = mainFacilityOptionService.getById(request.getOptionId());
-        mainFacilitySelection.setMainFacilityOption(mainFacilityOption);
         MainFacilitySelection savedMainFacilitySelection = mainFacilitySelectionRepository.save(mainFacilitySelection);
         return MainFacilitySelectionMapper.INSTANCE.addResponseFromMainFacilitySelection(savedMainFacilitySelection);
 
     }
 
-    @Override
     public UpdateMainFacilitySelectionResponse update(UpdateMainFacilitySelectionRequest request) {
+        MainFacilitySelection existingEntity = mainFacilitySelectionRepository.findById(request.getId()).orElseThrow();
+        MainFacilitySelectionMapper.INSTANCE.updateMainFacilitySelectionFromUpdateRequest(request, existingEntity);
 
-        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User loggedInUser = (User) userService.loadUserByUsername(email);
-        Staff staff = staffService.getById(loggedInUser.getId());
-        MainFacilitySelection mainFacilitySelection = MainFacilitySelectionMapper.INSTANCE.mainFacilitySelectionFromUpdateRequest(request, staff.getHotel());
-        MainFacilitySelection savedMainFacilitySelection = mainFacilitySelectionRepository.save(mainFacilitySelection);
-        return MainFacilitySelectionMapper.INSTANCE.updateResponseFromMainFacilitySelection(savedMainFacilitySelection);
+        MainFacilitySelection savedEntity = mainFacilitySelectionRepository.save(existingEntity);
 
+        return MainFacilitySelectionMapper.INSTANCE.updateResponseFromMainFacilitySelection(savedEntity);
     }
 
 }
