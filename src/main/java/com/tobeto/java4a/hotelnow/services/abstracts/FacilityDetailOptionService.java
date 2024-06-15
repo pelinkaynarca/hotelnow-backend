@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface FacilityDetailOptionService {
 
+    ListFacilityDetailOptionResponse getById(int id);
     List<ListFacilityDetailOptionResponse> getByCategoryId(int categoryId);
     AddFacilityDetailOptionResponse add(AddFacilityDetailOptionRequest request);
     UpdateFacilityDetailOptionResponse update(UpdateFacilityDetailOptionRequest request);

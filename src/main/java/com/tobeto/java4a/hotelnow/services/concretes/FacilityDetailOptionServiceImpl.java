@@ -25,6 +25,12 @@ public class FacilityDetailOptionServiceImpl implements FacilityDetailOptionServ
     private final FacilityCategoryService facilityCategoryService;
 
     @Override
+    public ListFacilityDetailOptionResponse getById(int id) {
+        FacilityDetailOption facilityDetailOption = facilityDetailOptionRepository.findById(id).orElse(null);
+        return FacilityDetailOptionMapper.INSTANCE.listResponseFromFacilityDetailOption(facilityDetailOption);
+    }
+
+    @Override
     public List<ListFacilityDetailOptionResponse> getByCategoryId(int categoryId) {
         return facilityDetailOptionRepository.findByCategoryId(categoryId).stream()
                 .map(FacilityDetailOptionMapper.INSTANCE::listResponseFromFacilityDetailOption)

@@ -15,7 +15,7 @@ public class FacilityDetailOption extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
     private FacilityCategory facilityCategory;
 }
