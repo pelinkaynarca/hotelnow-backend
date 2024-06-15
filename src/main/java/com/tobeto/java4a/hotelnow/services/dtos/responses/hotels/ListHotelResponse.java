@@ -2,6 +2,7 @@ package com.tobeto.java4a.hotelnow.services.dtos.responses.hotels;
 
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages.ListHotelImageResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelphones.ListHotelPhoneResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.ListMainFacilitySelectionResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,8 @@ public class ListHotelResponse {
     private String checkOutTime;
 
     private String neighborhoodName;
+
+    private List<ListMainFacilitySelectionResponse> mainFacilitySelections;
 
     private List<ListHotelPhoneResponse> hotelPhones;
 

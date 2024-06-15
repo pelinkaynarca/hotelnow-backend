@@ -39,7 +39,7 @@ public class Hotel extends BaseEntity {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "neighborhood_id")
     private Neighborhood neighborhood;
     
@@ -54,4 +54,7 @@ public class Hotel extends BaseEntity {
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HotelPhone> hotelPhones;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MainFacilitySelection> mainFacilitySelections;
 }

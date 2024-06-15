@@ -30,9 +30,11 @@ public class AddHotelRequest {
     private String description;
 
     // @Pattern(regexp = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$")
+    @NotNull
     private LocalTime checkInTime;
 
     // @Pattern(regexp = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$")
+    @NotNull
     private LocalTime checkOutTime;
 
     @Min(value = 1)

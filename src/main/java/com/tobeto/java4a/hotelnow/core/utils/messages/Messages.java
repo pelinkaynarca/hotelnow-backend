@@ -16,6 +16,15 @@ public class Messages {
         public static final String CUSTOM_REVIEW_REPLY_NOT_FOUND = "Review reply(s) not found.";
         public static final String CUSTOM_CITY_NOT_FOUND = "City(s) not found.";
         public static final String CUSTOM_FACILITY_DETAIL_SELECTION_NOT_FOUND = "Facility detail selection(s) not found.";
+		public static final String CUSTOM_DISTRICT_NOT_FOUND = "District(s) not found.";
+		public static final String CUSTOM_NEIGHBORHOOD_NOT_FOUND = "Neighborhood(s) not found.";
+		public static final String CUSTOM_FACILITY_CATEGORY_NOT_FOUND = "Facility category not found.";
+		public static final String CUSTOM_FACILITY_DETAIL_OPTION_NOT_FOUND = "Facility detail option(s) not found.";
+		public static final String CUSTOM_MAIN_FACILITY_SELECTION_NOT_FOUND = "Main facility selection(s) not found.";
+		public static final String CUSTOM_MAIN_FACILITY_OPTION_NOT_FOUND = "Main facility option(s) not found.";
+        public static final String CUSTOM_ROOM_TYPE_FACILITY_DETAIL_OPTION_NOT_FOUND = "Room type facility detail option(s) not found.";
+		public static final String CUSTOM_ROOM_TYPE_FACILITY_CATEGORY_NOT_FOUND = "Room type facility category not found.";
+		public static final String CUSTOM_HOTEL_PHONE_NOT_FOUND = "Hotel phone(s) not found.";
 	}
 
 	public static class Success {
