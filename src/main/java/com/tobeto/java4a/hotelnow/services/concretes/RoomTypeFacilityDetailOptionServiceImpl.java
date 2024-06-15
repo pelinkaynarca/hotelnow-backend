@@ -25,6 +25,12 @@ public class RoomTypeFacilityDetailOptionServiceImpl implements RoomTypeFacility
     private final RoomTypeFacilityCategoryService roomTypeFacilityCategoryService;
 
     @Override
+    public ListRoomTypeFacilityDetailOptionResponse getResponseById(int id) {
+        RoomTypeFacilityDetailOption roomTypeFacilityDetailOption = roomTypeFacilityDetailOptionRepository.findById(id).orElseThrow();
+        return RoomTypeFacilityDetailOptionMapper.INSTANCE.listResponseFromRoomTypeFacilityDetailOption(roomTypeFacilityDetailOption);
+    }
+
+    @Override
     public List<ListRoomTypeFacilityDetailOptionResponse> getByCategoryId(int categoryId) {
 
         return roomTypeFacilityDetailOptionRepository.findByCategoryId(categoryId).stream()
