@@ -6,9 +6,11 @@ import com.tobeto.java4a.hotelnow.services.abstracts.ImageService;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ImageDetailResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +29,9 @@ public class ImageServiceImpl implements ImageService {
     @Value("${spring.image.dir}")
     private String baseUploadDir;
 
+    @Value("${spring.servlet.multipart.max-file-size}")
+    private String maxFileSize;
+
     @Override
     public CompletableFuture<List<ImageDetailResponse>> uploadImagesAsync(String directoryPath, List<MultipartFile> files) {
         Path uploadLocation = Paths.get(baseUploadDir, directoryPath);
@@ -34,8 +39,16 @@ public class ImageServiceImpl implements ImageService {
         try {
             createDirectoriesIfNotExist(uploadLocation);
 
+            long maxSizeInBytes = parseMaxFileSize(maxFileSize);
+
             List<CompletableFuture<ImageDetailResponse>> uploadTasks = files.stream()
-                    .map(file -> uploadFile(uploadLocation, file, directoryPath))
+                    .map(file -> {
+                        if (file.getSize() > maxSizeInBytes) {
+                            throw new ResponseStatusException(HttpStatus.PAYLOAD_TOO_LARGE,
+                                    "File size exceeds the maximum allowed size of " + maxFileSize);
+                        }
+                        return uploadFile(uploadLocation, file, directoryPath);
+                    })
                     .toList();
 
             CompletableFuture<Void> allFutures = CompletableFuture.allOf(uploadTasks.toArray(new CompletableFuture[0]));
@@ -47,6 +60,16 @@ public class ImageServiceImpl implements ImageService {
             );
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private long parseMaxFileSize(String maxFileSize) {
+        if (maxFileSize.endsWith("MB")) {
+            return Long.parseLong(maxFileSize.replace("MB", "")) * 1024 * 1024;
+        } else if (maxFileSize.endsWith("KB")) {
+            return Long.parseLong(maxFileSize.replace("KB", "")) * 1024;
+        } else {
+            return Long.parseLong(maxFileSize);
         }
     }
 
