@@ -24,7 +24,7 @@ public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
 
     @Override
-    public List<ListRoomResponse> getByRoomTypeId(int roomTypeId) {
+    public List<ListRoomResponse> getResponseByRoomTypeId (int roomTypeId) {
         List<Room> rooms = roomRepository.findByRoomTypeId(roomTypeId);
         return rooms.stream()
                 .map(RoomMapper.INSTANCE::listResponseFromRoom)
@@ -52,6 +52,11 @@ public class RoomServiceImpl implements RoomService {
         Room room = RoomMapper.INSTANCE.roomFromUpdateRequest(request);
         room = roomRepository.save(room);
         return RoomMapper.INSTANCE.updateResponseFromRoom(room);
+    }
+
+    @Override
+    public List<Room> getByRoomTypeId (int roomTypeId) {
+        return roomRepository.findByRoomTypeId(roomTypeId);
     }
 
     @Override

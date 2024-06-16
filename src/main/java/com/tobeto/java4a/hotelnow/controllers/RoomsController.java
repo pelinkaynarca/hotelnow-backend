@@ -21,8 +21,8 @@ public class RoomsController {
     private RoomService roomService;
 
     @GetMapping("/by-room-type/{roomTypeId}")
-    public List<ListRoomResponse> getByRoomTypeId(@PathVariable int roomTypeId) {
-        return roomService.getByRoomTypeId(roomTypeId);
+    public List<ListRoomResponse> getResponseByRoomTypeId (@PathVariable int roomTypeId) {
+        return roomService.getResponseByRoomTypeId(roomTypeId);
     }
 
     @GetMapping("/{id}")
