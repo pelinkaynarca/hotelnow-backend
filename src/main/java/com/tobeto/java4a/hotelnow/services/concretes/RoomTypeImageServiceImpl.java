@@ -1,6 +1,5 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
-import com.tobeto.java4a.hotelnow.entities.concretes.Image;
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeImage;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeImageRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.ImageService;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @AllArgsConstructor
@@ -28,41 +27,26 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService {
     @Override
     public ListRoomTypeImageResponse getByRoomTypeId(int roomTypeId) {
         List<RoomTypeImage> roomTypeImages = imageRepository.findByRoomTypeId(roomTypeId);
+        List<ListImageResponse> imageResponses = RoomTypeImageMapper.INSTANCE.listResponseFromImageResponses(roomTypeImages);
 
-        List<Image> images = roomTypeImages.stream()
-                .map(RoomTypeImage::getImage)
-                .collect(Collectors.toList());
-        return RoomTypeImageMapper.INSTANCE.listResponseFromRoomTypeImage(
-                roomTypeImages.isEmpty() ? null : roomTypeImages.get(0),
-                images
-        );
-    }
-
-    @Override
-    public ListRoomTypeImageResponse getById(int id) {
-        RoomTypeImage image = imageRepository.findById(id).orElse(null);
-        return RoomTypeImageMapper.INSTANCE.listResponseFromRoomTypeImage(image, image != null ? List.of(image.getImage()) : List.of());
+        return RoomTypeImageMapper.INSTANCE.listResponseByRoomTypeId(
+                roomTypeImages.isEmpty() ? null : roomTypeImages.get(0), imageResponses);
     }
 
     @Override
     public AddRoomTypeImageResponse add(AddRoomTypeImageRequest request) {
-        RoomTypeImage roomTypeImage = RoomTypeImageMapper.INSTANCE.roomTypeImageFromAddRequest(request);
-
-        RoomTypeImage savedRoomTypeImage = imageRepository.save(roomTypeImage);
+        RoomTypeImage initialImage = RoomTypeImageMapper.INSTANCE.roomTypeImageFromAddRequest(request);
 
         List<MultipartFile> files = request.getFiles();
-        List<ImageDetailResponse> imageDetails = imageService.uploadImagesAsync("room-types", files).join();
+        CompletableFuture<List<ImageDetailResponse>> uploadResult = imageService.uploadImagesAsync("room-types", files);
 
-        List<Image> uploadedImages = RoomTypeImageMapper.INSTANCE.mapImageDetailsToImages(imageDetails);
-        uploadedImages.forEach(imageService::save);
+        List<ImageDetailResponse> imageDetails = uploadResult.join();
 
-        if (!uploadedImages.isEmpty()) {
-            Image mainImage = uploadedImages.get(0);
-            savedRoomTypeImage.setImage(mainImage);
-            imageRepository.save(savedRoomTypeImage);
-        }
+        List<RoomTypeImage> roomTypeImages = RoomTypeImageMapper.INSTANCE.listRoomTypeImages(imageDetails, initialImage);
 
-        return RoomTypeImageMapper.INSTANCE.addResponseFromRoomTypeImage(savedRoomTypeImage, uploadedImages);
+        List<RoomTypeImage> savedImages = imageRepository.saveAll(roomTypeImages);
+
+        return RoomTypeImageMapper.INSTANCE.addResponseFromRoomTypeImage(request, savedImages);
     }
 
     @Override
@@ -72,8 +56,7 @@ public class RoomTypeImageServiceImpl implements RoomTypeImageService {
 
     @Override
     public List<ListImageResponse> getResponse(List<RoomTypeImage> roomTypeImages) {
-        return roomTypeImages.stream()
-                .map(image -> RoomTypeImageMapper.INSTANCE.listResponseFromImage(image.getImage()))
-                .collect(Collectors.toList());
+        return RoomTypeImageMapper.INSTANCE.listResponseFromImageResponses(roomTypeImages);
     }
 }
+

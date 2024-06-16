@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface RoomTypeImageService {
     ListRoomTypeImageResponse getByRoomTypeId(int roomTypeId);
-    ListRoomTypeImageResponse getById(int id);
     AddRoomTypeImageResponse add(AddRoomTypeImageRequest request);
     void delete(int id);
     List<ListImageResponse> getResponse(List<RoomTypeImage> roomTypeImages);

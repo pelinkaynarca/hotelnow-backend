@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name="images")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Image extends BaseEntity {
 
     @JoinColumn(name="image_name")
@@ -20,7 +21,4 @@ public class Image extends BaseEntity {
 
     @JoinColumn(name = "path")
     private String path;
-
-    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private RoomTypeImage roomTypeImage;
 }

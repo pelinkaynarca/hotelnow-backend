@@ -29,7 +29,7 @@ public class RoomTypesController extends BaseController {
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypes);
 	}
 
-	@GetMapping("/hotel/{hotelId}")
+	@GetMapping("/by-hotel/{hotelId}")
 	public List<ListRoomTypeResponse> getByHotelId(@PathVariable("hotelId") int hotelId) {
 		return roomTypeService.getByHotelId(hotelId);
 	}

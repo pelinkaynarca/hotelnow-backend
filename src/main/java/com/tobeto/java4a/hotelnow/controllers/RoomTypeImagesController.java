@@ -20,14 +20,9 @@ public class RoomTypeImagesController {
 
     private RoomTypeImageService roomTypeImageService;
 
-    @GetMapping("/room-types/{roomTypeId}")
+    @GetMapping("/by-room-type/{roomTypeId}")
     public ListRoomTypeImageResponse getByRoomTypeId(@PathVariable("roomTypeId") int roomTypeId){
         return roomTypeImageService.getByRoomTypeId(roomTypeId);
-    }
-
-    @GetMapping("/{id}")
-    public ListRoomTypeImageResponse getById(@PathVariable int id) {
-        return roomTypeImageService.getById(id);
     }
 
     @PostMapping(value = "/upload-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

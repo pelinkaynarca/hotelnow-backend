@@ -21,7 +21,7 @@ public class RoomTypeFacilityDetailSelectionsController {
 
     private RoomTypeFacilityDetailSelectionService roomTypeFacilityDetailSelectionService;
 
-    @GetMapping("/room-types/{roomTypeById}")
+    @GetMapping("/by-room-type/{roomTypeById}")
     public List<ListRoomTypeFacilityDetailSelectionResponse> getByRoomTypeId(@PathVariable int roomTypeById) {
         return roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomTypeById);
     }
