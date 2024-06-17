@@ -28,6 +28,7 @@ public interface BookingMapper {
 	@Mapping(target = "payment", ignore = true)
 	@Mapping(target = "bookedAt", ignore = true)
 	@Mapping(target = "review", ignore = true)
+	@Mapping(target = "bookingHistories", ignore = true)
 	@Mapping(target = "hotel.id", expression = "java(addBookingRequest.getHotelId())")
 	@Mapping(target = "bookedRoomTypes", ignore = true)
 	@Mapping(target = "customer", source = "customer")
