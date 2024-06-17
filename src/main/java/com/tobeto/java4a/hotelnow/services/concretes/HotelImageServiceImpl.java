@@ -5,18 +5,22 @@ import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.repositories.HotelImageRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.HotelImageService;
+import com.tobeto.java4a.hotelnow.services.abstracts.ImageService;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
 import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotelimages.AddHotelImageRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages.AddHotelImageResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages.ListHotelImageResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ImageDetailResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.HotelImageMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 @AllArgsConstructor
 @Service
@@ -25,21 +29,20 @@ public class HotelImageServiceImpl implements HotelImageService {
     private final HotelImageRepository hotelImageRepository;
     private final UserService userService;
     private final StaffService staffService;
+    private final ImageService imageService;
 
     @Override
-    public List<ListHotelImageResponse> getByHotelId(int hotelId) {
+    public ListHotelImageResponse getByHotelId(int hotelId) {
         List<HotelImage> hotelImages = hotelImageRepository.findByHotelId(hotelId);
-        return hotelImages.stream()
-                .map(HotelImageMapper.INSTANCE::listResponseFromHotelImage)
-                .collect(Collectors.toList());
+        List<ListImageResponse> imageResponses = HotelImageMapper.INSTANCE.listResponseFromImageResponses(hotelImages);
+
+        return HotelImageMapper.INSTANCE.listResponseByHotelId(
+                hotelImages.isEmpty() ? null : hotelImages.get(0), imageResponses);
     }
 
     @Override
-    public ListHotelImageResponse getById(int id) {
-
-        HotelImage hotelImage = hotelImageRepository.findById(id).orElse(null);
-        return HotelImageMapper.INSTANCE.listResponseFromHotelImage(hotelImage);
-
+    public List<ListImageResponse> getResponse(List<HotelImage> hotelImages) {
+        return HotelImageMapper.INSTANCE.listResponseFromImageResponses(hotelImages);
     }
 
     @Override
@@ -49,14 +52,22 @@ public class HotelImageServiceImpl implements HotelImageService {
         User loggedInUser = (User) userService.loadUserByUsername(email);
         Staff staff = staffService.getById(loggedInUser.getId());
         HotelImage hotelImage = HotelImageMapper.INSTANCE.hotelImageFromAddRequest(request, staff.getHotel());
-        HotelImage savedHotelImage = hotelImageRepository.save(hotelImage);
-        return HotelImageMapper.INSTANCE.addResponseFromHotelImage(savedHotelImage);
+
+        List<MultipartFile> files = request.getFiles();
+        CompletableFuture<List<ImageDetailResponse>> uploadResult = imageService.uploadImagesAsync("hotels", files);
+
+        List<ImageDetailResponse> imageDetails = uploadResult.join();
+
+        List<HotelImage> hotelImages = HotelImageMapper.INSTANCE.listHotelImages(imageDetails, hotelImage);
+
+        List<HotelImage> savedImages = hotelImageRepository.saveAll(hotelImages);
+        return HotelImageMapper.INSTANCE.addResponseFromHotelImage(request, savedImages, staff.getHotel());
 
     }
 
     @Override
-    public void delete(int id) {
-        hotelImageRepository.deleteById(id);
+    public void delete(int imageId) {
+        imageService.delete(imageId);
     }
 
 }

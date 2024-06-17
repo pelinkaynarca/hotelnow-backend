@@ -1,9 +1,12 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages;
 
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,12 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListHotelImageResponse {
 
-    private int id;
-
-    private String url;
-
     private int hotelId;
 
-    private String hotelName;
+    private List<ListImageResponse> photos;
 
 }

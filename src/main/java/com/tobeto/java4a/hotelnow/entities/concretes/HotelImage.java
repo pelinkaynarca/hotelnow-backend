@@ -1,7 +1,5 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
-import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -18,10 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "hotel_images")
-public class HotelImage extends BaseEntity {
-
-    @Column(name = "url")
-    private String url;
+public class HotelImage extends Image {
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")

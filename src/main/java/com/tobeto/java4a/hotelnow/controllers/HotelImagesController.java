@@ -6,12 +6,13 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.hotelimages.AddHotelIma
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages.AddHotelImageResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotelimages.ListHotelImageResponse;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,40 +21,32 @@ import java.util.List;
 @AllArgsConstructor
 public class HotelImagesController extends BaseController {
 
-    private HotelImageService hotelImageService;
-
-    @GetMapping("/{id}")
-    public ResponseEntity<BaseResponse<ListHotelImageResponse>> getById(@PathVariable int id) {
-        ListHotelImageResponse hotelImageToBeFound = hotelImageService.getById(id);
-        if (hotelImageToBeFound != null) {
-            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelImageToBeFound);
-        }
-        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_HOTEL_IMAGE_NOT_FOUND, null);
-    }
+    private final HotelImageService hotelImageService;
 
     @GetMapping("/by-hotel-id/{hotelId}")
-    public ResponseEntity<BaseResponse<List<ListHotelImageResponse>>> getByHotelId(@PathVariable int hotelId) {
-        List<ListHotelImageResponse> hotelImageToBeFound = hotelImageService.getByHotelId(hotelId);
-        if (hotelImageToBeFound != null && !hotelImageToBeFound.isEmpty()) {
-            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelImageToBeFound);
+    public ResponseEntity<BaseResponse<ListHotelImageResponse>> getByHotelId(@PathVariable int hotelId) {
+        ListHotelImageResponse hotelImagesToBeFound = hotelImageService.getByHotelId(hotelId);
+        if (hotelImagesToBeFound != null) {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelImagesToBeFound);
         }
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_HOTEL_IMAGE_NOT_FOUND, null);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<BaseResponse<AddHotelImageResponse>> add(@RequestBody @Valid AddHotelImageRequest request) {
-        return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, hotelImageService.add(request));
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AddHotelImageResponse> add(@RequestParam("image") List<MultipartFile> files) {
+
+        AddHotelImageRequest request = new AddHotelImageRequest();
+        request.setFiles(files);
+
+        AddHotelImageResponse response = hotelImageService.add(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping
     public ResponseEntity<BaseResponse<String>> delete(@Param("id") int id) {
-        ListHotelImageResponse hotelImageToBeDeleted = hotelImageService.getById(id);
-        if (hotelImageToBeDeleted != null) {
-            hotelImageService.delete(id);
-            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
-        }
-        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_HOTEL_IMAGE_NOT_FOUND, null);
+        hotelImageService.delete(id);
+        return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
     }
 
 }
