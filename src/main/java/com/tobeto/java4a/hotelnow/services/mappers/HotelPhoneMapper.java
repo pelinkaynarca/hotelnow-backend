@@ -16,11 +16,10 @@ public interface HotelPhoneMapper {
 
     HotelPhoneMapper INSTANCE = Mappers.getMapper(HotelPhoneMapper.class);
 
-    @Mapping(target = "hotelId", source = "hotel.id")
-    @Mapping(target = "hotelName", source = "hotel.name")
     ListHotelPhoneResponse listResponseFromHotelPhone(HotelPhone hotelPhone);
 
     @Mapping(target = "hotel", source = "hotel")
+    @Mapping(target = "id", ignore = true)
     HotelPhone hotelPhoneFromAddRequest(AddHotelPhoneRequest request, Hotel hotel);
 
     @Mapping(target = "hotelId", source = "hotel.id")

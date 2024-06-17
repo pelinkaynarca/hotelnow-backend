@@ -15,8 +15,4 @@ public class ListHotelPhoneResponse {
 
     private String phone;
 
-    private String hotelId;
-
-    private String hotelName;
-
 }

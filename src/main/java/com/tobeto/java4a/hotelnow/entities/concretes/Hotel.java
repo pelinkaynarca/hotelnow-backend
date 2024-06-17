@@ -57,4 +57,10 @@ public class Hotel extends BaseEntity {
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MainFacilitySelection> mainFacilitySelections;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FacilityDetailSelection> facilityDetailSelections;
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RoomType> roomTypes;
 }
