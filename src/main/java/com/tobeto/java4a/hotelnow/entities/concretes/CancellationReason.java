@@ -17,7 +17,7 @@ import lombok.Setter;
 @Table(name = "cancellation_reasons")
 public class CancellationReason extends BaseEntity {
 
-	@Column(name = "reason")
+	@Column(name = "reason" , nullable = false, updatable = false)
 	private String reason;
 
 	@OneToMany(mappedBy = "cancellationReason", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
