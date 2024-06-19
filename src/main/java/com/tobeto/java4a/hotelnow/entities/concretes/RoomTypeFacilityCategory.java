@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "room_type_facility_categories")
 public class RoomTypeFacilityCategory extends BaseEntity {
-    @Column(name = "title")
+    @Column(name = "title" , nullable = false)
     private String title;
 
     @OneToMany(mappedBy = "roomTypeFacilityCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

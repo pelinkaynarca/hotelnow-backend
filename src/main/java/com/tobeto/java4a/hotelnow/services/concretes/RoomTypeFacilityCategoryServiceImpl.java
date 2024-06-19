@@ -21,7 +21,6 @@ public class RoomTypeFacilityCategoryServiceImpl implements RoomTypeFacilityCate
 
     private RoomTypeFacilityCategoryRepository roomTypeFacilityCategoryRepository;
 
-
     @Override
     public List<ListRoomTypeFacilityCategoryResponse> getAll() {
         List<RoomTypeFacilityCategory> categories = roomTypeFacilityCategoryRepository.findAll();
@@ -33,7 +32,6 @@ public class RoomTypeFacilityCategoryServiceImpl implements RoomTypeFacilityCate
     @Override
     public RoomTypeFacilityCategory getById(int id) {
         return roomTypeFacilityCategoryRepository.findById(id).orElse(null);
-
     }
 
     @Override
@@ -41,7 +39,6 @@ public class RoomTypeFacilityCategoryServiceImpl implements RoomTypeFacilityCate
         RoomTypeFacilityCategory roomTypeFacilityCategory = getById(id);
         return RoomTypeFacilityCategoryMapper.INSTANCE.listResponseFromRoomTypeFacilityCategory(roomTypeFacilityCategory);
     }
-
 
     @Override
     public AddRoomTypeFacilityCategoryResponse add(AddRoomTypeFacilityCategoryRequest request) {
@@ -51,7 +48,6 @@ public class RoomTypeFacilityCategoryServiceImpl implements RoomTypeFacilityCate
         RoomTypeFacilityCategory savedRoomTypeFacilityCategory = roomTypeFacilityCategoryRepository.save(roomTypeFacilityCategory);
 
         return RoomTypeFacilityCategoryMapper.INSTANCE.addResponseFromRoomTypeFacilityCategory(savedRoomTypeFacilityCategory);
-
     }
 
     @Override
@@ -62,9 +58,10 @@ public class RoomTypeFacilityCategoryServiceImpl implements RoomTypeFacilityCate
         RoomTypeFacilityCategory savedRoomTypeFacilityCategory = roomTypeFacilityCategoryRepository.save(roomTypeFacilityCategory);
 
         return RoomTypeFacilityCategoryMapper.INSTANCE.updateResponseFromRoomTypeFacilityCategory(savedRoomTypeFacilityCategory);
-
     }
 
     @Override
-    public void delete(int id) { roomTypeFacilityCategoryRepository.deleteById(id);}
+    public void delete(int id) {
+        roomTypeFacilityCategoryRepository.deleteById(id);
+    }
 }
