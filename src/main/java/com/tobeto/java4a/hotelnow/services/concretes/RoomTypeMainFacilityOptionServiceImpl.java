@@ -20,17 +20,26 @@ import java.util.stream.Collectors;
 public class RoomTypeMainFacilityOptionServiceImpl implements RoomTypeMainFacilityOptionService {
 
     private RoomTypeMainFacilityOptionRepository roomTypeMainFacilityOptionRepository;
+
     @Override
     public List<ListRoomTypeMainFacilityOptionResponse> getAll() {
-        List<RoomTypeMainFacilityOption>roomTypeMainFacilityOptions = roomTypeMainFacilityOptionRepository.findAll();
+        List<RoomTypeMainFacilityOption> roomTypeMainFacilityOptions = roomTypeMainFacilityOptionRepository.findAll();
         return roomTypeMainFacilityOptions.stream()
                 .map(RoomTypeMainFacilityOptionMapper.INSTANCE::listResponseFromRoomTypeMainFacilityOption)
                 .collect(Collectors.toList());
     }
+
     @Override
     public RoomTypeMainFacilityOption getById(int id) {
         return roomTypeMainFacilityOptionRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public ListRoomTypeMainFacilityOptionResponse getResponseById(int id) {
+        RoomTypeMainFacilityOption roomTypeMainFacilityOption = getById(id);
+        return RoomTypeMainFacilityOptionMapper.INSTANCE.listResponseFromRoomTypeMainFacilityOption(roomTypeMainFacilityOption);
+    }
+
     @Override
     public AddRoomTypeMainFacilityOptionResponse add(AddRoomTypeMainFacilityOptionRequest request) {
         RoomTypeMainFacilityOption roomTypeMainFacilityOption = RoomTypeMainFacilityOptionMapper.INSTANCE.roomTypeMainFacilityOptionFromAddRequest(request);
@@ -39,6 +48,7 @@ public class RoomTypeMainFacilityOptionServiceImpl implements RoomTypeMainFacili
 
         return RoomTypeMainFacilityOptionMapper.INSTANCE.addResponseFromTypeFacilityOption(savedRoomTypeMainFacilityOption);
     }
+
     @Override
     public UpdateRoomTypeMainFacilityOptionResponse update(UpdateRoomTypeMainFacilityOptionRequest request) {
         RoomTypeMainFacilityOption roomTypeMainFacilityOption = RoomTypeMainFacilityOptionMapper.INSTANCE.roomTypeMainFacilityOptionFromUpdateRequest(request);
@@ -47,6 +57,9 @@ public class RoomTypeMainFacilityOptionServiceImpl implements RoomTypeMainFacili
 
         return RoomTypeMainFacilityOptionMapper.INSTANCE.updateResponseFromRoomTypeMainFacilityOption(savedRoomTypeMainFacilityOption);
     }
+
     @Override
-    public void delete(int id) { roomTypeMainFacilityOptionRepository.deleteById(id);}
+    public void delete(int id) {
+        roomTypeMainFacilityOptionRepository.deleteById(id);
+    }
 }

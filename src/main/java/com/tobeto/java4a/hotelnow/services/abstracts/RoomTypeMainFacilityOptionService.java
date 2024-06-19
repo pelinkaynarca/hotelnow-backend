@@ -12,6 +12,7 @@ import java.util.List;
 public interface RoomTypeMainFacilityOptionService {
     List<ListRoomTypeMainFacilityOptionResponse> getAll();
     RoomTypeMainFacilityOption getById(int id);
+    ListRoomTypeMainFacilityOptionResponse getResponseById(int id);
     AddRoomTypeMainFacilityOptionResponse add(AddRoomTypeMainFacilityOptionRequest request);
     UpdateRoomTypeMainFacilityOptionResponse update(UpdateRoomTypeMainFacilityOptionRequest request);
     void delete(int id);
