@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "facility_categories")
 public class FacilityCategory extends BaseEntity {
-    @Column(name = "title")
+    @Column(name = "title" , nullable = false)
     private String title;
 
     @OneToMany(mappedBy = "facilityCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

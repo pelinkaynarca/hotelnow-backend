@@ -20,22 +20,24 @@ import java.util.stream.Collectors;
 public class FacilityCategoryServiceImpl implements FacilityCategoryService {
 
     private FacilityCategoryRepository facilityCategoryRepository;
+
     @Override
     public List<ListFacilityCategoryResponse> getAll() {
         List<FacilityCategory> facilityCategories = facilityCategoryRepository.findAll();
-        return facilityCategories.stream()
-                .map(FacilityCategoryMapper.INSTANCE::listResponseFromFacilityCategory)
-                .collect(Collectors.toList());
+        return facilityCategories.stream().map(FacilityCategoryMapper.INSTANCE::listResponseFromFacilityCategory).collect(Collectors.toList());
     }
+
     @Override
     public FacilityCategory getById(int id) {
         return facilityCategoryRepository.findById(id).orElse(null);
     }
+
     @Override
     public ListFacilityCategoryResponse getResponseById(int id) {
         FacilityCategory facilityCategory = getById(id);
         return FacilityCategoryMapper.INSTANCE.listResponseFromFacilityCategory(facilityCategory);
     }
+
     @Override
     public AddFacilityCategoryResponse add(AddFacilityCategoryRequest request) {
         FacilityCategory facilityCategory = FacilityCategoryMapper.INSTANCE.facilityCategoryFromAddRequest(request);
@@ -43,14 +45,18 @@ public class FacilityCategoryServiceImpl implements FacilityCategoryService {
         FacilityCategory savedFacilityCategory = facilityCategoryRepository.save(facilityCategory);
         return FacilityCategoryMapper.INSTANCE.addResponseFromFacilityCategory(savedFacilityCategory);
     }
+
     @Override
     public UpdateFacilityCategoryResponse update(UpdateFacilityCategoryRequest request) {
-       FacilityCategory facilityCategory = FacilityCategoryMapper.INSTANCE.facilityCategoryFromUpdateRequest(request);
+        FacilityCategory facilityCategory = FacilityCategoryMapper.INSTANCE.facilityCategoryFromUpdateRequest(request);
 
-       FacilityCategory savedFacilityCategory = facilityCategoryRepository.save(facilityCategory);
+        FacilityCategory savedFacilityCategory = facilityCategoryRepository.save(facilityCategory);
 
-       return FacilityCategoryMapper.INSTANCE.updateResponseFromFacilityCategory(savedFacilityCategory);
+        return FacilityCategoryMapper.INSTANCE.updateResponseFromFacilityCategory(savedFacilityCategory);
     }
+
     @Override
-    public void delete(int id) { facilityCategoryRepository.deleteById(id);}
+    public void deleteById(int id) {
+        facilityCategoryRepository.deleteById(id);
+    }
 }

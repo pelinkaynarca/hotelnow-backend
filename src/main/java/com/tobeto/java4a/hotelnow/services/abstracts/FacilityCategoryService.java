@@ -20,6 +20,6 @@ public interface FacilityCategoryService {
 
     UpdateFacilityCategoryResponse update(UpdateFacilityCategoryRequest request);
 
-    void delete(int id);
+    void deleteById(int id);
 
 }
