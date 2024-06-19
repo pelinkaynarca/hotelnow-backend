@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "main_facility_options")
 public class MainFacilityOption extends BaseEntity {
 	
-    @Column(name = "title")
+    @Column(name = "title" , nullable = false)
     private String title;
 
     @OneToMany(mappedBy = "mainFacilityOption", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

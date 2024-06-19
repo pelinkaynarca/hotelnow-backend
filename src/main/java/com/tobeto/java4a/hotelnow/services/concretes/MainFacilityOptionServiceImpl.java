@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 public class MainFacilityOptionServiceImpl implements MainFacilityOptionService {
 
     private MainFacilityOptionRepository mainFacilityOptionRepository;
+
     @Override
     public List<ListMainFacilityOptionResponse> getAll() {
         List<MainFacilityOption> mainFacilityOptions = mainFacilityOptionRepository.findAll();
-        return  mainFacilityOptions.stream()
-                .map(MainFacilityOptionMapper.INSTANCE::listResponseFromMainFacilityOption)
-                .collect(Collectors.toList());
+        return mainFacilityOptions.stream().map(MainFacilityOptionMapper.INSTANCE::listResponseFromMainFacilityOption).collect(Collectors.toList());
     }
+
     @Override
     public MainFacilityOption getById(int id) {
         return mainFacilityOptionRepository.findById(id).orElse(null);
@@ -36,6 +36,7 @@ public class MainFacilityOptionServiceImpl implements MainFacilityOptionService 
         MainFacilityOption mainFacilityOption = getById(id);
         return MainFacilityOptionMapper.INSTANCE.listResponseFromMainFacilityOption(mainFacilityOption);
     }
+
     @Override
     public AddMainFacilityOptionResponse add(AddMainFacilityOptionRequest request) {
         MainFacilityOption mainFacilityOption = MainFacilityOptionMapper.INSTANCE.mainFacilityOptionFromAddRequest(request);
@@ -44,6 +45,7 @@ public class MainFacilityOptionServiceImpl implements MainFacilityOptionService 
 
         return MainFacilityOptionMapper.INSTANCE.addResponseFromMainFacilityOption(savedMainFacilityOption);
     }
+
     @Override
     public UpdateMainFacilityOptionResponse update(UpdateMainFacilityOptionRequest request) {
 
@@ -53,8 +55,9 @@ public class MainFacilityOptionServiceImpl implements MainFacilityOptionService 
 
         return MainFacilityOptionMapper.INSTANCE.updateResponseFromMainFacilityOption(savedMainFacilityOption);
     }
-    @Override
-    public void delete(int id) { mainFacilityOptionRepository.deleteById(id);
 
+    @Override
+    public void deleteById(int id) {
+        mainFacilityOptionRepository.deleteById(id);
     }
 }

@@ -15,5 +15,5 @@ public interface MainFacilityOptionService {
     ListMainFacilityOptionResponse getResponseById(int id);
     AddMainFacilityOptionResponse add(AddMainFacilityOptionRequest request);
     UpdateMainFacilityOptionResponse update(UpdateMainFacilityOptionRequest request);
-    void delete(int id);
+    void deleteById(int id);
 }
