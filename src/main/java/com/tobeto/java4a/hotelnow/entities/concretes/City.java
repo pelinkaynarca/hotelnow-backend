@@ -24,7 +24,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "cities")
 public class City extends BaseEntity {
-    @Column(name = "name", length = 50)
+    @Column(name = "name", length = 50 , nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

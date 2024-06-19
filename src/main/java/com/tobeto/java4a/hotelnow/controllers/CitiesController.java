@@ -3,7 +3,6 @@ package com.tobeto.java4a.hotelnow.controllers;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.services.abstracts.CityService;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.cities.ListCityResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.cities.ListOnlyCityResponse;
 
 import lombok.AllArgsConstructor;
@@ -25,12 +24,12 @@ public class CitiesController extends BaseController {
 	private CityService cityService;
 
 	@GetMapping("/get-all")
-	public ResponseEntity<BaseResponse<List<ListCityResponse>>> getAll() {
-		List<ListCityResponse> listCityResponses = cityService.getAll();
-		if (listCityResponses == null || listCityResponses.size() == 0) {
+	public ResponseEntity<BaseResponse<List<ListOnlyCityResponse>>> getAll() {
+		List<ListOnlyCityResponse> listOnlyCityResponses = cityService.getAll();
+		if (listOnlyCityResponses == null || listOnlyCityResponses.size() == 0) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_CITY_NOT_FOUND, null);
 		} else {
-			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listCityResponses);
+			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listOnlyCityResponses);
 		}
 	}
 

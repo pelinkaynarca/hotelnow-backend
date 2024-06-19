@@ -15,4 +15,5 @@ public interface CityMapper {
 	
 	List<ListOnlyCityResponse> listOnlyResponsesFromCities(List<City> cities);
 
+	ListOnlyCityResponse listOnlyResponseFromCity(City city);
 }

@@ -3,7 +3,6 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 import com.tobeto.java4a.hotelnow.entities.concretes.City;
 import com.tobeto.java4a.hotelnow.repositories.CityRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.CityService;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.cities.ListCityResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.cities.ListOnlyCityResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.CityMapper;
 
@@ -19,14 +18,9 @@ public class CityServiceImpl implements CityService {
 	private CityRepository cityRepository;
 
 	@Override
-	public List<ListCityResponse> getAll() {
-		return List.of();
-	}
-
-	@Override
-	public List<ListCityResponse> getByCountryId(int countryId) {
-		return null;
-
+	public List<ListOnlyCityResponse> getAll() {
+		List<City> cities = cityRepository.findAll();
+		return CityMapper.INSTANCE.listOnlyResponsesFromCities(cities);
 	}
 
 	@Override
