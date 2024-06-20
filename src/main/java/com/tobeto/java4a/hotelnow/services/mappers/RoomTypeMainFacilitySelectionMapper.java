@@ -25,6 +25,7 @@ public interface RoomTypeMainFacilitySelectionMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roomType.id", source = "roomTypeId")
+    @Mapping(target = "display", constant = "true")
     @Mapping(target = "roomTypeMainFacilityOption.id", source = "optionId")
     RoomTypeMainFacilitySelection selectionFromAddRequest(AddRoomTypeMainFacilitySelectionRequest request);
 

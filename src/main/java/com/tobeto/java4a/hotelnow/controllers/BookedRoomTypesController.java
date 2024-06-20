@@ -8,7 +8,6 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.bookedroomtypes.ListBo
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookedroomtypes.UpdateBookedRoomTypeResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,13 +29,12 @@ public class BookedRoomTypesController {
         return bookedRoomTypeService.getById(id);
     }
 
-    @PostMapping("/create-booked-room-type")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
     public AddBookedRoomTypeResponse add(@RequestBody @Valid AddBookedRoomTypeRequest request) {
         return bookedRoomTypeService.add(request);
     }
 
-    @PutMapping("/update-booked-room-type")
+    @PutMapping
     public UpdateBookedRoomTypeResponse update(@RequestBody @Valid UpdateBookedRoomTypeRequest request) {
         return bookedRoomTypeService.update(request);
     }

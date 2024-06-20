@@ -18,5 +18,5 @@ public class AddRoomTypeMainFacilitySelectionRequest {
     @Min(value = 1)
     private int optionId;
 
-    private boolean display;
+//    private boolean display;
 }

@@ -29,7 +29,7 @@ public class RoomTypesController extends BaseController {
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypes);
 	}
 
-	@GetMapping("/by-hotel/{hotelId}")
+	@GetMapping("/by-hotel-id/{hotelId}")
 	public List<ListRoomTypeResponse> getByHotelId(@PathVariable("hotelId") int hotelId) {
 		return roomTypeService.getByHotelId(hotelId);
 	}
@@ -44,13 +44,13 @@ public class RoomTypesController extends BaseController {
 		}
 	}
 
-	@PostMapping("/create-room-type")
+	@PostMapping
 	public ResponseEntity<BaseResponse<AddRoomTypeResponse>> add(@RequestBody @Valid AddRoomTypeRequest request) {
 		AddRoomTypeResponse roomTypeResponse = roomTypeService.add(request);
 		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, roomTypeResponse);
 	}
 
-	@PutMapping("/update-room-type")
+	@PutMapping
 	public ResponseEntity<BaseResponse<UpdateRoomTypeResponse>> update(
 			@RequestBody @Valid UpdateRoomTypeRequest request) {
 		if (roomTypeService.getById(request.getId()) == null) {
@@ -62,13 +62,8 @@ public class RoomTypesController extends BaseController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
-		ListRoomTypeResponse deletedRoomType = roomTypeService.getById(id);
-		if (deletedRoomType == null) {
-			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_NOT_FOUND, null);
-		} else {
+	public ResponseEntity<BaseResponse<Void>> delete(@PathVariable int id) {
 			roomTypeService.delete(id);
-			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
-		}
+			return sendResponse(HttpStatus.NO_CONTENT, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
 	}
 }

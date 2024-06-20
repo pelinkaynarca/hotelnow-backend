@@ -28,11 +28,11 @@ public class RoomTypeFacilityDetailSelectionServiceImpl implements RoomTypeFacil
         return RoomTypeFacilityDetailSelectionMapper.INSTANCE.groupListResponses(selections);
     }
 
-    @Override
-    public RoomTypeFacilityDetailSelectionResponse getById(int id) {
-        RoomTypeFacilityDetailSelection selection = selectionRepository.findById(id).orElse(null);
-        return RoomTypeFacilityDetailSelectionMapper.INSTANCE.listResponseSelection(selection);
-    }
+//    @Override
+//    public RoomTypeFacilityDetailSelectionResponse getById(int id) {
+//        RoomTypeFacilityDetailSelection selection = selectionRepository.findById(id).orElse(null);
+//        return RoomTypeFacilityDetailSelectionMapper.INSTANCE.listResponseSelection(selection);
+//    }
 
     @Override
     public AddRoomTypeFacilityDetailSelectionResponse add(AddRoomTypeFacilityDetailSelectionRequest request) {
@@ -50,10 +50,10 @@ public class RoomTypeFacilityDetailSelectionServiceImpl implements RoomTypeFacil
         return RoomTypeFacilityDetailSelectionMapper.INSTANCE.updateResponseFromSelection(selection);
     }
 
-    @Override
-    public void delete(int id) {
-        selectionRepository.deleteById(id);
-    }
+//    @Override
+//    public void delete(int id) {
+//        selectionRepository.deleteById(id);
+//    }
 
     @Override
     public List<RoomTypeFacilityDetailSelectionResponse> getResponse(List<RoomTypeFacilityDetailSelection> selections) {

@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface RoomTypeFacilityDetailSelectionService {
     List<ListRoomTypeFacilityDetailSelectionResponse> getByRoomTypeId(int id);
-    RoomTypeFacilityDetailSelectionResponse getById(int id);
+//    RoomTypeFacilityDetailSelectionResponse getById(int id);
     AddRoomTypeFacilityDetailSelectionResponse add(AddRoomTypeFacilityDetailSelectionRequest request);
     UpdateRoomTypeFacilityDetailSelectionResponse update(UpdateRoomTypeFacilityDetailSelectionRequest request);
-    void delete(int id);
+//    void delete(int id);
     List<RoomTypeFacilityDetailSelectionResponse>  getResponse(List<RoomTypeFacilityDetailSelection> selections);
 }
