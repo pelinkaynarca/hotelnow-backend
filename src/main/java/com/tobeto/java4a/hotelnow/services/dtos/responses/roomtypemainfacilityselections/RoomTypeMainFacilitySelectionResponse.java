@@ -13,7 +13,7 @@ public class RoomTypeMainFacilitySelectionResponse {
 
     private int id;
 
-    private String optionTitle;
+    private String optionDescription;
 
     private boolean display;
 }
