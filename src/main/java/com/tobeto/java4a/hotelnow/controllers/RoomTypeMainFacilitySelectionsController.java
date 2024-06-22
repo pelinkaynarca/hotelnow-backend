@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,33 +44,47 @@ public class RoomTypeMainFacilitySelectionsController extends BaseController{
 //    }
 
     @PostMapping
-    public ResponseEntity<BaseResponse<AddRoomTypeMainFacilitySelectionResponse>> add(@RequestBody @Valid AddRoomTypeMainFacilitySelectionRequest request) {
+    public ResponseEntity<BaseResponse<List<AddRoomTypeMainFacilitySelectionResponse>>> add(@RequestBody @Valid List<AddRoomTypeMainFacilitySelectionRequest> requests) {
 
-        if (roomTypeService.getById(request.getRoomTypeId()) == null) {
-            return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_NOT_FOUND, null);
-        }
-        if (optionService.getById(request.getOptionId()) == null) {
-            return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_FACILITY_OPTION_NOT_FOUND, null);
+        List<AddRoomTypeMainFacilitySelectionResponse> responses = new ArrayList<>();
+
+        for (AddRoomTypeMainFacilitySelectionRequest request : requests) {
+            if (roomTypeService.getById(request.getRoomTypeId()) == null) {
+                return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_NOT_FOUND, null);
+            }
+            if (optionService.getById(request.getOptionId()) == null) {
+                return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_FACILITY_OPTION_NOT_FOUND, null);
+            }
+
+            AddRoomTypeMainFacilitySelectionResponse selectionResponse = selectionService.add(request);
+            responses.add(selectionResponse);
         }
 
-        AddRoomTypeMainFacilitySelectionResponse selectionResponse = selectionService.add(request);
-        return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, selectionResponse);
+        return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, responses);
     }
 
     @PutMapping
-    public ResponseEntity<BaseResponse<UpdateRoomTypeMainFacilitySelectionResponse>> update(@RequestBody @Valid UpdateRoomTypeMainFacilitySelectionRequest request) {
-        if (roomTypeService.getById(request.getRoomTypeId()) == null) {
-            return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_NOT_FOUND, null);
+    public ResponseEntity<BaseResponse<List<UpdateRoomTypeMainFacilitySelectionResponse>>> update(@RequestBody @Valid List<UpdateRoomTypeMainFacilitySelectionRequest> requests) {
+        List<UpdateRoomTypeMainFacilitySelectionResponse> responses = new ArrayList<>();
+
+        for (UpdateRoomTypeMainFacilitySelectionRequest request : requests) {
+            if (roomTypeService.getById(request.getRoomTypeId()) == null) {
+                return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_NOT_FOUND, null);
+            }
+            if (optionService.getById(request.getOptionId()) == null) {
+                return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_FACILITY_OPTION_NOT_FOUND, null);
+            }
+
+            UpdateRoomTypeMainFacilitySelectionResponse selectionResponse = selectionService.update(request);
+            responses.add(selectionResponse);
         }
-        if (optionService.getById(request.getOptionId()) == null) {
-            return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_FACILITY_OPTION_NOT_FOUND, null);
-        }
-        UpdateRoomTypeMainFacilitySelectionResponse selectionResponse = selectionService.update(request);
-        return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, selectionResponse);
+
+        return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, responses);
     }
 
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable int id) {
-//        roomTypeMainFacilitySelectionService.delete(id);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<Void>> delete(@PathVariable int id) {
+        selectionService.delete(id);
+        return sendResponse(HttpStatus.NO_CONTENT, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
+   }
 }

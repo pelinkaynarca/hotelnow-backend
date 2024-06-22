@@ -15,6 +15,6 @@ public interface RoomTypeFacilityDetailSelectionService {
 //    RoomTypeFacilityDetailSelectionResponse getById(int id);
     AddRoomTypeFacilityDetailSelectionResponse add(AddRoomTypeFacilityDetailSelectionRequest request);
     UpdateRoomTypeFacilityDetailSelectionResponse update(UpdateRoomTypeFacilityDetailSelectionRequest request);
-//    void delete(int id);
+    void delete(int id);
     List<RoomTypeFacilityDetailSelectionResponse>  getResponse(List<RoomTypeFacilityDetailSelection> selections);
 }

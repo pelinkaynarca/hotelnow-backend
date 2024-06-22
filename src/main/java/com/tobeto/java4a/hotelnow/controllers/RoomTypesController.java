@@ -23,7 +23,7 @@ public class RoomTypesController extends BaseController {
 
 	private RoomTypeService roomTypeService;
 
-	@GetMapping("/get-all")
+	@GetMapping
 	public ResponseEntity<BaseResponse<List<ListRoomTypeResponse>>> getAll() {
 		List<ListRoomTypeResponse> roomTypes = roomTypeService.getAll();
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypes);

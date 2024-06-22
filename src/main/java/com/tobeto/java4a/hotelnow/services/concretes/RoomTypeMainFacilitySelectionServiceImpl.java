@@ -24,15 +24,15 @@ public class RoomTypeMainFacilitySelectionServiceImpl implements RoomTypeMainFac
 
     @Override
     public List<ListRoomTypeMainFacilitySelectionResponse> getByRoomTypeId(int roomTypeId) {
-        List<RoomTypeMainFacilitySelection> selections = selectionRepository.findByRoomTypeId(roomTypeId);
+        List<RoomTypeMainFacilitySelection> selections = selectionRepository.findByRoomTypeIdAndDisplayTrue(roomTypeId);
         return RoomTypeMainFacilitySelectionMapper.INSTANCE.groupListResponses(selections);
     }
-//
-//    @Override
-//    public RoomTypeMainFacilitySelectionResponse getById(int id) {
-//        RoomTypeMainFacilitySelection selection = selectionRepository.findById(id).orElse(null);
-//        return RoomTypeMainFacilitySelectionMapper.INSTANCE.listResponseFromSelection(selection);
-//    }
+
+    @Override
+    public RoomTypeMainFacilitySelectionResponse getById(int id) {
+        RoomTypeMainFacilitySelection selection = selectionRepository.findById(id).orElse(null);
+       return RoomTypeMainFacilitySelectionMapper.INSTANCE.listResponseFromSelection(selection);
+    }
 
     @Override
     public AddRoomTypeMainFacilitySelectionResponse add(AddRoomTypeMainFacilitySelectionRequest request) {
@@ -50,14 +50,15 @@ public class RoomTypeMainFacilitySelectionServiceImpl implements RoomTypeMainFac
         return RoomTypeMainFacilitySelectionMapper.INSTANCE.updateResponseFromSelection(selection);
     }
 
-//    @Override
-//    public void delete(int id) {
-//        selectionRepository.deleteById(id);
-//    }
+    @Override
+    public void delete(int id) {
+        selectionRepository.deleteById(id);
+    }
 
     @Override
     public List<RoomTypeMainFacilitySelectionResponse> getResponse(List<RoomTypeMainFacilitySelection> selections) {
         return selections.stream()
+                .filter(RoomTypeMainFacilitySelection::isDisplay)
                 .map(RoomTypeMainFacilitySelectionMapper.INSTANCE::listResponseFromSelection)
                 .collect(Collectors.toList());
     }

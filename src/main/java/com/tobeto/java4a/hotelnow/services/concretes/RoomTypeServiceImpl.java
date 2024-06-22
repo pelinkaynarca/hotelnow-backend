@@ -37,7 +37,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
                             roomTypeImageService.getResponse(roomType.getRoomTypeImages())
                     );
                     response.setRoomTypeFacilityDetailSelections(
-                            roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
+                            roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
                     );
                     response.setRoomTypeMainFacilitySelections(
                             roomTypeMainFacilitySelectionService.getResponse(roomType.getRoomTypeMainFacilitySelections())
@@ -62,7 +62,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
                 roomTypeImageService.getResponse(roomType.getRoomTypeImages())
         );
         response.setRoomTypeFacilityDetailSelections(
-                roomTypeFacilityDetailSelectionService.getResponse(roomType.getRoomTypeFacilityDetailSelections())
+                roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
         );
         response.setRoomTypeMainFacilitySelections(
                 roomTypeMainFacilitySelectionService.getResponse(roomType.getRoomTypeMainFacilitySelections())

@@ -1,11 +1,7 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +15,14 @@ import lombok.Setter;
 @Table(name = "room_type_main_facility_selections")
 public class RoomTypeMainFacilitySelection extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "room_type_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_type_id", nullable = false)
     private RoomType roomType;
 
-    @ManyToOne
-    @JoinColumn(name = "option_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "option_id", nullable = false)
     private RoomTypeMainFacilityOption roomTypeMainFacilityOption;
 
-    @Column(name = "display")
+    @Column(name = "display", nullable = false)
     private boolean display;
 }

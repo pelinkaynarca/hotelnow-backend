@@ -24,7 +24,7 @@ public class RoomTypeFacilityDetailSelectionServiceImpl implements RoomTypeFacil
 
     @Override
     public List<ListRoomTypeFacilityDetailSelectionResponse> getByRoomTypeId(int roomTypeId) {
-        List<RoomTypeFacilityDetailSelection> selections = selectionRepository.findByRoomTypeId(roomTypeId);
+        List<RoomTypeFacilityDetailSelection> selections = selectionRepository.findByRoomTypeIdAndDisplayTrue(roomTypeId);
         return RoomTypeFacilityDetailSelectionMapper.INSTANCE.groupListResponses(selections);
     }
 
@@ -50,10 +50,10 @@ public class RoomTypeFacilityDetailSelectionServiceImpl implements RoomTypeFacil
         return RoomTypeFacilityDetailSelectionMapper.INSTANCE.updateResponseFromSelection(selection);
     }
 
-//    @Override
-//    public void delete(int id) {
-//        selectionRepository.deleteById(id);
-//    }
+    @Override
+    public void delete(int id) {
+        selectionRepository.deleteById(id);
+    }
 
     @Override
     public List<RoomTypeFacilityDetailSelectionResponse> getResponse(List<RoomTypeFacilityDetailSelection> selections) {
