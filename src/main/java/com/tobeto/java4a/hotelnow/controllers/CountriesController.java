@@ -21,7 +21,7 @@ public class CountriesController extends BaseController {
 
     private CountryService countryService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public List<ListOnlyCountryResponse> getAll() {
         return countryService.getAll();
 

@@ -21,13 +21,12 @@ public class CancellationReasonsController extends BaseController {
 
     private CancellationReasonService cancellationReasonService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public ResponseEntity<BaseResponse<List<ListCancellationReasonResponse>>> getAll() {
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, cancellationReasonService.getAll());
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<BaseResponse<AddCancellationReasonResponse>> add(@RequestBody @Valid AddCancellationReasonRequest request) {
         AddCancellationReasonResponse addCancellationReasonResponse = cancellationReasonService.add(request);
         return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addCancellationReasonResponse);

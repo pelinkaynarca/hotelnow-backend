@@ -23,13 +23,12 @@ public class RoomTypeFacilityCategoriesController extends BaseController{
 
     private RoomTypeFacilityCategoryService roomTypeFacilityCategoryService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public ResponseEntity<BaseResponse<List<ListRoomTypeFacilityCategoryResponse>>> getAll() {
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypeFacilityCategoryService.getAll());
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<BaseResponse<AddRoomTypeFacilityCategoryResponse>> add(
             @RequestBody @Valid AddRoomTypeFacilityCategoryRequest request) {
         AddRoomTypeFacilityCategoryResponse addRoomTypeFacilityCategoryResponse = roomTypeFacilityCategoryService
@@ -47,7 +46,7 @@ public class RoomTypeFacilityCategoriesController extends BaseController{
                 updateRoomTypeFacilityCategoryResponse);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         roomTypeFacilityCategoryService.delete(id);
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);

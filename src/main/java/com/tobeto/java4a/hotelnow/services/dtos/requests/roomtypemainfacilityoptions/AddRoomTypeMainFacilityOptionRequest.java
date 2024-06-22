@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilityoptions;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,9 @@ public class AddRoomTypeMainFacilityOptionRequest {
 
     @NotBlank
     @Size(min = 2, max = 100)
-    private String title;
+    private String description;
+
+    @Min(value = 1)
+    private int categoryId;
 
 }

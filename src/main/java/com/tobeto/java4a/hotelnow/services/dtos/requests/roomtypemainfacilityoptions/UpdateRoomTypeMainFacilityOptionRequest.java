@@ -19,6 +19,9 @@ public class UpdateRoomTypeMainFacilityOptionRequest {
 
     @NotBlank
     @Size(min = 2, max = 100)
-    private String title;
+    private String description;
+
+    @Min(value = 1)
+    private int categoryId;
 
 }

@@ -23,14 +23,13 @@ public class FacilityCategoriesController extends BaseController {
 
     private FacilityCategoryService facilityCategoryService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public ResponseEntity<BaseResponse<List<ListFacilityCategoryResponse>>> getAll() {
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, facilityCategoryService.getAll());
     }
 
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<BaseResponse<AddFacilityCategoryResponse>> add(
             @RequestBody @Valid AddFacilityCategoryRequest request) {
         AddFacilityCategoryResponse addFacilityCategoryResponse = facilityCategoryService
@@ -48,7 +47,7 @@ public class FacilityCategoriesController extends BaseController {
                 updateFacilityCategoryResponse);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         facilityCategoryService.deleteById(id);
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);

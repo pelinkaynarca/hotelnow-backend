@@ -23,7 +23,7 @@ public class CitiesController extends BaseController {
 
 	private CityService cityService;
 
-	@GetMapping("/get-all")
+	@GetMapping
 	public ResponseEntity<BaseResponse<List<ListOnlyCityResponse>>> getAll() {
 		List<ListOnlyCityResponse> listOnlyCityResponses = cityService.getAll();
 		if (listOnlyCityResponses == null || listOnlyCityResponses.size() == 0) {

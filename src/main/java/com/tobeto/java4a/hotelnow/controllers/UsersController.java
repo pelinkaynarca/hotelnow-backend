@@ -20,7 +20,7 @@ public class UsersController {
 
     private UserService userService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public List<ListUserResponse> getAll() {
         return userService.getAll();
 

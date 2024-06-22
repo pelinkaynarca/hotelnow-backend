@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateRoomTypeMainFacilityOptionResponse {
 
-    private int id;
+    private String description;
 
-    private String title;
+    private int categoryId;
 
 }

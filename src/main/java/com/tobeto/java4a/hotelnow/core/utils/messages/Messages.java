@@ -30,6 +30,7 @@ public class Messages {
 		public static final String CUSTOM_NO_ROOM_AVAILABLE_FOR_GIVEN_DATES = "No room(s) available for the given date range.";
 		public static final String CUSTOM_ROOM_NOT_FOUND= "Room not found.";
 		public static final String CUSTOM_ROOM_TYPE_MAIN_FACILITY_CATEGORY_NOT_FOUND = "Room type facility category not found.";
+		public static final String CUSTOM_ROOM_TYPE_MAIN_FACILITY_OPTION_NOT_FOUND = "Room type main facility option  not found.";
 	}
 
 	public static class Success {

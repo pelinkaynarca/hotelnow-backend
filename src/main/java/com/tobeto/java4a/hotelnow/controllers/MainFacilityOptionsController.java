@@ -23,13 +23,12 @@ public class MainFacilityOptionsController extends BaseController {
 
     private MainFacilityOptionService mainFacilityOptionService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public ResponseEntity<BaseResponse<List<ListMainFacilityOptionResponse>>> getAll() {
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, mainFacilityOptionService.getAll());
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<BaseResponse<AddMainFacilityOptionResponse>> add(
             @RequestBody @Valid AddMainFacilityOptionRequest request) {
         AddMainFacilityOptionResponse addMainFacilityOptionResponse = mainFacilityOptionService
@@ -47,7 +46,7 @@ public class MainFacilityOptionsController extends BaseController {
                 updateMainFacilityOptionResponse);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         mainFacilityOptionService.deleteById(id);
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);

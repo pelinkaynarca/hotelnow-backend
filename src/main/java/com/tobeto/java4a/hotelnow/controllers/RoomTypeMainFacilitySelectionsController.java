@@ -52,9 +52,6 @@ public class RoomTypeMainFacilitySelectionsController extends BaseController{
             if (roomTypeService.getById(request.getRoomTypeId()) == null) {
                 return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_NOT_FOUND, null);
             }
-            if (optionService.getById(request.getOptionId()) == null) {
-                return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_FACILITY_OPTION_NOT_FOUND, null);
-            }
 
             AddRoomTypeMainFacilitySelectionResponse selectionResponse = selectionService.add(request);
             responses.add(selectionResponse);
@@ -70,9 +67,6 @@ public class RoomTypeMainFacilitySelectionsController extends BaseController{
         for (UpdateRoomTypeMainFacilitySelectionRequest request : requests) {
             if (roomTypeService.getById(request.getRoomTypeId()) == null) {
                 return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_NOT_FOUND, null);
-            }
-            if (optionService.getById(request.getOptionId()) == null) {
-                return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_FACILITY_OPTION_NOT_FOUND, null);
             }
 
             UpdateRoomTypeMainFacilitySelectionResponse selectionResponse = selectionService.update(request);

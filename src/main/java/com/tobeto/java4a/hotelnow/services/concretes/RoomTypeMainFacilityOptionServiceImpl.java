@@ -1,7 +1,9 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeMainFacilityCategory;
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeMainFacilityOption;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeMainFacilityOptionRepository;
+import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeMainFacilityCategoryService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeMainFacilityOptionService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilityoptions.AddRoomTypeMainFacilityOptionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilityoptions.UpdateRoomTypeMainFacilityOptionRequest;
@@ -19,30 +21,34 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class RoomTypeMainFacilityOptionServiceImpl implements RoomTypeMainFacilityOptionService {
 
-    private RoomTypeMainFacilityOptionRepository roomTypeMainFacilityOptionRepository;
+    private final RoomTypeMainFacilityOptionRepository roomTypeMainFacilityOptionRepository;
+    private final RoomTypeMainFacilityCategoryService roomTypeMainFacilityCategoryService;
+
+
+
+
 
     @Override
-    public List<ListRoomTypeMainFacilityOptionResponse> getAll() {
-        List<RoomTypeMainFacilityOption> roomTypeMainFacilityOptions = roomTypeMainFacilityOptionRepository.findAll();
-        return roomTypeMainFacilityOptions.stream()
+    public ListRoomTypeMainFacilityOptionResponse getResponseById(int id) {
+        RoomTypeMainFacilityOption roomTypeMainFacilityOption = roomTypeMainFacilityOptionRepository.findById(id).orElseThrow();
+        return RoomTypeMainFacilityOptionMapper.INSTANCE.listResponseFromRoomTypeMainFacilityOption(roomTypeMainFacilityOption);
+    }
+
+    @Override
+    public List<ListRoomTypeMainFacilityOptionResponse> getByCategoryId(int categoryId) {
+
+        return roomTypeMainFacilityOptionRepository.findByCategoryId(categoryId).stream()
                 .map(RoomTypeMainFacilityOptionMapper.INSTANCE::listResponseFromRoomTypeMainFacilityOption)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public RoomTypeMainFacilityOption getById(int id) {
-        return roomTypeMainFacilityOptionRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public ListRoomTypeMainFacilityOptionResponse getResponseById(int id) {
-        RoomTypeMainFacilityOption roomTypeMainFacilityOption = getById(id);
-        return RoomTypeMainFacilityOptionMapper.INSTANCE.listResponseFromRoomTypeMainFacilityOption(roomTypeMainFacilityOption);
-    }
-
-    @Override
     public AddRoomTypeMainFacilityOptionResponse add(AddRoomTypeMainFacilityOptionRequest request) {
         RoomTypeMainFacilityOption roomTypeMainFacilityOption = RoomTypeMainFacilityOptionMapper.INSTANCE.roomTypeMainFacilityOptionFromAddRequest(request);
+
+        RoomTypeMainFacilityCategory  categories = roomTypeMainFacilityCategoryService.getById(request.getCategoryId());
+
+        roomTypeMainFacilityOption.setRoomTypeMainFacilityCategory(categories);
 
         RoomTypeMainFacilityOption savedRoomTypeMainFacilityOption = roomTypeMainFacilityOptionRepository.save(roomTypeMainFacilityOption);
 

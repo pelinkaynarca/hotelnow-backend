@@ -1,12 +1,7 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +16,12 @@ import java.util.List;
 @Entity
 @Table(name = "room_type_main_facility_options")
 public class RoomTypeMainFacilityOption extends BaseEntity {
-    @Column(name = "title" , nullable = false)
-    private String title;
+    @Column(name = "description" , nullable = false)
+    private String description;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id")
+    private RoomTypeMainFacilityCategory roomTypeMainFacilityCategory;
 
     @OneToMany(mappedBy = "roomTypeMainFacilityOption", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RoomTypeMainFacilitySelection> roomTypeMainFacilitySelections;
