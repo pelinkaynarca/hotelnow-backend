@@ -1,6 +1,7 @@
 package com.tobeto.java4a.hotelnow.controllers;
 
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
+import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeMainFacilityCategory;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeMainFacilityCategoryService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilitycategories.AddRoomTypeMainFacilityCategoryRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilitycategories.UpdateRoomTypeMainFacilityCategoryRequest;
@@ -30,8 +31,8 @@ public class RoomTypeMainFacilityCategoriesController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BaseResponse<ListRoomTypeMainFacilityCategoryResponse>> getById(@PathVariable int id) {
-        ListRoomTypeMainFacilityCategoryResponse category = categoryService.getById(id);
+    public ResponseEntity<BaseResponse<RoomTypeMainFacilityCategory>> getById(@PathVariable int id) {
+        RoomTypeMainFacilityCategory category = categoryService.getById(id);
         if (category == null) {
             return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_MAIN_FACILITY_CATEGORY_NOT_FOUND, null);
         } else {

@@ -30,9 +30,8 @@ public class RoomTypeMainFacilityCategoryServiceImpl implements RoomTypeMainFaci
     }
 
     @Override
-    public ListRoomTypeMainFacilityCategoryResponse getById(int id) {
-        RoomTypeMainFacilityCategory category = categoryRepository.findById(id).orElse(null);
-        return RoomTypeMainFacilityCategoryMapper.INSTANCE.listResponseFromRoomTypeMainFacilityCategory(category);
+    public RoomTypeMainFacilityCategory getById(int id) {
+        return categoryRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -60,7 +59,7 @@ public class RoomTypeMainFacilityCategoryServiceImpl implements RoomTypeMainFaci
 
     @Override
     public ListRoomTypeMainFacilityCategoryResponse getResponseById(int id) {
-        RoomTypeMainFacilityCategory category = categoryRepository.findById(id).orElse(null);
+        RoomTypeMainFacilityCategory category = getById(id);
         return RoomTypeMainFacilityCategoryMapper.INSTANCE.listResponseFromRoomTypeMainFacilityCategory(category);
     }
 

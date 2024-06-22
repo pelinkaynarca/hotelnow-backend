@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.abstracts;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.RoomTypeMainFacilityCategory;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilitycategories.AddRoomTypeMainFacilityCategoryRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilitycategories.UpdateRoomTypeMainFacilityCategoryRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilitycategories.AddRoomTypeMainFacilityCategoryResponse;
@@ -12,7 +13,7 @@ public interface RoomTypeMainFacilityCategoryService {
 
     List<ListRoomTypeMainFacilityCategoryResponse> getAll();
 
-    ListRoomTypeMainFacilityCategoryResponse getById(int id);
+    RoomTypeMainFacilityCategory getById(int id);
 
     ListRoomTypeMainFacilityCategoryResponse getResponseById(int id);
 
