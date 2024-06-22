@@ -27,14 +27,4 @@ public interface RoomTypeMainFacilityOptionMapper {
 
     UpdateRoomTypeMainFacilityOptionResponse updateResponseFromRoomTypeMainFacilityOption(RoomTypeMainFacilityOption roomTypeMainFacilityOption);
 
-
-
-
-
-
-
-
-
-
-
 }
