@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
 public interface RoomTypeMainFacilityOptionMapper {
 
     RoomTypeMainFacilityOptionMapper INSTANCE = Mappers.getMapper(RoomTypeMainFacilityOptionMapper.class);
-    @Mapping(target = "roomTypeMainFacilitySelectionResponse" , source = "roomTypeMainFacilitySelections")
+
     ListRoomTypeMainFacilityOptionResponse listResponseFromRoomTypeMainFacilityOption(RoomTypeMainFacilityOption roomTypeMainFacilityOption);
 
     @Mapping(target = "id" , ignore = true)

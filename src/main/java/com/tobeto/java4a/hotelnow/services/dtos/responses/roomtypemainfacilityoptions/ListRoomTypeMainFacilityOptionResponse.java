@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,7 +15,5 @@ public class ListRoomTypeMainFacilityOptionResponse {
     private int id;
 
     private String title;
-
-    private List<ListRoomTypeMainFacilityOptionResponse> roomTypeMainFacilitySelectionResponse;
 
 }
