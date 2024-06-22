@@ -57,4 +57,11 @@ public class RoomTypeMainFacilityCategoryServiceImpl implements RoomTypeMainFaci
     public void delete(int id) {
         categoryRepository.deleteById(id);
     }
+
+    @Override
+    public ListRoomTypeMainFacilityCategoryResponse getResponseById(int id) {
+        RoomTypeMainFacilityCategory category = categoryRepository.findById(id).orElse(null);
+        return RoomTypeMainFacilityCategoryMapper.INSTANCE.listResponseFromRoomTypeMainFacilityCategory(category);
+    }
+
 }

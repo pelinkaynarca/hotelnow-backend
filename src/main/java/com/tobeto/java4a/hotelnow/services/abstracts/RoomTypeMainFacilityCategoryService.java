@@ -14,6 +14,8 @@ public interface RoomTypeMainFacilityCategoryService {
 
     ListRoomTypeMainFacilityCategoryResponse getById(int id);
 
+    ListRoomTypeMainFacilityCategoryResponse getResponseById(int id);
+
     AddRoomTypeMainFacilityCategoryResponse add(AddRoomTypeMainFacilityCategoryRequest request);
 
     UpdateRoomTypeMainFacilityCategoryResponse update(UpdateRoomTypeMainFacilityCategoryRequest request);
