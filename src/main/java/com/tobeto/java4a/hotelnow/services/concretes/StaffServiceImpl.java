@@ -43,7 +43,15 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
+	public List<ListStaffResponse> getStaffsOfHotel() {
+		loggedInUserMustBeManager();
+		Staff loggedInStaff = getLoggedInStaff();
+		return getByHotelId(loggedInStaff.getHotel().getId());
+	}
+
+	@Override
 	public AddStaffResponse add(AddStaffRequest request) {
+		loggedInUserMustBeManager();
 		Staff staff = StaffMapper.INSTANCE.staffFromAddRequest(request);
 		Staff savedStaff = addStaff(staff);
 		return StaffMapper.INSTANCE.addResponseFromStaff(savedStaff);
@@ -75,11 +83,18 @@ public class StaffServiceImpl implements StaffService {
 		return savedStaff;
 	}
 
+	@Override
+	public Staff getLoggedInStaff() {
+		String emailOfLoggedInStaff = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User loggedInUser = (User) userService.loadUserByUsername(emailOfLoggedInStaff);
+		Staff loggedInStaff = getById(loggedInUser.getId());
+		return loggedInStaff;
+	}
+
 	private void loggedInUserMustBeManager() {
 		List<Role> rolesOfLoggedInUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
 				.stream().map(r -> Role.valueOf(r.getAuthority())).toList();
 		if (!rolesOfLoggedInUser.contains(Role.MANAGER))
 			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
 	}
-
 }

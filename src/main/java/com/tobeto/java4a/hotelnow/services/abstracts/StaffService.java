@@ -17,6 +17,14 @@ public interface StaffService {
 	
 	List<ListStaffResponse> getByHotelId(int hotelId);
 	
+	/**
+	 * get staffs of logged in user's(i.e. staff) hotel
+	 * @return staffs
+	 */
+	List<ListStaffResponse> getStaffsOfHotel();
+	
+	Staff getLoggedInStaff();
+	
 	AddStaffResponse add(AddStaffRequest request);
 	
 	Staff addStaff(Staff staff);

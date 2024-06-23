@@ -43,9 +43,19 @@ public class StaffsController extends BaseController {
 	}
 
 	@GetMapping("/by-hotel-id/{hotelId}")
-	public ResponseEntity<BaseResponse<List<ListStaffResponse>>> getByCustomerId(@PathVariable int hotelId) {
+	public ResponseEntity<BaseResponse<List<ListStaffResponse>>> getByHotelId(@PathVariable int hotelId) {
 		List<ListStaffResponse> listStaffResponses = staffService.getByHotelId(hotelId);
 		if (listStaffResponses == null || listStaffResponses.size() == 0) {
+			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_STAFF_NOT_FOUND, null);
+		} else {
+			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listStaffResponses);
+		}
+	}
+
+	@GetMapping("/get-staffs-of-hotel")
+	public ResponseEntity<BaseResponse<List<ListStaffResponse>>> getStaffsOfHotel() {
+		List<ListStaffResponse> listStaffResponses = staffService.getStaffsOfHotel();
+		if (listStaffResponses == null || listStaffResponses.isEmpty()) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_STAFF_NOT_FOUND, null);
 		} else {
 			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listStaffResponses);
