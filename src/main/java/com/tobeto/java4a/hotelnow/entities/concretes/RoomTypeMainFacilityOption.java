@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "room_type_main_facility_options")
 public class RoomTypeMainFacilityOption extends BaseEntity {
-    @Column(name = "description" , nullable = false)
+    @Column(name = "description")
     private String description;
 
     @ManyToOne(optional = false)

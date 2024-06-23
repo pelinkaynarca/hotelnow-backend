@@ -44,11 +44,12 @@ public class RoomTypeMainFacilityOptionServiceImpl implements RoomTypeMainFacili
 
     @Override
     public AddRoomTypeMainFacilityOptionResponse add(AddRoomTypeMainFacilityOptionRequest request) {
+
         RoomTypeMainFacilityOption roomTypeMainFacilityOption = RoomTypeMainFacilityOptionMapper.INSTANCE.roomTypeMainFacilityOptionFromAddRequest(request);
 
-        RoomTypeMainFacilityCategory  categories = roomTypeMainFacilityCategoryService.getById(request.getCategoryId());
+        RoomTypeMainFacilityCategory  roomTypeMainFacilityCategory = roomTypeMainFacilityCategoryService.getById(request.getCategoryId());
 
-        roomTypeMainFacilityOption.setRoomTypeMainFacilityCategory(categories);
+        roomTypeMainFacilityOption.setRoomTypeMainFacilityCategory(roomTypeMainFacilityCategory);
 
         RoomTypeMainFacilityOption savedRoomTypeMainFacilityOption = roomTypeMainFacilityOptionRepository.save(roomTypeMainFacilityOption);
 

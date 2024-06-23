@@ -27,7 +27,7 @@ public class RoomTypeMainFacilityOptionsController  extends BaseController{
     private final RoomTypeMainFacilityOptionService roomTypeMainFacilityOptionService;
     private final RoomTypeMainFacilityCategoryService roomTypeMainFacilityCategoryService;
 
-    @GetMapping
+    @GetMapping("/by-category-id/{categoryId}")
     public ResponseEntity<BaseResponse<List<ListRoomTypeMainFacilityOptionResponse>>> getByCategoryId(@PathVariable int categoryId) {
         ListRoomTypeMainFacilityCategoryResponse roomTypeMainFacilityCategory = roomTypeMainFacilityCategoryService.getResponseById(categoryId);
         List<ListRoomTypeMainFacilityOptionResponse> roomTypeMainFacilityOption = roomTypeMainFacilityOptionService.getByCategoryId(categoryId);
