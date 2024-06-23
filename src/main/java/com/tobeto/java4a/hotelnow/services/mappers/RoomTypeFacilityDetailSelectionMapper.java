@@ -21,7 +21,6 @@ public interface RoomTypeFacilityDetailSelectionMapper {
 
     RoomTypeFacilityDetailSelectionMapper INSTANCE = Mappers.getMapper(RoomTypeFacilityDetailSelectionMapper.class);
 
-
     @Mapping(target = "optionDescription", source = "roomTypeFacilityDetailOption.description")
     RoomTypeFacilityDetailSelectionResponse listResponseSelection(RoomTypeFacilityDetailSelection selection);
 
@@ -33,7 +32,7 @@ public interface RoomTypeFacilityDetailSelectionMapper {
 
     @Mapping(target = "roomTypeId", source = "roomType.id")
     @Mapping(target = "optionId", source = "roomTypeFacilityDetailOption.id")
-    AddRoomTypeFacilityDetailSelectionResponse addResponseFromSelection(RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelection);
+    AddRoomTypeFacilityDetailSelectionResponse addResponseFromSelection(RoomTypeFacilityDetailSelection selection);
 
     @Mapping(target = "roomType.id", source = "roomTypeId")
     @Mapping(target = "roomTypeFacilityDetailOption.id", source = "optionId")
@@ -41,7 +40,7 @@ public interface RoomTypeFacilityDetailSelectionMapper {
 
     @Mapping(target = "roomTypeId", source = "roomType.id")
     @Mapping(target = "optionId", source = "roomTypeFacilityDetailOption.id")
-    UpdateRoomTypeFacilityDetailSelectionResponse updateResponseFromSelection(RoomTypeFacilityDetailSelection roomTypeFacilityDetailSelection);
+    UpdateRoomTypeFacilityDetailSelectionResponse updateResponseFromSelection(RoomTypeFacilityDetailSelection selection);
 
     default List<RoomTypeFacilityDetailSelectionResponse> mapSelectionsToResponses(List<RoomTypeFacilityDetailSelection> selections) {
         return selections.stream()
@@ -52,20 +51,32 @@ public interface RoomTypeFacilityDetailSelectionMapper {
     default List<ListRoomTypeFacilityDetailSelectionResponse> groupListResponses(List<RoomTypeFacilityDetailSelection> selections) {
         Map<String, List<RoomTypeFacilityDetailSelection>> groupedByCategory = selections.stream()
                 .collect(Collectors.groupingBy(
-                        selection -> selection.getRoomType().getId() + "-" + selection.getRoomTypeFacilityDetailOption().getRoomTypeFacilityCategory().getTitle()
+                        selection -> {
+                            if (selection.getRoomTypeFacilityDetailOption() != null && selection.getRoomTypeFacilityDetailOption().getRoomTypeFacilityCategory() != null) {
+                                return selection.getRoomType().getId() + "-" + selection.getRoomTypeFacilityDetailOption().getRoomTypeFacilityCategory().getTitle();
+                            } else {
+                                return "";
+                            }
+                        }
                 ));
 
         return groupedByCategory.entrySet().stream()
                 .map(entry -> {
-                    String[] keys = entry.getKey().split("-");
-                    int roomTypeId = Integer.parseInt(keys[0]);
-                    String categoryName = keys[1];
-                    ListRoomTypeFacilityDetailSelectionResponse response = new ListRoomTypeFacilityDetailSelectionResponse();
-                    response.setRoomTypeId(roomTypeId);
-                    response.setCategoryName(categoryName);
-                    response.setRoomTypeFacilityDetailSelectionResponses(mapSelectionsToResponses(entry.getValue()));
-                    return response;
+                    String key = entry.getKey();
+                    if (!key.isEmpty()) {
+                        String[] keys = key.split("-");
+                        int roomTypeId = Integer.parseInt(keys[0]);
+                        String categoryName = keys[1];
+                        ListRoomTypeFacilityDetailSelectionResponse response = new ListRoomTypeFacilityDetailSelectionResponse();
+                        response.setRoomTypeId(roomTypeId);
+                        response.setCategoryName(categoryName);
+                        response.setRoomTypeFacilityDetailSelectionResponses(mapSelectionsToResponses(entry.getValue()));
+                        return response;
+                    } else {
+                        return null;
+                    }
                 })
+                .filter(response -> response != null)
                 .collect(Collectors.toList());
     }
 }

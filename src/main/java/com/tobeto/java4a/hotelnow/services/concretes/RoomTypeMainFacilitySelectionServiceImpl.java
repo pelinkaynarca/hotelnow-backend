@@ -24,7 +24,7 @@ public class RoomTypeMainFacilitySelectionServiceImpl implements RoomTypeMainFac
 
     @Override
     public List<ListRoomTypeMainFacilitySelectionResponse> getByRoomTypeId(int roomTypeId) {
-        List<RoomTypeMainFacilitySelection> selections = selectionRepository.findByRoomTypeIdAndDisplayTrue(roomTypeId);
+        List<RoomTypeMainFacilitySelection> selections = selectionRepository.findByRoomTypeId(roomTypeId);
         return RoomTypeMainFacilitySelectionMapper.INSTANCE.groupListResponses(selections);
     }
 
@@ -58,7 +58,6 @@ public class RoomTypeMainFacilitySelectionServiceImpl implements RoomTypeMainFac
     @Override
     public List<RoomTypeMainFacilitySelectionResponse> getResponse(List<RoomTypeMainFacilitySelection> selections) {
         return selections.stream()
-                .filter(RoomTypeMainFacilitySelection::isDisplay)
                 .map(RoomTypeMainFacilitySelectionMapper.INSTANCE::listResponseFromSelection)
                 .collect(Collectors.toList());
     }

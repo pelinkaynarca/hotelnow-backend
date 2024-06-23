@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RoomTypeMainFacilitySelectionRepository extends JpaRepository<RoomTypeMainFacilitySelection, Integer> {
 
-    List<RoomTypeMainFacilitySelection> findByRoomTypeIdAndDisplayTrue(int roomTypeId);
+    List<RoomTypeMainFacilitySelection> findByRoomTypeId(int roomTypeId);
 }

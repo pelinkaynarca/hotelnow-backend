@@ -23,6 +23,6 @@ public class RoomTypeMainFacilitySelection extends BaseEntity {
     @JoinColumn(name = "option_id", nullable = false)
     private RoomTypeMainFacilityOption roomTypeMainFacilityOption;
 
-    @Column(name = "display", nullable = false)
+    @Column(name="display")
     private boolean display;
 }

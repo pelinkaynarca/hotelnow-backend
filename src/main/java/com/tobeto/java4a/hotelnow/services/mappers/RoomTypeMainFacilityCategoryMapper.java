@@ -15,6 +15,7 @@ public interface RoomTypeMainFacilityCategoryMapper {
 
     RoomTypeMainFacilityCategoryMapper INSTANCE = Mappers.getMapper(RoomTypeMainFacilityCategoryMapper.class);
 
+    @Mapping(target = "roomTypeMainFacilityOption" , source = "roomTypeMainFacilityOptions")
     ListRoomTypeMainFacilityCategoryResponse listResponseFromRoomTypeMainFacilityCategory(RoomTypeMainFacilityCategory category);
 
     @Mapping(target = "id", ignore = true)

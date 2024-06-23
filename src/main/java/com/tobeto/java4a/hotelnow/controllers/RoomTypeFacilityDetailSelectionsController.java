@@ -58,7 +58,7 @@ public class RoomTypeFacilityDetailSelectionsController extends BaseController{
             responses.add(selectionResponse);
         }
 
-        return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, responses);
+        return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, responses);
     }
 
     @PutMapping

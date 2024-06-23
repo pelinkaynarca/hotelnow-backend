@@ -20,6 +20,4 @@ public class UpdateRoomTypeMainFacilitySelectionRequest {
 
     @Min(value = 1)
     private int optionId;
-
-    private boolean display;
 }
