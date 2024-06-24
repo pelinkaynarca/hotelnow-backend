@@ -30,5 +30,7 @@ public interface StaffService {
 	Staff addStaff(Staff staff);
 	
 	UpdateStaffResponse update(UpdateStaffRequest request);
+	
+	void deleteById(int id);
 
 }

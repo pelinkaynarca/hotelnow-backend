@@ -82,6 +82,11 @@ public class StaffServiceImpl implements StaffService {
 		Staff savedStaff = staffRepository.save(staff);
 		return savedStaff;
 	}
+	
+	@Override
+	public void deleteById(int id) {
+		staffRepository.deleteById(id);
+	}
 
 	@Override
 	public Staff getLoggedInStaff() {
