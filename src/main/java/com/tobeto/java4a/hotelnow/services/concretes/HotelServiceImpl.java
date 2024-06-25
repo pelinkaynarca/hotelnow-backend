@@ -7,6 +7,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.AddHotelRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.UpdateHotelRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.AddHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponseForStaff;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.UpdateHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.ListMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResponseByHotelId;
@@ -91,6 +92,16 @@ public class HotelServiceImpl implements HotelService {
         List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(id);
         List<ListMainFacilitySelectionResponse> mainFacilitySelections = mainFacilitySelectionService.getByHotelId(hotel.getId());
         return HotelMapper.INSTANCE.listResponseFromHotel(hotel, reviews, roomTypes, mainFacilitySelections);
+    }
+
+    @Override
+    public ListHotelResponseForStaff getResponseForStaff() {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedInUser = (User) userService.loadUserByUsername(email);
+        Staff staff = staffService.getById(loggedInUser.getId());
+
+        Hotel hotel = hotelRepository.findById(staff.getHotel().getId()).orElseThrow();
+        return HotelMapper.INSTANCE.listResponseForStaffFromHotel(hotel);
     }
 
     @Override

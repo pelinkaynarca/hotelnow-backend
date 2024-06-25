@@ -11,7 +11,8 @@ import java.time.LocalTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateHotelResponse {
+public class ListHotelResponseForStaff {
+    private int id;
 
     private String name;
 
@@ -26,4 +27,5 @@ public class UpdateHotelResponse {
     private LocalTime checkOutTime;
 
     private int neighborhoodId;
+
 }

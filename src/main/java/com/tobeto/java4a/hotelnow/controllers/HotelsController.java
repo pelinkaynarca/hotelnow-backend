@@ -8,6 +8,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.UpdateHotelReque
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.AddHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponseForStaff;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.UpdateHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.neighborhoods.ListNeighborhoodResponse;
 import jakarta.validation.Valid;
@@ -52,6 +53,15 @@ public class HotelsController extends BaseController {
     @GetMapping("/{id}")
     public ResponseEntity<BaseResponse<ListHotelResponse>> getResponseById(@PathVariable int id) {
         ListHotelResponse hotelToBeFound = hotelService.getResponseById(id);
+        if (hotelToBeFound != null) {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelToBeFound);
+        }
+        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_HOTEL_NOT_FOUND, null);
+    }
+
+    @GetMapping("/hotel")
+    public ResponseEntity<BaseResponse<ListHotelResponseForStaff>> getResponseForStaff() {
+        ListHotelResponseForStaff hotelToBeFound = hotelService.getResponseForStaff();
         if (hotelToBeFound != null) {
             return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelToBeFound);
         }

@@ -9,6 +9,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailoptions.
 import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailselections.ListFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.AddHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponseForStaff;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.UpdateHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.ListMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResponseByHotelId;
@@ -34,6 +35,10 @@ public interface HotelMapper {
     @Mapping(target = "roomTypes", source = "roomTypes")
     ListHotelResponse listResponseFromHotel(Hotel hotel, List<ListReviewResponseByHotelId> reviews, List<ListRoomTypeResponse> roomTypes, List<ListMainFacilitySelectionResponse> mainFacilitySelections);
 
+    @Mapping(target = "neighborhoodId", source = "neighborhood.id")
+    /* @Mapping(target = "neighborhoodName", source = "neighborhood.name") */
+    ListHotelResponseForStaff listResponseForStaffFromHotel(Hotel hotel);
+
     @Mapping(target = "option", source = "facilityDetailOption")
     ListFacilityDetailSelectionResponse listResponseFromFacilityDetailSelection(FacilityDetailSelection facilityDetailSelection);
 
@@ -49,7 +54,7 @@ public interface HotelMapper {
     @Mapping(target = "neighborhood.id", source = "request.neighborhoodId")
     Hotel hotelFromUpdateRequest(UpdateHotelRequest request);
 
-    @Mapping(target = "neighborhoodName", source = "neighborhood.name")
+    // @Mapping(target = "neighborhoodName", source = "neighborhood.name")
     UpdateHotelResponse updateResponseFromHotel(Hotel hotel);
 }
 
