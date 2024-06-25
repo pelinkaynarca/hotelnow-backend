@@ -1,7 +1,9 @@
 package com.tobeto.java4a.hotelnow.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.tobeto.java4a.hotelnow.services.abstracts.FacilityDetailOptionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
@@ -32,6 +33,7 @@ import lombok.AllArgsConstructor;
 public class FacilityDetailSelectionsController extends BaseController {
 
 	private FacilityDetailSelectionService facilityDetailSelectionService;
+	private FacilityDetailOptionService optionService;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<BaseResponse<ListFacilityDetailSelectionResponse>> getById(@PathVariable int id) {
@@ -53,19 +55,25 @@ public class FacilityDetailSelectionsController extends BaseController {
 		if (listFacilityDetailSelectionResponses == null || listFacilityDetailSelectionResponses.size() == 0) {
 			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_FACILITY_DETAIL_SELECTION_NOT_FOUND, null);
 		} else {
-			return sendResponse(HttpStatus.NOT_FOUND, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 					listFacilityDetailSelectionResponses);
 		}
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<BaseResponse<AddFacilityDetailSelectionResponse>> add(
-			@RequestBody @Valid AddFacilityDetailSelectionRequest request) {
-		AddFacilityDetailSelectionResponse addFacilityDetailSelectionResponse = facilityDetailSelectionService
-				.add(request);
-		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY,
-				addFacilityDetailSelectionResponse);
+	public ResponseEntity<BaseResponse<List<AddFacilityDetailSelectionResponse>>> add(
+			@RequestBody @Valid List<AddFacilityDetailSelectionRequest> requests) {
+
+		List<AddFacilityDetailSelectionResponse> responses = new ArrayList<>();
+		for (AddFacilityDetailSelectionRequest request : requests) {
+			if (optionService.getById(request.getOptionId()) == null) {
+				return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_FACILITY_DETAIL_OPTION_NOT_FOUND, null);
+			}
+			AddFacilityDetailSelectionResponse selectionResponse = facilityDetailSelectionService.add(request);
+			responses.add(selectionResponse);
+		}
+
+		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, responses);
 	}
 
 	@PutMapping
@@ -77,7 +85,7 @@ public class FacilityDetailSelectionsController extends BaseController {
 				updateFacilityDetailSelectionResponse);
 	}
 
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
 		facilityDetailSelectionService.deleteById(id);
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);

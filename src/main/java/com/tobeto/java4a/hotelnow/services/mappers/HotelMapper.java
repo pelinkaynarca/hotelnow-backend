@@ -1,7 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.FacilityDetailOption;
-import com.tobeto.java4a.hotelnow.entities.concretes.FacilityDetailSelection;
 import com.tobeto.java4a.hotelnow.entities.concretes.Hotel;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.AddHotelRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.UpdateHotelRequest;
@@ -39,8 +38,8 @@ public interface HotelMapper {
     /* @Mapping(target = "neighborhoodName", source = "neighborhood.name") */
     ListHotelResponseForStaff listResponseForStaffFromHotel(Hotel hotel);
 
-    @Mapping(target = "option", source = "facilityDetailOption")
-    ListFacilityDetailSelectionResponse listResponseFromFacilityDetailSelection(FacilityDetailSelection facilityDetailSelection);
+//    @Mapping(target = "option", source = "facilityDetailOption")
+//    ListFacilityDetailSelectionResponse listResponseFromFacilityDetailSelection(FacilityDetailSelection facilityDetailSelection);
 
     @Mapping(target = "categoryTitle", source = "facilityCategory.title")
     ListFacilityDetailOptionResponse listResponseFromFacilityOption(FacilityDetailOption facilityDetailOption);

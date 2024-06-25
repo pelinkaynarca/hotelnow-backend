@@ -32,14 +32,14 @@ public class FacilityDetailSelectionServiceImpl implements FacilityDetailSelecti
 	@Override
 	public ListFacilityDetailSelectionResponse getResponseById(int id) {
 		FacilityDetailSelection facilityDetailSelection = getById(id);
-		return FacilityDetailSelectionMapper.INSTANCE.listResponseFromFacilityDetailSelection(facilityDetailSelection);
+		return FacilityDetailSelectionMapper.INSTANCE.listFromFacilityDetailSelection(facilityDetailSelection);
 	}
 
 	@Override
 	public List<ListFacilityDetailSelectionResponse> getResponseByHotelId(int hotelId) {
 		List<FacilityDetailSelection> facilityDetailSelections = getByHotelId(hotelId);
 		return FacilityDetailSelectionMapper.INSTANCE
-				.listResponseListFromFacilityDetailSelectionList(facilityDetailSelections);
+				.groupListResponses(facilityDetailSelections);
 	}
 
 	@Override

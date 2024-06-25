@@ -14,7 +14,5 @@ public class AddFacilityDetailSelectionRequest {
 	
 	@Min(value = 1)
 	private int optionId;
-	
-	private boolean display;
 
 }
