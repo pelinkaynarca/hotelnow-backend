@@ -32,6 +32,8 @@ public class Messages {
 		public static final String CUSTOM_ROOM_BED_TYPE_NOT_FOUND = "Room bed type not found.";
 		public static final String CUSTOM_ROOM_TYPE_MAIN_FACILITY_OPTION_NOT_FOUND = "Room type main facility option  not found.";
 		public static final String CUSTOM_ROOM_VIEW_TYPE_NOT_FOUND = "Room view type not found.";
+		public static final String BAD_CREDENTIALS = "Wrong credentials.";
+		public static final String AUTHENTICATION_VIOLATION = "Authentication failed, you must login.";
 	}
 
 	public static class Success {

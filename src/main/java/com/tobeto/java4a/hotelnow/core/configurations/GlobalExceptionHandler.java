@@ -1,6 +1,7 @@
 package com.tobeto.java4a.hotelnow.core.configurations;
 
 import com.tobeto.java4a.hotelnow.controllers.BaseController;
+import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.AuthenticationProblemDetails;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.AuthorizationProblemDetails;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.BusinessProblemDetails;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.problemdetails.ValidationProblemDetails;
@@ -11,6 +12,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -40,12 +42,20 @@ public class GlobalExceptionHandler extends BaseController {
 		return sendResponse(HttpStatus.BAD_REQUEST, Messages.Error.CUSTOM_BAD_REQUEST,
 				new ValidationProblemDetails(errorMessages));
 	}
-	
+
 	@ExceptionHandler({ AuthorizationException.class })
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ResponseEntity<BaseResponse<AuthorizationProblemDetails>> handleAuthorizationException(
 			AuthorizationException exception) {
 		return sendResponse(HttpStatus.FORBIDDEN, Messages.Error.AUTHORIZATION_VIOLATION,
 				new AuthorizationProblemDetails(exception.getMessage()));
+	}
+
+	@ExceptionHandler({ BadCredentialsException.class })
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ResponseEntity<BaseResponse<AuthenticationProblemDetails>> handleBadCredentialsException(
+			BadCredentialsException exception) {
+		return sendResponse(HttpStatus.BAD_REQUEST, Messages.Error.BAD_CREDENTIALS,
+				new AuthenticationProblemDetails(exception.getMessage()));
 	}
 }

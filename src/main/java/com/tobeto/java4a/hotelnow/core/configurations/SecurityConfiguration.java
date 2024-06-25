@@ -28,8 +28,10 @@ public class SecurityConfiguration {
 
 	private final UserService userService;
 	private final JwtFilter jwtFilter;
+	private final GlobalAuthenticationEntryPoint authenticationEntryPoint;
+	private final GlobalAccessDeniedHandler accessDeniedHandler;
 
-	private static final String[] WHITE_LIST_URLS = { "/swagger-ui/**", "/v3/api-docs/**", "/api/v1/auth/**" };
+	private static final String[] WHITE_LIST_URLS = { "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**" };
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -55,9 +57,10 @@ public class SecurityConfiguration {
 
 		http.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URLS).permitAll()
-//				.requestMatchers("/api/v1/**").authenticated()
-						.anyRequest().permitAll())
+						.anyRequest().authenticated())
 				.httpBasic(AbstractHttpConfigurer::disable)
+				.exceptionHandling(e -> e.authenticationEntryPoint(authenticationEntryPoint))
+				.exceptionHandling(e -> e.accessDeniedHandler(accessDeniedHandler))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);;
 
 		return http.build();
