@@ -15,4 +15,6 @@ public class ListNeighborhoodResponse {
 
     private String name;
 
+    private int districtId;
+
 }

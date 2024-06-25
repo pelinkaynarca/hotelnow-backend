@@ -26,6 +26,15 @@ public class NeighborhoodsController extends BaseController {
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, neighborhoodService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<BaseResponse<ListNeighborhoodResponse>> getById(@PathVariable int id) {
+        ListNeighborhoodResponse neighborhoodToBeFound = neighborhoodService.getResponseById(id);
+        if (neighborhoodToBeFound != null) {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, neighborhoodToBeFound);
+        }
+        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_NEIGHBORHOOD_NOT_FOUND, null);
+    }
+
     @GetMapping("/by-district-id/{districtId}")
     public ResponseEntity<BaseResponse<List<ListNeighborhoodResponse>>> getByDistrictId(@PathVariable int districtId) {
         List<ListNeighborhoodResponse> neighborhoodsToBeFound = neighborhoodService.getByDistrictId(districtId);
