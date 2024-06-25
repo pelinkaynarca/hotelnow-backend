@@ -34,6 +34,7 @@ public class Messages {
 		public static final String CUSTOM_ROOM_VIEW_TYPE_NOT_FOUND = "Room view type not found.";
 		public static final String BAD_CREDENTIALS = "Wrong credentials.";
 		public static final String AUTHENTICATION_VIOLATION = "Authentication failed, you must login.";
+		public static final String USER_WITH_SAME_EMAIL_EXISTS = "User with same email already exists.";
 	}
 
 	public static class Success {
