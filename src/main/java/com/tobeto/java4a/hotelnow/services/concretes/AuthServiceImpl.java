@@ -1,8 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -16,7 +14,6 @@ import com.tobeto.java4a.hotelnow.core.services.JwtService;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
-import com.tobeto.java4a.hotelnow.entities.concretes.Role;
 import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.services.abstracts.AuthService;
 import com.tobeto.java4a.hotelnow.services.abstracts.CustomerService;
