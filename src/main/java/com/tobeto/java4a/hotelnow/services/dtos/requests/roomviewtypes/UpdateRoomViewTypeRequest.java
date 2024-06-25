@@ -1,5 +1,6 @@
-package com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilitycategories;
+package com.tobeto.java4a.hotelnow.services.dtos.requests.roomviewtypes;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,9 +12,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddRoomTypeMainFacilityCategoryRequest {
+public class UpdateRoomViewTypeRequest {
+
+    @Min(value = 1)
+    private int id;
 
     @NotBlank
     @Size(min = 2, max = 100)
-    private String title;
+    private String name;
 }

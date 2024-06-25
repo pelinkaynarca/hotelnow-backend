@@ -14,16 +14,16 @@ import org.mapstruct.factory.Mappers;
 public interface RoomTypeMainFacilityOptionMapper {
 
     RoomTypeMainFacilityOptionMapper INSTANCE = Mappers.getMapper(RoomTypeMainFacilityOptionMapper.class);
-    @Mapping(target = "categoryTitle", source = "roomTypeMainFacilityCategory.title")
+//    @Mapping(target = "categoryTitle", source = "roomTypeMainFacilityCategory.title")
     ListRoomTypeMainFacilityOptionResponse listResponseFromRoomTypeMainFacilityOption(RoomTypeMainFacilityOption roomTypeMainFacilityOption);
 
-    @Mapping(target = "roomTypeMainFacilityCategory.id", source = "categoryId")
+//    @Mapping(target = "roomTypeMainFacilityCategory.id", source = "categoryId")
     RoomTypeMainFacilityOption roomTypeMainFacilityOptionFromAddRequest(AddRoomTypeMainFacilityOptionRequest request);
-    @Mapping(target = "categoryId", source = "roomTypeMainFacilityCategory.id")
+//    @Mapping(target = "categoryId", source = "roomTypeMainFacilityCategory.id")
     AddRoomTypeMainFacilityOptionResponse addResponseFromTypeFacilityOption(RoomTypeMainFacilityOption roomTypeMainFacilityOption);
-    @Mapping(target = "roomTypeMainFacilityCategory.id", source = "categoryId")
+//    @Mapping(target = "roomTypeMainFacilityCategory.id", source = "categoryId")
     RoomTypeMainFacilityOption roomTypeMainFacilityOptionFromUpdateRequest(UpdateRoomTypeMainFacilityOptionRequest request);
-    @Mapping(target = "categoryId", source = "roomTypeMainFacilityCategory.id")
+//    @Mapping(target = "categoryId", source = "roomTypeMainFacilityCategory.id")
     UpdateRoomTypeMainFacilityOptionResponse updateResponseFromRoomTypeMainFacilityOption(RoomTypeMainFacilityOption roomTypeMainFacilityOption);
 
 }

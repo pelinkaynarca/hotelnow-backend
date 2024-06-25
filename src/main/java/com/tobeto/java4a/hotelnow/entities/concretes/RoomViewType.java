@@ -14,12 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "room_type_main_facility_categories")
-public class RoomTypeMainFacilityCategory extends BaseEntity {
+@Table(name = "room_view_types")
+public class RoomViewType extends BaseEntity {
 
-    @Column(name = "title")
-    private String title;
+    @Column(name="name")
+    private String name;
 
-    @OneToMany(mappedBy = "roomTypeMainFacilityCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<RoomTypeMainFacilityOption> roomTypeMainFacilityOptions;
+    @OneToMany(mappedBy = "roomViewType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RoomType> roomTypes;
 }

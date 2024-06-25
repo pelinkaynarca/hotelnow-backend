@@ -1,12 +1,11 @@
 package com.tobeto.java4a.hotelnow.controllers;
 
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
-import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeMainFacilityCategoryService;
+import com.tobeto.java4a.hotelnow.services.abstracts.RoomBedTypeService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeMainFacilityOptionService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilityoptions.AddRoomTypeMainFacilityOptionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypemainfacilityoptions.UpdateRoomTypeMainFacilityOptionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilitycategories.ListRoomTypeMainFacilityCategoryResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityoptions.AddRoomTypeMainFacilityOptionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityoptions.ListRoomTypeMainFacilityOptionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilityoptions.UpdateRoomTypeMainFacilityOptionResponse;
@@ -25,25 +24,28 @@ import java.util.List;
 public class RoomTypeMainFacilityOptionsController  extends BaseController{
 
     private final RoomTypeMainFacilityOptionService roomTypeMainFacilityOptionService;
-    private final RoomTypeMainFacilityCategoryService roomTypeMainFacilityCategoryService;
+    private final RoomBedTypeService roomBedTypeService;
 
     @GetMapping("/by-category-id/{categoryId}")
     public ResponseEntity<BaseResponse<List<ListRoomTypeMainFacilityOptionResponse>>> getByCategoryId(@PathVariable int categoryId) {
-        ListRoomTypeMainFacilityCategoryResponse roomTypeMainFacilityCategory = roomTypeMainFacilityCategoryService.getResponseById(categoryId);
-        List<ListRoomTypeMainFacilityOptionResponse> roomTypeMainFacilityOption = roomTypeMainFacilityOptionService.getByCategoryId(categoryId);
-        if (roomTypeMainFacilityCategory != null && roomTypeMainFacilityOption != null && !roomTypeMainFacilityOption.isEmpty()){
-            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypeMainFacilityOption);
-        }
-        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_MAIN_FACILITY_OPTION_NOT_FOUND, null);
+//        ListRoomBadTypeResponse roomTypeMainFacilityCategory = roomBadTypeService.getResponseById(categoryId);
+//        List<ListRoomTypeMainFacilityOptionResponse> roomTypeMainFacilityOption = roomTypeMainFacilityOptionService.getByCategoryId(categoryId);
+//        if (roomTypeMainFacilityCategory != null && roomTypeMainFacilityOption != null && !roomTypeMainFacilityOption.isEmpty()){
+//            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypeMainFacilityOption);
+//        }
+//        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_MAIN_FACILITY_OPTION_NOT_FOUND, null);
+        return null;
     }
 
     @PostMapping
     public ResponseEntity<BaseResponse<AddRoomTypeMainFacilityOptionResponse>> add(@RequestBody @Valid AddRoomTypeMainFacilityOptionRequest request){
-        ListRoomTypeMainFacilityCategoryResponse roomTypeMainFacilityCategory = roomTypeMainFacilityCategoryService.getResponseById(request.getCategoryId());
-        if (roomTypeMainFacilityCategory != null){
-            return  sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, roomTypeMainFacilityOptionService.add(request));
-        }
-        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_MAIN_FACILITY_CATEGORY_NOT_FOUND, null);
+//        ListRoomBadTypeResponse roomTypeMainFacilityCategory = roomBadTypeService.getResponseById(request.getCategoryId());
+//        if (roomTypeMainFacilityCategory != null){
+//            return  sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, roomTypeMainFacilityOptionService.add(request));
+//        }
+//        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_ROOM_TYPE_MAIN_FACILITY_CATEGORY_NOT_FOUND, null);
+
+        return null;
     }
 
     @PutMapping

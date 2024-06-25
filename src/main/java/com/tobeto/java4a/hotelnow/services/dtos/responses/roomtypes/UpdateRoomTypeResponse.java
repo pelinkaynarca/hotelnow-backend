@@ -18,6 +18,12 @@ public class UpdateRoomTypeResponse {
 
     private double pricePerNight;
 
+    private int size;
+
+    private int bedTypeId;
+
+    private int viewTypeId;
+
     private String description;
 
     private byte capacity;
@@ -25,5 +31,4 @@ public class UpdateRoomTypeResponse {
     private boolean display;
 
     private Currency currency;
-
 }

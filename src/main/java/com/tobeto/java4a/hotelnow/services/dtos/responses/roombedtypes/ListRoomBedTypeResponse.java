@@ -1,4 +1,4 @@
-package com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypemainfacilitycategories;
+package com.tobeto.java4a.hotelnow.services.dtos.responses.roombedtypes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddRoomTypeMainFacilityCategoryResponse {
+public class ListRoomBedTypeResponse {
 
     private int id;
 
-    private String title;
+    private String name;
 }

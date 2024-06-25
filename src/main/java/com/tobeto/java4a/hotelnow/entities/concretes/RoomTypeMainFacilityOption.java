@@ -19,10 +19,10 @@ public class RoomTypeMainFacilityOption extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "category_id")
-    private RoomTypeMainFacilityCategory roomTypeMainFacilityCategory;
-
-    @OneToMany(mappedBy = "roomTypeMainFacilityOption", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<RoomTypeMainFacilitySelection> roomTypeMainFacilitySelections;
+//    @ManyToOne(optional = false)
+//    @JoinColumn(name = "category_id")
+//
+//
+//    @OneToMany(mappedBy = "roomTypeMainFacilityOption", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<RoomTypeMainFacilitySelection> roomTypeMainFacilitySelections;
 }

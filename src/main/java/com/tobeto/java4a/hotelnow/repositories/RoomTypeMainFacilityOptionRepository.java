@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface RoomTypeMainFacilityOptionRepository extends JpaRepository<RoomTypeMainFacilityOption,Integer> {
 
-    @Query("select rtmfo from RoomTypeMainFacilityOption rtmfo where rtmfo.roomTypeMainFacilityCategory.id = :categoryId")
-    List<RoomTypeMainFacilityOption> findByCategoryId(@Param("categoryId") int categoryId);
+//    @Query("select rtmfo from RoomTypeMainFacilityOption rtmfo where rtmfo.roomTypeMainFacilityCategory.id = :categoryId")
+//    List<RoomTypeMainFacilityOption> findByCategoryId(@Param("categoryId") int categoryId);
 }

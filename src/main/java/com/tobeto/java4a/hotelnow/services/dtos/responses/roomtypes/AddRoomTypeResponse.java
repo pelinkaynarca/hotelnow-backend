@@ -18,6 +18,12 @@ public class AddRoomTypeResponse {
 
     private double pricePerNight;
 
+    private int size;
+
+    private int bedTypeId;
+
+    private int viewTypeId;
+
     private String description;
 
     private byte capacity;

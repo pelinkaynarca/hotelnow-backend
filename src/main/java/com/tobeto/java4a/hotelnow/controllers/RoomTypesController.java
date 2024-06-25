@@ -1,6 +1,7 @@
 package com.tobeto.java4a.hotelnow.controllers;
 
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
+import com.tobeto.java4a.hotelnow.services.abstracts.HotelService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomTypeService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.UpdateRoomTypeRequest;
@@ -22,7 +23,7 @@ import java.util.List;
 public class RoomTypesController extends BaseController {
 
 	private RoomTypeService roomTypeService;
-
+	private HotelService hotelService;
 	@GetMapping
 	public ResponseEntity<BaseResponse<List<ListRoomTypeResponse>>> getAll() {
 		List<ListRoomTypeResponse> roomTypes = roomTypeService.getAll();
@@ -30,8 +31,12 @@ public class RoomTypesController extends BaseController {
 	}
 
 	@GetMapping("/by-hotel-id/{hotelId}")
-	public List<ListRoomTypeResponse> getByHotelId(@PathVariable("hotelId") int hotelId) {
-		return roomTypeService.getByHotelId(hotelId);
+	public ResponseEntity<BaseResponse<List<ListRoomTypeResponse>>> getByHotelId(@PathVariable int hotelId) {
+		if (hotelService.getById(hotelId) == null) {
+			return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_HOTEL_NOT_FOUND, null);
+		}
+		List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(hotelId);
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypes);
 	}
 
 	@GetMapping("/{id}")

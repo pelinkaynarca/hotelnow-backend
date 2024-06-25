@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.Hotel;
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomType;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.UpdateRoomTypeRequest;
@@ -15,26 +16,49 @@ public interface RoomTypeMapper {
 
     RoomTypeMapper INSTANCE = Mappers.getMapper(RoomTypeMapper.class);
 
-    @Mapping(target= "roomTypeImages", source = "roomTypeImages")
-    @Mapping(target = "rooms", source = "rooms")
-    @Mapping(target = "roomTypeFacilityDetailSelections", source = "roomTypeFacilityDetailSelections")
-    @Mapping(target = "roomTypeMainFacilitySelections", source = "roomTypeMainFacilitySelections")
-    ListRoomTypeResponse listResponseFromRoomType(RoomType roomType);
+    @Mapping(target = "bedTypeName", source = "roomBedType.name")
+    @Mapping(target = "viewTypeName", source = "roomViewType.name")
+    ListRoomTypeResponse listResponse(RoomType roomType);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "hotel", ignore = true)
     @Mapping(target = "roomTypeImages", ignore = true)
     @Mapping(target = "rooms", ignore = true)
     @Mapping(target = "bookedRoomTypes", ignore = true)
-    RoomType roomTypeFromAddRequest(AddRoomTypeRequest request);
+    @Mapping(target = "roomTypeFacilityDetailSelections", ignore = true)
+    @Mapping(target = "name", source = "request.name")
+    @Mapping(target = "capacity", source = "request.capacity")
+    @Mapping(target = "description", source = "request.description")
+    @Mapping(target = "pricePerNight", source = "request.pricePerNight")
+    @Mapping(target = "display", source = "request.display")
+    @Mapping(target = "size", source = "request.size")
+    @Mapping(target = "currency", source = "request.currency")
+    @Mapping(target = "roomBedType.id", source = "request.bedTypeId")
+    @Mapping(target = "roomViewType.id", source = "request.viewTypeId")
+    @Mapping(target = "hotel", source = "hotel")
+    RoomType roomTypeFromAddRequest(AddRoomTypeRequest request, Hotel hotel);
 
+    @Mapping(target = "bedTypeId", source = "roomBedType.id")
+    @Mapping(target = "viewTypeId", source = "roomViewType.id")
     AddRoomTypeResponse addResponseFromRoomType(RoomType roomType);
 
-    @Mapping(target = "hotel", ignore = true)
+    @Mapping(target = "id", source = "request.id")
     @Mapping(target = "roomTypeImages", ignore = true)
     @Mapping(target = "rooms", ignore = true)
     @Mapping(target = "bookedRoomTypes", ignore = true)
-    RoomType roomTypeFromUpdateRequest(UpdateRoomTypeRequest request);
+    @Mapping(target = "roomTypeFacilityDetailSelections", ignore = true)
+    @Mapping(target = "name", source = "request.name")
+    @Mapping(target = "capacity", source = "request.capacity")
+    @Mapping(target = "description", source = "request.description")
+    @Mapping(target = "pricePerNight", source = "request.pricePerNight")
+    @Mapping(target = "display", source = "request.display")
+    @Mapping(target = "size", source = "request.size")
+    @Mapping(target = "currency", source = "request.currency")
+    @Mapping(target = "roomBedType.id", source = "request.bedTypeId")
+    @Mapping(target = "roomViewType.id", source = "request.viewTypeId")
+    @Mapping(target = "hotel", source = "hotel")
+    RoomType roomTypeFromUpdateRequest(UpdateRoomTypeRequest request, Hotel hotel);
 
+    @Mapping(target = "bedTypeId", source = "roomBedType.id")
+    @Mapping(target = "viewTypeId", source = "roomViewType.id")
     UpdateRoomTypeResponse updateResponseFromRoomType(RoomType room);
 }

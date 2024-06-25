@@ -25,6 +25,15 @@ public class UpdateRoomTypeRequest {
     @DecimalMin(value = "0.0", inclusive = false)
     private double pricePerNight;
 
+    @Min(value = 1)
+    private int size;
+
+    @NotBlank
+    private int bedTypeId;
+
+    @NotBlank
+    private int viewTypeId;
+
     @NotBlank
     private String description;
 
