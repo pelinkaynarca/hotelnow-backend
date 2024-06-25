@@ -30,10 +30,10 @@ public interface HotelMapper {
     @Mapping(target = "hotelPhones", source = "hotel.hotelPhones")
     @Mapping(target = "hotelImages", source = "hotel.hotelImages")
     @Mapping(target = "mainFacilitySelections", source = "mainFacilitySelections")
-    @Mapping(target = "facilityDetailSelections", source = "hotel.facilityDetailSelections")
+    @Mapping(target = "facilityDetailSelections", source = "facilityDetailSelections")
     @Mapping(target = "reviews", source = "reviews")
     @Mapping(target = "roomTypes", source = "roomTypes")
-    ListHotelResponse listResponseFromHotel(Hotel hotel, List<ListReviewResponseByHotelId> reviews, List<ListRoomTypeResponse> roomTypes, List<ListMainFacilitySelectionResponse> mainFacilitySelections);
+    ListHotelResponse listResponseFromHotel(Hotel hotel, List<ListReviewResponseByHotelId> reviews, List<ListRoomTypeResponse> roomTypes, List<ListMainFacilitySelectionResponse> mainFacilitySelections, List<ListFacilityDetailSelectionResponse> facilityDetailSelections);
 
     @Mapping(target = "neighborhoodId", source = "neighborhood.id")
     /* @Mapping(target = "neighborhoodName", source = "neighborhood.name") */

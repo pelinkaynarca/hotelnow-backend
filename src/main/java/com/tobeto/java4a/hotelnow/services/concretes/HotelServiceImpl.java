@@ -5,6 +5,7 @@ import com.tobeto.java4a.hotelnow.repositories.HotelRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.*;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.AddHotelRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.hotels.UpdateHotelRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailselections.ListFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.AddHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.hotels.ListHotelResponseForStaff;
@@ -31,28 +32,27 @@ public class HotelServiceImpl implements HotelService {
     private final ReviewService reviewService;
     private final RoomTypeService roomTypeService;
     private final MainFacilitySelectionService mainFacilitySelectionService;
+    private final FacilityDetailSelectionService facilityDetailSelectionService;
+
+    private ListHotelResponse mapHotelToListHotelResponse(Hotel hotel) {
+        List<ListReviewResponseByHotelId> reviews = reviewService.getByHotelId(hotel.getId());
+        List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(hotel.getId());
+        List<ListMainFacilitySelectionResponse> mainFacilitySelections = mainFacilitySelectionService.getByHotelId(hotel.getId());
+        List<ListFacilityDetailSelectionResponse> facilityDetailSelections = facilityDetailSelectionService.getResponseByHotelId(hotel.getId());
+        return HotelMapper.INSTANCE.listResponseFromHotel(hotel, reviews, roomTypes, mainFacilitySelections, facilityDetailSelections);
+    }
 
     @Override
     public List<ListHotelResponse> getAll() {
         return hotelRepository.findAll().stream()
-                .map(hotel -> {
-                    List<ListReviewResponseByHotelId> reviews = reviewService.getByHotelId(hotel.getId());
-                    List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(hotel.getId());
-                    List<ListMainFacilitySelectionResponse> mainFacilitySelections = mainFacilitySelectionService.getByHotelId(hotel.getId());
-                    return HotelMapper.INSTANCE.listResponseFromHotel(hotel, reviews, roomTypes, mainFacilitySelections);
-                })
+                .map(this::mapHotelToListHotelResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<ListHotelResponse> getByNeighborhoodId(int neighborhoodId) {
         return hotelRepository.findByNeighborhoodId(neighborhoodId).stream()
-                .map(hotel -> {
-                    List<ListReviewResponseByHotelId> reviews = reviewService.getByHotelId(hotel.getId());
-                    List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(hotel.getId());
-                    List<ListMainFacilitySelectionResponse> mainFacilitySelections = mainFacilitySelectionService.getByHotelId(hotel.getId());
-                    return HotelMapper.INSTANCE.listResponseFromHotel(hotel, reviews, roomTypes, mainFacilitySelections);
-                })
+                .map(this::mapHotelToListHotelResponse)
                 .collect(Collectors.toList());
     }
 
@@ -64,34 +64,24 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public List<ListHotelResponse> getByActive(boolean active) {
         return hotelRepository.findByActive(active).stream()
-                .map(hotel -> {
-                    List<ListReviewResponseByHotelId> reviews = reviewService.getByHotelId(hotel.getId());
-                    List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(hotel.getId());
-                    List<ListMainFacilitySelectionResponse> mainFacilitySelections = mainFacilitySelectionService.getByHotelId(hotel.getId());
-                    return HotelMapper.INSTANCE.listResponseFromHotel(hotel, reviews, roomTypes, mainFacilitySelections);
-                })
+                .map(this::mapHotelToListHotelResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<ListHotelResponse> getByStars(Byte stars) {
         return hotelRepository.findByStars(stars).stream()
-                .map(hotel -> {
-                    List<ListReviewResponseByHotelId> reviews = reviewService.getByHotelId(hotel.getId());
-                    List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(hotel.getId());
-                    List<ListMainFacilitySelectionResponse> mainFacilitySelections = mainFacilitySelectionService.getByHotelId(hotel.getId());
-                    return HotelMapper.INSTANCE.listResponseFromHotel(hotel, reviews, roomTypes, mainFacilitySelections);
-                })
+                .map(this::mapHotelToListHotelResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public ListHotelResponse getResponseById(int id) {
         Hotel hotel = hotelRepository.findById(id).orElse(null);
-        List<ListReviewResponseByHotelId> reviews = reviewService.getByHotelId(id);
-        List<ListRoomTypeResponse> roomTypes = roomTypeService.getByHotelId(id);
-        List<ListMainFacilitySelectionResponse> mainFacilitySelections = mainFacilitySelectionService.getByHotelId(hotel.getId());
-        return HotelMapper.INSTANCE.listResponseFromHotel(hotel, reviews, roomTypes, mainFacilitySelections);
+        if (hotel == null) {
+            return null;
+        }
+        return mapHotelToListHotelResponse(hotel);
     }
 
     @Override
