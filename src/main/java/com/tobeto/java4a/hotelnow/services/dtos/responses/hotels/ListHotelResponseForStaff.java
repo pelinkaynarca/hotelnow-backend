@@ -22,9 +22,9 @@ public class ListHotelResponseForStaff {
 
     private String description;
 
-    private LocalTime checkInTime;
+    private String checkInTime;
 
-    private LocalTime checkOutTime;
+    private String checkOutTime;
 
     private int neighborhoodId;
 

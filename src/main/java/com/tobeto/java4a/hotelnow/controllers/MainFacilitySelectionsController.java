@@ -7,11 +7,13 @@ import com.tobeto.java4a.hotelnow.services.abstracts.MainFacilitySelectionServic
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.AddMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.UpdateMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailoptions.ListFacilityDetailOptionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.AddMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.ListMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.UpdateMainFacilitySelectionResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,13 +55,19 @@ public class MainFacilitySelectionsController extends BaseController {
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_MAIN_FACILITY_OPTION_NOT_FOUND, null);
     }
 
-    @PutMapping
+    /* @PutMapping
     public ResponseEntity<BaseResponse<UpdateMainFacilitySelectionResponse>> update(@RequestBody @Valid UpdateMainFacilitySelectionRequest request) {
         ListMainFacilitySelectionResponse mainFacilitySelectionToBeFound = mainFacilitySelectionService.getResponseById(request.getId());
         if ( mainFacilitySelectionToBeFound != null) {
             return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, mainFacilitySelectionService.update(request));
         }
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_MAIN_FACILITY_SELECTION_NOT_FOUND, null);
-    }
+    } */
+
+    @DeleteMapping
+    public ResponseEntity<BaseResponse<String>> delete(@Param("id") int id) {
+            mainFacilitySelectionService.deleteById(id);
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
+        }
 
 }

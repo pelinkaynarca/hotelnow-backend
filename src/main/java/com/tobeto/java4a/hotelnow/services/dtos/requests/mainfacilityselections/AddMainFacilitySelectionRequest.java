@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddMainFacilitySelectionRequest {
 
-    private boolean display;
+    // private boolean display;
 
     @Min(value = 1)
     private int optionId;

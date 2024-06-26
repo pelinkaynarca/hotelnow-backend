@@ -24,6 +24,7 @@ public interface MainFacilitySelectionMapper {
 
     @Mapping(target = "mainFacilityOption.id", source = "request.optionId")
     @Mapping(target = "hotel", source = "hotel")
+    @Mapping(target = "display", constant = "true")
     MainFacilitySelection mainFacilitySelectionFromAddRequest(AddMainFacilitySelectionRequest request, Hotel hotel);
 
     @Mapping(target = "hotelId", source = "hotel.id")

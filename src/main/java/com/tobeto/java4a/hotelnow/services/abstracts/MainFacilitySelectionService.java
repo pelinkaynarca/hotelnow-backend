@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.abstracts;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.MainFacilitySelection;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.AddMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.UpdateMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.AddMainFacilitySelectionResponse;
@@ -14,5 +15,6 @@ public interface MainFacilitySelectionService {
     List<ListMainFacilitySelectionResponse> getByHotelId(int hotelId);
     List<ListMainFacilitySelectionResponse> getByHotelIdAndDisplay(int hotelId, boolean display);
     AddMainFacilitySelectionResponse add(AddMainFacilitySelectionRequest request);
-    UpdateMainFacilitySelectionResponse update(UpdateMainFacilitySelectionRequest request);
+    // UpdateMainFacilitySelectionResponse update(UpdateMainFacilitySelectionRequest request);
+    void deleteById(int id);
 }

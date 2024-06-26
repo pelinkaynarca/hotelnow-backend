@@ -6,10 +6,8 @@ import com.tobeto.java4a.hotelnow.services.abstracts.MainFacilitySelectionServic
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
 import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.AddMainFacilitySelectionRequest;
-import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.UpdateMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.AddMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.ListMainFacilitySelectionResponse;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.UpdateMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.MainFacilitySelectionMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,6 +60,7 @@ public class MainFacilitySelectionServiceImpl implements MainFacilitySelectionSe
 
     }
 
+    /*
     public UpdateMainFacilitySelectionResponse update(UpdateMainFacilitySelectionRequest request) {
         MainFacilitySelection existingEntity = mainFacilitySelectionRepository.findById(request.getId()).orElseThrow();
         MainFacilitySelectionMapper.INSTANCE.updateMainFacilitySelectionFromUpdateRequest(request, existingEntity);
@@ -69,6 +68,12 @@ public class MainFacilitySelectionServiceImpl implements MainFacilitySelectionSe
         MainFacilitySelection savedEntity = mainFacilitySelectionRepository.save(existingEntity);
 
         return MainFacilitySelectionMapper.INSTANCE.updateResponseFromMainFacilitySelection(savedEntity);
+    }
+    */
+
+    @Override
+    public void deleteById(int id) {
+        mainFacilitySelectionRepository.deleteById(id);
     }
 
 }
