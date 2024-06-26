@@ -67,7 +67,7 @@ public class StaffsController extends BaseController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<BaseResponse<AddStaffResponse>> add(@RequestBody @Valid AddStaffRequest request) {
 		AddStaffResponse addStaffResponse = staffService.add(request);
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addStaffResponse);
+		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addStaffResponse);
 	}
 
 	@PutMapping
