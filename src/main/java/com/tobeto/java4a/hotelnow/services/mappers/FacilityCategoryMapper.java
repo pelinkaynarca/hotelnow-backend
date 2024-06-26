@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
 public interface FacilityCategoryMapper {
 
     FacilityCategoryMapper INSTANCE = Mappers.getMapper(FacilityCategoryMapper.class);
-
+    @Mapping(target = "facilityDetailOptionResponse" , source = "facilityDetailOptions")
     ListFacilityCategoryResponse listResponseFromFacilityCategory(FacilityCategory facilityCategory);
 
     AddFacilityCategoryResponse addResponseFromFacilityCategory(FacilityCategory facilityCategory);
