@@ -52,7 +52,7 @@ public class GlobalExceptionHandler extends BaseController {
 	}
 
 	@ExceptionHandler({ BadCredentialsException.class })
-	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ResponseEntity<BaseResponse<AuthenticationProblemDetails>> handleBadCredentialsException(
 			BadCredentialsException exception) {
 		return sendResponse(HttpStatus.BAD_REQUEST, Messages.Error.BAD_CREDENTIALS,
