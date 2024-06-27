@@ -39,6 +39,12 @@ public class RoomTypesController extends BaseController {
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypes);
 	}
 
+	@GetMapping("/room-type")
+	public ResponseEntity<BaseResponse<List<ListRoomTypeResponse>>> getResponseRoomTypeForStaff() {
+		List<ListRoomTypeResponse> roomTypes = roomTypeService.getResponseRoomTypeForStaff();
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, roomTypes);
+	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<BaseResponse<ListRoomTypeResponse>> getById(@PathVariable int id) {
 		ListRoomTypeResponse roomType = roomTypeService.getById(id);

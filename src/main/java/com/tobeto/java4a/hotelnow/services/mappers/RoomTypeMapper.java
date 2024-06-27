@@ -1,9 +1,12 @@
 package com.tobeto.java4a.hotelnow.services.mappers;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.Hotel;
+import com.tobeto.java4a.hotelnow.entities.concretes.Room;
 import com.tobeto.java4a.hotelnow.entities.concretes.RoomType;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.UpdateRoomTypeRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.ListRoomTypeFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.AddRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.ListRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.UpdateRoomTypeResponse;
@@ -11,14 +14,23 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface RoomTypeMapper {
 
     RoomTypeMapper INSTANCE = Mappers.getMapper(RoomTypeMapper.class);
 
-    @Mapping(target = "bedTypeName", source = "roomBedType.name")
-    @Mapping(target = "viewTypeName", source = "roomViewType.name")
-    ListRoomTypeResponse listResponse(RoomType roomType);
+
+    @Mapping(target = "bedTypeName", source = "roomType.roomBedType.name")
+    @Mapping(target = "viewTypeName", source = "roomType.roomViewType.name")
+    @Mapping(target = "roomTypeImages", source = "imageResponses")
+    @Mapping(target = "roomTypeFacilityDetailSelections", source = "selections")
+    @Mapping(target = "rooms", source = "rooms")
+    ListRoomTypeResponse listResponse(RoomType roomType,
+                                      List<ListImageResponse> imageResponses,
+                                      List<ListRoomTypeFacilityDetailSelectionResponse> selections,
+                                      List<Room> rooms);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roomTypeImages", ignore = true)

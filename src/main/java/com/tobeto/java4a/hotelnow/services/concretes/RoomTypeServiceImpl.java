@@ -1,12 +1,12 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
-import com.tobeto.java4a.hotelnow.entities.concretes.RoomType;
-import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
-import com.tobeto.java4a.hotelnow.entities.concretes.User;
+import com.tobeto.java4a.hotelnow.entities.concretes.*;
 import com.tobeto.java4a.hotelnow.repositories.RoomTypeRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.*;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.AddRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes.UpdateRoomTypeRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.ListRoomTypeFacilityDetailSelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.AddRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.ListRoomTypeResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes.UpdateRoomTypeResponse;
@@ -27,21 +27,12 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     private UserService userService;
     private StaffService staffService;
     private RoomTypeImageService roomTypeImageService;
+    private RoomService roomService;
 
     @Override
     public List<ListRoomTypeResponse> getAll() {
-        List<RoomType> roomTypes = roomTypeRepository.findAll();
-        return roomTypes.stream()
-                .map(roomType -> {
-                    ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponse(roomType);
-                    response.setRoomTypeImages(
-                            roomTypeImageService.getResponse(roomType.getRoomTypeImages())
-                    );
-                    response.setRoomTypeFacilityDetailSelections(
-                            roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
-                    );
-                    return response;
-                })
+        return roomTypeRepository.findAll().stream()
+                .map(this::mapRoomTypeToLisRoomTypeResponse)
                 .collect(Collectors.toList());
     }
 
@@ -49,16 +40,19 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     public List<ListRoomTypeResponse> getByHotelId(int hotelId) {
         List<RoomType> roomTypes = roomTypeRepository.findByHotelId(hotelId);
         return roomTypes.stream()
-                .map(roomType -> {
-                    ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponse(roomType);
-                    response.setRoomTypeImages(
-                            roomTypeImageService.getResponse(roomType.getRoomTypeImages())
-                    );
-                    response.setRoomTypeFacilityDetailSelections(
-                            roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
-                    );
-                    return response;
-                })
+                .map(this::mapRoomTypeToLisRoomTypeResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ListRoomTypeResponse> getResponseRoomTypeForStaff() {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedInUser = (User) userService.loadUserByUsername(email);
+        Staff staff = staffService.getById(loggedInUser.getId());
+        Hotel hotel = staff.getHotel();
+        List<RoomType> roomTypes = hotel.getRoomTypes();
+        return roomTypes.stream()
+                .map(this::mapRoomTypeToLisRoomTypeResponse)
                 .collect(Collectors.toList());
     }
 
@@ -66,15 +60,12 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     public ListRoomTypeResponse getById(int id) {
         RoomType roomType = roomTypeRepository.findById(id).orElse(null);
 
-        ListRoomTypeResponse response = RoomTypeMapper.INSTANCE.listResponse(roomType);
-        assert roomType != null;
-        response.setRoomTypeImages(
-                roomTypeImageService.getResponse(roomType.getRoomTypeImages())
-        );
-        response.setRoomTypeFacilityDetailSelections(
-                roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId())
-        );
-        return response;
+        List<ListImageResponse> images = roomTypeImageService.getResponse(roomType.getRoomTypeImages());
+        List<ListRoomTypeFacilityDetailSelectionResponse> selections =
+                roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId());
+        List<Room> rooms = roomService.getByRoomTypeId(roomType.getId());
+
+        return RoomTypeMapper.INSTANCE.listResponse(roomType, images, selections, rooms);
     }
 
     @Override
@@ -100,5 +91,13 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     @Override
     public void delete(int id) {
         roomTypeRepository.deleteById(id);
+    }
+
+    private ListRoomTypeResponse mapRoomTypeToLisRoomTypeResponse(RoomType roomType) {
+        List<ListImageResponse> images = roomTypeImageService.getResponse(roomType.getRoomTypeImages());
+        List<ListRoomTypeFacilityDetailSelectionResponse> selections =
+                roomTypeFacilityDetailSelectionService.getByRoomTypeId(roomType.getId());
+        List<Room> rooms = roomService.getByRoomTypeId(roomType.getId());
+        return RoomTypeMapper.INSTANCE.listResponse(roomType,images, selections, rooms);
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public interface RoomTypeService {
     List<ListRoomTypeResponse> getAll();
     List<ListRoomTypeResponse> getByHotelId(int hotelId);
+    List<ListRoomTypeResponse> getResponseRoomTypeForStaff();
     ListRoomTypeResponse getById(int id);
     AddRoomTypeResponse add(AddRoomTypeRequest request);
     UpdateRoomTypeResponse update(UpdateRoomTypeRequest request);
