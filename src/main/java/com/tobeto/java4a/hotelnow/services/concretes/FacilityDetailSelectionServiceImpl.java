@@ -2,12 +2,10 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 
 import java.util.List;
 
+import com.tobeto.java4a.hotelnow.entities.concretes.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.java4a.hotelnow.entities.concretes.FacilityDetailSelection;
-import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
-import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.repositories.FacilityDetailSelectionRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.FacilityDetailSelectionService;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
@@ -40,6 +38,17 @@ public class FacilityDetailSelectionServiceImpl implements FacilityDetailSelecti
 		List<FacilityDetailSelection> facilityDetailSelections = getByHotelId(hotelId);
 		return FacilityDetailSelectionMapper.INSTANCE
 				.groupListResponses(facilityDetailSelections);
+	}
+
+	@Override
+	public List<ListFacilityDetailSelectionResponse> getResponseFacilityDetailSelectionForStaff() {
+		String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User loggedInUser = (User) userService.loadUserByUsername(email);
+		Staff staff = staffService.getById(loggedInUser.getId());
+		Hotel hotel = staff.getHotel();
+		List<FacilityDetailSelection> selections = hotel.getFacilityDetailSelections();
+		return FacilityDetailSelectionMapper.INSTANCE
+				.groupListResponses(selections);
 	}
 
 	@Override

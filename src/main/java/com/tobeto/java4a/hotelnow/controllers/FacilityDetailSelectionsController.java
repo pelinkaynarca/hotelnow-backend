@@ -60,6 +60,16 @@ public class FacilityDetailSelectionsController extends BaseController {
 		}
 	}
 
+	@GetMapping("/facility-detail-selection")
+	public ResponseEntity<BaseResponse<List<ListFacilityDetailSelectionResponse>>> getResponseFacilityDetailSelectionFor() {
+		List<ListFacilityDetailSelectionResponse> selections =
+				facilityDetailSelectionService.getResponseFacilityDetailSelectionForStaff();
+
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+				selections);
+	}
+
+
 	@PostMapping
 	public ResponseEntity<BaseResponse<List<AddFacilityDetailSelectionResponse>>> add(
 			@RequestBody @Valid List<AddFacilityDetailSelectionRequest> requests) {

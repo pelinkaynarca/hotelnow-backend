@@ -2,10 +2,7 @@ package com.tobeto.java4a.hotelnow.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
 import com.tobeto.java4a.hotelnow.core.services.CurrencyService;
@@ -25,5 +22,18 @@ public class CurrencyRatesController extends BaseController {
 	public ResponseEntity<BaseResponse<Double>> foreignCurrencyToTurkishLira(@PathVariable String currencyCode) {
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				currencyService.getTurkishLiraEquivalentOfForeignCurrency(Currency.valueOf(currencyCode.toUpperCase())));
+	}
+
+	@GetMapping("/currency/convert")
+	public ResponseEntity<Double> convertAmountToCurrency(
+			@RequestParam("amount") double amount,
+			@RequestParam("currency") Currency currency) {
+		Double foreignCurrencyAmount = currencyService.calculateForeignCurrencyEquivalentOfTLAmount(amount, currency);
+		if (foreignCurrencyAmount != null) {
+			return ResponseEntity.ok(foreignCurrencyAmount);
+		} else {
+			System.out.println("Invalid currency or amount: " + amount + " " + currency);
+			return ResponseEntity.badRequest().body(null);
+		}
 	}
 }

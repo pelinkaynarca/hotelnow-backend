@@ -27,12 +27,16 @@ public class CurrencyService {
 	private String TCMB_CURRENCY_ENDPOINT_URL;
 
 	public Double calculateForeignCurrencyEquivalentOfTLAmount(double tlAmount, Currency currency) {
-		Double calculatedAmount = null;
+		if (currency == Currency.TRY) {
+			return tlAmount;
+		}
+
 		Double currentExchangeRate = getTurkishLiraEquivalentOfForeignCurrency(currency);
 		if (currentExchangeRate != null) {
-			calculatedAmount = tlAmount / currentExchangeRate;
+			return tlAmount / currentExchangeRate;
+		} else {
+			return null;
 		}
-		return calculatedAmount;
 	}
 
 	/**

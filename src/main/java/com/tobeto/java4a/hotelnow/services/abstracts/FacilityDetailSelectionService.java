@@ -16,6 +16,8 @@ public interface FacilityDetailSelectionService {
 	FacilityDetailSelection getById(int id);
 	
 	List<ListFacilityDetailSelectionResponse> getResponseByHotelId(int hotelId);
+
+	List<ListFacilityDetailSelectionResponse> getResponseFacilityDetailSelectionForStaff();
 	
 	List<FacilityDetailSelection> getByHotelId(int hotelId);
 	
