@@ -18,5 +18,5 @@ public class ListFacilityCategoryResponse {
 
     private String title;
 
-    private List<ListFacilityDetailOptionResponse> FacilityDetailOptionResponse;
+    private List<ListFacilityDetailOptionResponse> facilityDetailOptionResponse;
 }
