@@ -46,7 +46,7 @@ public class RoomTypeFacilityCategoriesController extends BaseController{
                 updateRoomTypeFacilityCategoryResponse);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         roomTypeFacilityCategoryService.delete(id);
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);

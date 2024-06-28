@@ -46,7 +46,7 @@ public class MainFacilityOptionsController extends BaseController {
                 updateMainFacilityOptionResponse);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         mainFacilityOptionService.deleteById(id);
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
