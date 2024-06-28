@@ -26,7 +26,23 @@ public class CurrencyService {
 	@Value("${currency.tcmb.endpoint}")
 	private String TCMB_CURRENCY_ENDPOINT_URL;
 
-	public Double convertForeignCurrencyToTurkishLira(Currency currency) {
+	public Double calculateForeignCurrencyEquivalentOfTLAmount(double tlAmount, Currency currency) {
+		Double calculatedAmount = null;
+		Double currentExchangeRate = getTurkishLiraEquivalentOfForeignCurrency(currency);
+		if (currentExchangeRate != null) {
+			calculatedAmount = tlAmount / currentExchangeRate;
+		}
+		return calculatedAmount;
+	}
+
+	/**
+	 * converts foreign currency to turkish lira according to the current exchange rates of
+	 * the central bank of the republic of turkey.
+	 * 
+	 * @param currency (i.e. USD, EUR)
+	 * @return tl equivalent
+	 */
+	public Double getTurkishLiraEquivalentOfForeignCurrency(Currency currency) {
 		URL xmlURL;
 		try {
 			xmlURL = new URL(TCMB_CURRENCY_ENDPOINT_URL);

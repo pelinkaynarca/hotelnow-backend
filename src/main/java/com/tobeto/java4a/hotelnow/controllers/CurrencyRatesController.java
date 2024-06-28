@@ -24,6 +24,6 @@ public class CurrencyRatesController extends BaseController {
 	@GetMapping("/{currencyCode}")
 	public ResponseEntity<BaseResponse<Double>> foreignCurrencyToTurkishLira(@PathVariable String currencyCode) {
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
-				currencyService.convertForeignCurrencyToTurkishLira(Currency.valueOf(currencyCode.toUpperCase())));
+				currencyService.getTurkishLiraEquivalentOfForeignCurrency(Currency.valueOf(currencyCode.toUpperCase())));
 	}
 }
