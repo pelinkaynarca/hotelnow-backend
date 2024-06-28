@@ -26,7 +26,7 @@ public class SecurityConfiguration {
 	private final GlobalAuthenticationEntryPoint authenticationEntryPoint;
 	private final GlobalAccessDeniedHandler accessDeniedHandler;
 
-	private static final String[] WHITE_LIST_URLS = { "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**" };
+	private static final String[] WHITE_LIST_URLS = { "/swagger-ui/**", "/v3/api-docs/**", "/api/auth/**", "/api/currency-rates/**" };
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
