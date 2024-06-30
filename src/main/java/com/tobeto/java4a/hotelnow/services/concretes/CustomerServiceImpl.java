@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
@@ -60,5 +61,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void deleteById(int id) {
 		customerRepository.deleteById(id);
+	}
+
+	@Override
+	public Customer getLoggedInCustomer() {
+		int idOfLoggedInCustomer = (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		return getById(idOfLoggedInCustomer);
 	}
 }

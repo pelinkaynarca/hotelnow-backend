@@ -12,6 +12,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.tobeto.java4a.hotelnow.core.configurations.fakeusers.FakeUser;
 import com.tobeto.java4a.hotelnow.core.services.JwtService;
 import com.tobeto.java4a.hotelnow.entities.concretes.Role;
+import com.tobeto.java4a.hotelnow.entities.concretes.User;
+import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,16 +27,19 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private final JwtService jwtService;
 	private final FakeUser fakeUser;
+	private final UserService userService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String username = null;
 		List<Role> roles = null;
+		Integer userId = null;
 
 		if (fakeUser.getEmail() != null && !fakeUser.getEmail().isBlank()) {
 			username = fakeUser.getEmail();
 			roles = fakeUser.getAuthorities();
+			userId = ((User) userService.loadUserByUsername(fakeUser.getEmail())).getId();
 			System.out.println("FAKE LOGIN WITH USERNAME (" + username + ") AND ROLE (" + roles.get(0).name() + ")");
 		} else {
 			String jwtHeader = request.getHeader("Authorization");
@@ -45,11 +50,13 @@ public class JwtFilter extends OncePerRequestFilter {
 				username = jwtService.extractUsername(jwt);
 				roles = jwtService.extractRoles(jwt).stream().map((roleStr) -> Role.valueOf(roleStr))
 						.collect(Collectors.toList());
+				userId = jwtService.extractUserId(jwt);
 			}
 		}
 
 		if (username != null && roles != null) {
-			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, null, roles);
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, userId,
+					roles);
 			token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(token);
 		}

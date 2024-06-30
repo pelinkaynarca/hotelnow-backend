@@ -13,6 +13,8 @@ public interface CustomerService {
 	
 	ListCustomerResponse getResponseById(int id);
 	
+	Customer getLoggedInCustomer();
+	
 	AddCustomerResponse add(AddCustomerRequest request);
 	
 	Customer addCustomer(Customer customer);

@@ -9,10 +9,8 @@ import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationExcep
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.Role;
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
-import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.repositories.StaffRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
-import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequestForAdmin;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.UpdateStaffRequest;
@@ -28,7 +26,6 @@ import lombok.RequiredArgsConstructor;
 public class StaffServiceImpl implements StaffService {
 
 	private final StaffRepository staffRepository;
-	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
@@ -54,9 +51,7 @@ public class StaffServiceImpl implements StaffService {
 	public AddStaffResponse add(AddStaffRequest request) {
 		loggedInUserMustBeManager();
 		Staff staff = StaffMapper.INSTANCE.staffFromAddRequest(request);
-		String emailOfLoggedInStaff = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User loggedInUser = (User) userService.loadUserByUsername(emailOfLoggedInStaff);
-		Staff loggedInStaff = getById(loggedInUser.getId());
+		Staff loggedInStaff = getLoggedInStaff();
 		staff.setHotel(loggedInStaff.getHotel());
 		Staff savedStaff = addStaff(staff);
 		return StaffMapper.INSTANCE.addResponseFromStaff(savedStaff);
@@ -97,9 +92,8 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public Staff getLoggedInStaff() {
-		String emailOfLoggedInStaff = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User loggedInUser = (User) userService.loadUserByUsername(emailOfLoggedInStaff);
-		Staff loggedInStaff = getById(loggedInUser.getId());
+		int idOfLoggedInStaff = (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		Staff loggedInStaff = getById(idOfLoggedInStaff);
 		return loggedInStaff;
 	}
 
