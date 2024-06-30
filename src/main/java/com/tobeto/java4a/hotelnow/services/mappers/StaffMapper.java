@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequestForAdmin;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.UpdateStaffRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.AddStaffResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.ListStaffResponse;
@@ -32,10 +33,21 @@ public interface StaffMapper {
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "role", ignore = true)
 	@Mapping(target = "hotel", ignore = true)
+	@Mapping(target = "reviewReplies", ignore = true)
+	@Mapping(target = "authorities", ignore = true)
 	Staff staffFromAddRequest(AddStaffRequest addStaffRequest);
+	
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "role", ignore = true)
+	@Mapping(target = "reviewReplies", ignore = true)
+	@Mapping(target = "authorities", ignore = true)
+	@Mapping(target = "hotel.id", source = "hotelId")
+	Staff staffFromAddRequestForAdmin(AddStaffRequestForAdmin addStaffRequestForAdmin);
 
 	@Mapping(target = "role", ignore = true)
 	@Mapping(target = "hotel", ignore = true)
+	@Mapping(target = "reviewReplies", ignore = true)
+	@Mapping(target = "authorities", ignore = true)
 	Staff staffFromUpdateRequest(UpdateStaffRequest updateStaffRequest);
 
 }

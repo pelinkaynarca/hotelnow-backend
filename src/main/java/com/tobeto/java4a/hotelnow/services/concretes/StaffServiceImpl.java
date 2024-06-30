@@ -14,6 +14,7 @@ import com.tobeto.java4a.hotelnow.repositories.StaffRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
 import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequestForAdmin;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.UpdateStaffRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.AddStaffResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.ListStaffResponse;
@@ -53,6 +54,18 @@ public class StaffServiceImpl implements StaffService {
 	public AddStaffResponse add(AddStaffRequest request) {
 		loggedInUserMustBeManager();
 		Staff staff = StaffMapper.INSTANCE.staffFromAddRequest(request);
+		String emailOfLoggedInStaff = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User loggedInUser = (User) userService.loadUserByUsername(emailOfLoggedInStaff);
+		Staff loggedInStaff = getById(loggedInUser.getId());
+		staff.setHotel(loggedInStaff.getHotel());
+		Staff savedStaff = addStaff(staff);
+		return StaffMapper.INSTANCE.addResponseFromStaff(savedStaff);
+	}
+
+	@Override
+	public AddStaffResponse addForAdmin(AddStaffRequestForAdmin request) {
+		loggedInUserMustBeAdmin();
+		Staff staff = StaffMapper.INSTANCE.staffFromAddRequestForAdmin(request);
 		Staff savedStaff = addStaff(staff);
 		return StaffMapper.INSTANCE.addResponseFromStaff(savedStaff);
 	}
@@ -70,19 +83,13 @@ public class StaffServiceImpl implements StaffService {
 		return staffRepository.findById(id).orElse(null);
 	}
 
-	@Override
-	public Staff addStaff(Staff staff) {
-		loggedInUserMustBeManager();
-		String emailOfLoggedInStaff = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User loggedInUser = (User) userService.loadUserByUsername(emailOfLoggedInStaff);
-		Staff loggedInStaff = getById(loggedInUser.getId());
-		staff.setHotel(loggedInStaff.getHotel());
+	private Staff addStaff(Staff staff) {
 		staff.setRole(Role.MANAGER);
 		staff.setPassword(passwordEncoder.encode(staff.getPassword()));
 		Staff savedStaff = staffRepository.save(staff);
 		return savedStaff;
 	}
-	
+
 	@Override
 	public void deleteById(int id) {
 		staffRepository.deleteById(id);
@@ -100,6 +107,13 @@ public class StaffServiceImpl implements StaffService {
 		List<Role> rolesOfLoggedInUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
 				.stream().map(r -> Role.valueOf(r.getAuthority())).toList();
 		if (!rolesOfLoggedInUser.contains(Role.MANAGER))
+			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
+	}
+
+	private void loggedInUserMustBeAdmin() {
+		List<Role> rolesOfLoggedInUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+				.stream().map(r -> Role.valueOf(r.getAuthority())).toList();
+		if (!rolesOfLoggedInUser.contains(Role.ADMIN))
 			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
 	}
 }

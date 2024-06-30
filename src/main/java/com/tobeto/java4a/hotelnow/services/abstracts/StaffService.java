@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequestForAdmin;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.UpdateStaffRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.AddStaffResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.ListStaffResponse;
@@ -27,7 +28,7 @@ public interface StaffService {
 	
 	AddStaffResponse add(AddStaffRequest request);
 	
-	Staff addStaff(Staff staff);
+	AddStaffResponse addForAdmin(AddStaffRequestForAdmin request);
 	
 	UpdateStaffResponse update(UpdateStaffRequest request);
 	

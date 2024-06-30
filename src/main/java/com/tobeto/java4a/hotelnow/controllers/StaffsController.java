@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.AddStaffRequestForAdmin;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.staffs.UpdateStaffRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.AddStaffResponse;
@@ -70,12 +71,20 @@ public class StaffsController extends BaseController {
 		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addStaffResponse);
 	}
 
+	@PostMapping("/add-staff-for-admin")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<BaseResponse<AddStaffResponse>> addStaffForAdmin(
+			@RequestBody @Valid AddStaffRequestForAdmin request) {
+		AddStaffResponse addStaffResponse = staffService.addForAdmin(request);
+		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, addStaffResponse);
+	}
+
 	@PutMapping
 	public ResponseEntity<BaseResponse<UpdateStaffResponse>> update(@RequestBody @Valid UpdateStaffRequest request) {
 		UpdateStaffResponse updateStaffResponse = staffService.update(request);
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, updateStaffResponse);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<BaseResponse<String>> deleteById(@PathVariable int id) {
 		staffService.deleteById(id);
