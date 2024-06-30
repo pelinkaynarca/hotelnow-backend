@@ -24,7 +24,7 @@ public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
 
     @Override
-    public List<ListRoomResponse> getResponseByRoomTypeId (int roomTypeId) {
+    public List<ListRoomResponse> getResponseByRoomTypeId(int roomTypeId) {
         List<Room> rooms = roomRepository.findByRoomTypeId(roomTypeId);
         return rooms.stream()
                 .map(RoomMapper.INSTANCE::listResponseFromRoom)
@@ -41,8 +41,9 @@ public class RoomServiceImpl implements RoomService {
     public AddRoomResponse add(AddRoomRequest request) {
         roomWithSameNameShouldNotExist(request.getNo());
         Room room = RoomMapper.INSTANCE.roomFromAddRequest(request);
-
         room = roomRepository.save(room);
+
+        roomRepository.updateRoomTypeDisplayStatusByRoomId(room.isAvailable(), room.getId());
         return RoomMapper.INSTANCE.addResponseFromRoom(room);
     }
 
@@ -51,6 +52,8 @@ public class RoomServiceImpl implements RoomService {
         roomWithSameNameShouldNotExistForUpdate(request.getNo(), request.getId());
         Room room = RoomMapper.INSTANCE.roomFromUpdateRequest(request);
         room = roomRepository.save(room);
+
+        roomRepository.updateRoomTypeDisplayStatusByRoomId(room.isAvailable(), room.getId());
         return RoomMapper.INSTANCE.updateResponseFromRoom(room);
     }
 
@@ -61,7 +64,15 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void delete(int id) {
-        roomRepository.deleteById(id);
+        Optional<Room> roomOptional = roomRepository.findById(id);
+        if (roomOptional.isPresent()) {
+            Room room = roomOptional.get();
+            roomRepository.deleteById(id);
+
+            roomRepository.updateRoomTypeDisplayStatusByRoomId(room.isAvailable(), room.getId());
+        } else {
+            throw new BusinessException("Room not found for id: " + id);
+        }
     }
 
     private void roomWithSameNameShouldNotExistForUpdate(int no, int roomId) {
@@ -79,7 +90,7 @@ public class RoomServiceImpl implements RoomService {
     private void roomWithSameNameShouldNotExist(int no) {
         Optional<Room> roomWithSameNo = roomRepository.findByNo(no);
 
-        if(roomWithSameNo.isPresent())
+        if (roomWithSameNo.isPresent())
             throw new BusinessException("Aynı isimde bir oda zaten var");
     }
 }

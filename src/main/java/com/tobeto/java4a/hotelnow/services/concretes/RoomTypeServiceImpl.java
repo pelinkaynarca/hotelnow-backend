@@ -38,7 +38,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 
     @Override
     public List<ListRoomTypeResponse> getByHotelId(int hotelId) {
-        List<RoomType> roomTypes = roomTypeRepository.findByHotelId(hotelId);
+        List<RoomType> roomTypes = roomTypeRepository.findByHotelIdAndDisplayTrue(hotelId);
         return roomTypes.stream()
                 .map(this::mapRoomTypeToLisRoomTypeResponse)
                 .collect(Collectors.toList());

@@ -24,7 +24,7 @@ public class CurrencyRatesController extends BaseController {
 				currencyService.getTurkishLiraEquivalentOfForeignCurrency(Currency.valueOf(currencyCode.toUpperCase())));
 	}
 
-	@GetMapping("/currency/convert")
+	@GetMapping("/convert")
 	public ResponseEntity<Double> convertAmountToCurrency(
 			@RequestParam("amount") double amount,
 			@RequestParam("currency") Currency currency) {
