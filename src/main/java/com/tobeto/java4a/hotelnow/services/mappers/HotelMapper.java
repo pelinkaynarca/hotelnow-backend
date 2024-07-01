@@ -24,7 +24,6 @@ public interface HotelMapper {
 
     HotelMapper INSTANCE = Mappers.getMapper(HotelMapper.class);
 
-    //TODO: update after RoomTypeServiceImpl is fully filled in
     @Mapping(target = "neighborhoodName", source = "hotel.neighborhood.name")
     @Mapping(target = "hotelPhones", source = "hotel.hotelPhones")
     @Mapping(target = "hotelImages", source = "hotel.hotelImages")
@@ -44,10 +43,9 @@ public interface HotelMapper {
     @Mapping(target = "categoryTitle", source = "facilityCategory.title")
     ListFacilityDetailOptionResponse listResponseFromFacilityOption(FacilityDetailOption facilityDetailOption);
 
-    @Mapping(target = "neighborhood.id", source = "neighborhoodId")
+    @Mapping(target = "active", constant = "false")
     Hotel hotelFromAddRequest(AddHotelRequest request);
 
-    @Mapping(target = "neighborhoodName", source = "neighborhood.name")
     AddHotelResponse addResponseFromHotel(Hotel hotel);
 
     @Mapping(target = "neighborhood.id", source = "request.neighborhoodId")

@@ -31,10 +31,8 @@ public class UpdateHotelRequest {
 
     private boolean active;
 
-    // @Pattern(regexp = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$")
     private LocalTime checkInTime;
 
-    // @Pattern(regexp = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$")
     private LocalTime checkOutTime;
 
     @Min(value = 1)

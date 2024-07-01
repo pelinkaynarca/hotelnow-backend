@@ -15,6 +15,6 @@ public interface MainFacilitySelectionRepository extends JpaRepository<MainFacil
     @Query("select mfs from MainFacilitySelection mfs where mfs.hotel.id = :hotelId and mfs.display = :display")
     List<MainFacilitySelection> findByHotelIdAndDisplay(@Param("hotelId") int hotelId, @Param("display") boolean display);
 
-    @Query(value = "SELECT mfs FROM MainFacilitySelection mfs WHERE mfs.hotel.id = :hotelId AND mfs.display = true ORDER BY RANDOM() LIMIT 5")
+    @Query(value = "SELECT mfs FROM MainFacilitySelection mfs WHERE mfs.hotel.id = :hotelId AND mfs.display = true ORDER BY RANDOM() LIMIT 8")
     List<MainFacilitySelection> findRandomByHotelId(@Param("hotelId") int hotelId);
 }

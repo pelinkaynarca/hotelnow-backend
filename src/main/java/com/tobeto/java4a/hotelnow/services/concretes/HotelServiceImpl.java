@@ -105,9 +105,6 @@ public class HotelServiceImpl implements HotelService {
 
         Hotel hotel = HotelMapper.INSTANCE.hotelFromAddRequest(request);
 
-        Neighborhood neighborhood = neighborhoodService.getById(request.getNeighborhoodId());
-        hotel.setNeighborhood(neighborhood);
-
         Hotel savedHotel = hotelRepository.save(hotel);
 
         return HotelMapper.INSTANCE.addResponseFromHotel(savedHotel);

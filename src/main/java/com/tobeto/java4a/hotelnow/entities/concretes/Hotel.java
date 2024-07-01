@@ -25,7 +25,7 @@ public class Hotel extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @JsonFormat(pattern = "HH:mm")
@@ -39,7 +39,7 @@ public class Hotel extends BaseEntity {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "neighborhood_id")
     private Neighborhood neighborhood;
     

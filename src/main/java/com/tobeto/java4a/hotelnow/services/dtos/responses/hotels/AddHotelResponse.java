@@ -18,15 +18,4 @@ public class AddHotelResponse {
 
     private byte stars;
 
-    private String address;
-
-    private String description;
-
-    private LocalTime checkInTime;
-
-    private LocalTime checkOutTime;
-
-    private String neighborhoodName;
-
-
 }

@@ -92,11 +92,7 @@ public class HotelsController extends BaseController {
 
     @PostMapping
     public ResponseEntity<BaseResponse<AddHotelResponse>> add(@RequestBody @Valid AddHotelRequest request) {
-        ListNeighborhoodResponse neighborhoodToBeFound = neighborhoodService.getResponseById(request.getNeighborhoodId());
-        if (neighborhoodToBeFound != null) {
             return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_CREATED_SUCCESSFULLY, hotelService.add(request));
-        }
-        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_NEIGHBORHOOD_NOT_FOUND, null);
     }
 
     @PutMapping
