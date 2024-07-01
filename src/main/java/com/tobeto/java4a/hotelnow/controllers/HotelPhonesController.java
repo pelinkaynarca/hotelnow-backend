@@ -47,8 +47,8 @@ public class HotelPhonesController extends BaseController {
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_HOTEL_PHONE_NOT_FOUND, null);
     }
 
-    @DeleteMapping
-    public ResponseEntity<BaseResponse<String>> delete(@Param("id") int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         ListHotelPhoneResponse hotelPhoneToBeFound = hotelPhoneService.getResponseById(id);
         if (hotelPhoneToBeFound != null) {
             hotelPhoneService.delete(id);

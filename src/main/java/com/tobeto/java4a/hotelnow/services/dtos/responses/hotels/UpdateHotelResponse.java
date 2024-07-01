@@ -15,7 +15,7 @@ public class UpdateHotelResponse {
 
     private String name;
 
-    private Byte stars;
+    private byte stars;
 
     private String address;
 

@@ -43,8 +43,8 @@ public class HotelImagesController extends BaseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @DeleteMapping
-    public ResponseEntity<BaseResponse<String>> delete(@Param("id") int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         hotelImageService.delete(id);
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
     }

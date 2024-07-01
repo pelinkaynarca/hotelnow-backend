@@ -16,7 +16,7 @@ public class AddHotelResponse {
 
     private String name;
 
-    private Byte stars;
+    private byte stars;
 
     private String address;
 

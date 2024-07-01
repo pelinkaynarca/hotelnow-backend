@@ -20,7 +20,7 @@ public class AddHotelRequest {
 
     @Min(1)
     @Max(5)
-    private Byte stars;
+    private byte stars;
 
     @NotBlank
     @Size(min = 2, max = 100)

@@ -20,7 +20,7 @@ public class UpdateHotelRequest {
 
     @Min(1)
     @Max(5)
-    private Byte stars;
+    private byte stars;
 
     @NotBlank
     @Size(min = 2, max = 100)
@@ -28,6 +28,8 @@ public class UpdateHotelRequest {
 
     @NotBlank
     private String description;
+
+    private boolean active;
 
     // @Pattern(regexp = "^([01]?[0-9]|2[0-3]):[0-5][0-9]$")
     private LocalTime checkInTime;

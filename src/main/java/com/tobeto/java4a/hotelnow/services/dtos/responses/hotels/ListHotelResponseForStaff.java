@@ -16,11 +16,13 @@ public class ListHotelResponseForStaff {
 
     private String name;
 
-    private Byte stars;
+    private byte stars;
 
     private String address;
 
     private String description;
+
+    private boolean active;
 
     private String checkInTime;
 
