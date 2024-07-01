@@ -15,4 +15,18 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
     List<Hotel> findByActive(boolean active);
 
     List<Hotel> findByStars(Byte stars);
+
+    @Query(value = "SELECT h.* " +
+            "FROM hotels h " +
+            "JOIN neighborhoods n ON h.neighborhood_id = n.id " +
+            "JOIN districts d ON n.district_id = d.id " +
+            "JOIN cities c ON d.city_id = c.id " +
+            "JOIN room_types rt ON h.id = rt.hotel_id " +
+            "WHERE (:cityId IS NULL OR c.id = :cityId) " +
+            "AND (:capacity IS NULL OR rt.capacity >= :capacity) " +
+            "AND (:stars IS NULL OR h.stars = :stars) " +
+            "AND h.active = true",
+            nativeQuery = true)
+    List<Hotel> findByFilter(@Param("cityId") Integer cityId, @Param("capacity") Byte capacity, @Param("stars") Byte stars);
+
 }

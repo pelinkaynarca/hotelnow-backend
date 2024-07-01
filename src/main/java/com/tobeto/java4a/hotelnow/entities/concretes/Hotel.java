@@ -20,7 +20,7 @@ public class Hotel extends BaseEntity {
     private String name;
 
     @Column(name = "stars")
-    private Byte stars;
+    private byte stars;
 
     @Column(name = "address")
     private String address;

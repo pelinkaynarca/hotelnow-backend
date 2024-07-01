@@ -69,8 +69,15 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<ListHotelResponse> getByStars(Byte stars) {
+    public List<ListHotelResponse> getByStars(byte stars) {
         return hotelRepository.findByStars(stars).stream()
+                .map(this::mapHotelToListHotelResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ListHotelResponse> getByFilter(Integer cityId, Byte capacity, Byte stars) {
+        return hotelRepository.findByFilter(cityId, capacity, stars).stream()
                 .map(this::mapHotelToListHotelResponse)
                 .collect(Collectors.toList());
     }
@@ -90,8 +97,7 @@ public class HotelServiceImpl implements HotelService {
         User loggedInUser = (User) userService.loadUserByUsername(email);
         Staff staff = staffService.getById(loggedInUser.getId());
 
-        Hotel hotel = hotelRepository.findById(staff.getHotel().getId()).orElseThrow();
-        return HotelMapper.INSTANCE.listResponseForStaffFromHotel(hotel);
+        return HotelMapper.INSTANCE.listResponseForStaffFromHotel(staff.getHotel());
     }
 
     @Override

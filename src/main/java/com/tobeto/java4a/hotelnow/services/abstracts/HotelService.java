@@ -15,9 +15,10 @@ public interface HotelService {
     List<ListHotelResponse> getAll();
     List<ListHotelResponse> getByNeighborhoodId(int neighborhoodId);
     List<ListHotelResponse> getByActive(boolean active);
-    List<ListHotelResponse> getByStars(Byte stars);
+    List<ListHotelResponse> getByStars(byte stars);
     ListHotelResponse getResponseById(int id);
     ListHotelResponseForStaff getResponseForStaff();
+    List<ListHotelResponse> getByFilter(Integer cityId, Byte capacity, Byte stars);
     Hotel getById(int id);
     AddHotelResponse add(AddHotelRequest request);
     UpdateHotelResponse update(UpdateHotelRequest request);

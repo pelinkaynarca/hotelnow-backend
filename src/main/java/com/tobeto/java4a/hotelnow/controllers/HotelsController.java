@@ -69,8 +69,21 @@ public class HotelsController extends BaseController {
     }
 
     @GetMapping("/by-stars/{stars}")
-    public ResponseEntity<BaseResponse<List<ListHotelResponse>>> getByStars(@PathVariable Byte stars) {
+    public ResponseEntity<BaseResponse<List<ListHotelResponse>>> getByStars(@PathVariable byte stars) {
         List<ListHotelResponse> hotelsToBeFound = hotelService.getByStars(stars);
+        if (hotelsToBeFound != null && !hotelsToBeFound.isEmpty()) {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelsToBeFound);
+        }
+        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_HOTEL_NOT_FOUND, null);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<BaseResponse<List<ListHotelResponse>>> getByFilter(
+            @RequestParam(name = "cityId", required = false) Integer cityId,
+            @RequestParam(name = "capacity", required = false) Byte capacity,
+            @RequestParam(name = "stars", required = false) Byte stars) {
+
+        List<ListHotelResponse> hotelsToBeFound = hotelService.getByFilter(cityId, capacity, stars);
         if (hotelsToBeFound != null && !hotelsToBeFound.isEmpty()) {
             return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelsToBeFound);
         }
@@ -95,7 +108,7 @@ public class HotelsController extends BaseController {
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_NEIGHBORHOOD_NOT_FOUND, null);
     }
 
-}
+    }
 
 
 
