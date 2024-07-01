@@ -19,7 +19,8 @@ public interface MainFacilitySelectionMapper {
 
     MainFacilitySelectionMapper INSTANCE = Mappers.getMapper(MainFacilitySelectionMapper.class);
 
-    @Mapping(target = "option", source = "mainFacilityOption")
+    @Mapping(target = "optionTitle", source = "mainFacilityOption.title")
+    @Mapping(target = "optionId", source = "mainFacilityOption.id")
     ListMainFacilitySelectionResponse listResponseFromMainFacilitySelection(MainFacilitySelection mainFacilitySelection);
 
     @Mapping(target = "mainFacilityOption.id", source = "request.optionId")

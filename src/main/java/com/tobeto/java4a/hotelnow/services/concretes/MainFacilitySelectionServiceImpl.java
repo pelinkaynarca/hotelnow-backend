@@ -30,6 +30,7 @@ public class MainFacilitySelectionServiceImpl implements MainFacilitySelectionSe
         return MainFacilitySelectionMapper.INSTANCE.listResponseFromMainFacilitySelection(mainFacilitySelection);
     }
 
+
     @Override
     public List<ListMainFacilitySelectionResponse> getByHotelId(int hotelId) {
         List<MainFacilitySelection> mainFacilitySelections = mainFacilitySelectionRepository.findByHotelId(hotelId);
@@ -39,8 +40,28 @@ public class MainFacilitySelectionServiceImpl implements MainFacilitySelectionSe
     }
 
     @Override
+    public List<ListMainFacilitySelectionResponse> getByHotelIdForStaff() {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedInUser = (User) userService.loadUserByUsername(email);
+        Staff staff = staffService.getById(loggedInUser.getId());
+
+        List<MainFacilitySelection> mainFacilitySelections = mainFacilitySelectionRepository.findByHotelId(staff.getHotel().getId());
+        return mainFacilitySelections.stream()
+                .map(MainFacilitySelectionMapper.INSTANCE::listResponseFromMainFacilitySelection)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ListMainFacilitySelectionResponse> getByHotelIdAndDisplay(int hotelId, boolean display) {
         List<MainFacilitySelection> mainFacilitySelections = mainFacilitySelectionRepository.findByHotelIdAndDisplay(hotelId, display);
+        return mainFacilitySelections.stream()
+                .map(MainFacilitySelectionMapper.INSTANCE::listResponseFromMainFacilitySelection)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ListMainFacilitySelectionResponse> getRandomByHotelId(int hotelId) {
+        List<MainFacilitySelection> mainFacilitySelections = mainFacilitySelectionRepository.findRandomByHotelId(hotelId);
         return mainFacilitySelections.stream()
                 .map(MainFacilitySelectionMapper.INSTANCE::listResponseFromMainFacilitySelection)
                 .collect(Collectors.toList());

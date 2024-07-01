@@ -5,19 +5,16 @@ import com.tobeto.java4a.hotelnow.entities.concretes.MainFacilityOption;
 import com.tobeto.java4a.hotelnow.services.abstracts.MainFacilityOptionService;
 import com.tobeto.java4a.hotelnow.services.abstracts.MainFacilitySelectionService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.AddMainFacilitySelectionRequest;
-import com.tobeto.java4a.hotelnow.services.dtos.requests.mainfacilityselections.UpdateMainFacilitySelectionRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailoptions.ListFacilityDetailOptionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.AddMainFacilitySelectionResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.ListMainFacilitySelectionResponse;
-import com.tobeto.java4a.hotelnow.services.dtos.responses.mainfacilityselections.UpdateMainFacilitySelectionResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,6 +34,12 @@ public class MainFacilitySelectionsController extends BaseController {
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_MAIN_FACILITY_SELECTION_NOT_FOUND, null);
     }
 
+    @GetMapping("/for-staff")
+    public ResponseEntity<BaseResponse<List<ListMainFacilitySelectionResponse>>> getByHotelIdForStaff() {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, mainFacilitySelectionService.getByHotelIdForStaff());
+        }
+
+
     @GetMapping("/by-hotel/{hotelId}/display/{display}")
     public ResponseEntity<BaseResponse<List<ListMainFacilitySelectionResponse>>> getByHotelIdAndDisplay(@PathVariable int hotelId, boolean display) {
         List<ListMainFacilitySelectionResponse> mainFacilitySelectionsToBeFound = mainFacilitySelectionService.getByHotelIdAndDisplay(hotelId, display);
@@ -44,6 +47,15 @@ public class MainFacilitySelectionsController extends BaseController {
             return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, mainFacilitySelectionsToBeFound);
         }
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_MAIN_FACILITY_SELECTION_NOT_FOUND, null);
+    }
+
+    @GetMapping("/random-by-hotel/{hotelId}")
+    public ResponseEntity<BaseResponse<List<ListMainFacilitySelectionResponse>>> getRandomByHotelId(@PathVariable int hotelId) {
+        List<ListMainFacilitySelectionResponse> mainFacilitySelectionsToBeFound = mainFacilitySelectionService.getRandomByHotelId(hotelId);
+        if (mainFacilitySelectionsToBeFound != null && !mainFacilitySelectionsToBeFound.isEmpty()) {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, mainFacilitySelectionsToBeFound);
+        }
+        return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, new ArrayList<>());
     }
 
     @PostMapping
@@ -55,6 +67,7 @@ public class MainFacilitySelectionsController extends BaseController {
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_MAIN_FACILITY_OPTION_NOT_FOUND, null);
     }
 
+
     /* @PutMapping
     public ResponseEntity<BaseResponse<UpdateMainFacilitySelectionResponse>> update(@RequestBody @Valid UpdateMainFacilitySelectionRequest request) {
         ListMainFacilitySelectionResponse mainFacilitySelectionToBeFound = mainFacilitySelectionService.getResponseById(request.getId());
@@ -64,8 +77,8 @@ public class MainFacilitySelectionsController extends BaseController {
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_MAIN_FACILITY_SELECTION_NOT_FOUND, null);
     } */
 
-    @DeleteMapping
-    public ResponseEntity<BaseResponse<String>> delete(@Param("id") int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
             mainFacilitySelectionService.deleteById(id);
             return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_DELETED_SUCCESSFULLY, null);
         }

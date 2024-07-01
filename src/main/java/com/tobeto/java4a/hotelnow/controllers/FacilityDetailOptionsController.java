@@ -12,7 +12,6 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailoptions.
 import com.tobeto.java4a.hotelnow.services.dtos.responses.facilitydetailoptions.UpdateFacilityDetailOptionResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,8 +54,8 @@ public class FacilityDetailOptionsController extends BaseController {
         return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_FACILITY_DETAIL_OPTION_NOT_FOUND, null);
     }
 
-    @DeleteMapping
-    public ResponseEntity<BaseResponse<String>> delete(@Param("id") int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse<String>> delete(@PathVariable int id) {
         ListFacilityDetailOptionResponse facilityDetailOptionToBeFound = facilityDetailOptionService.getById(id);
         if (facilityDetailOptionToBeFound != null) {
             facilityDetailOptionService.delete(id);
