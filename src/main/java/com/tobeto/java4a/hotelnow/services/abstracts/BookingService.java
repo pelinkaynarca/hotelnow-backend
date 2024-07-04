@@ -17,6 +17,16 @@ public interface BookingService {
 	
 	List<ListBookingResponse> getByHotelId(int hotelId);
 	
+	List<ListBookingResponse> getPendings();
+	
+	List<ListBookingResponse> getApproveds();
+	
+	List<ListBookingResponse> getCancelleds();
+	
 	AddBookingResponse add(AddBookingRequest request);
+
+	void approve(int bookingId);
+
+	void cancel(int bookingId);
 
 }

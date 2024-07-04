@@ -3,6 +3,8 @@ package com.tobeto.java4a.hotelnow.services.dtos.responses.bookings;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.tobeto.java4a.hotelnow.services.dtos.responses.customers.ListCustomerResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +27,7 @@ public class ListBookingResponse {
 	private LocalDate checkOutDate;
 	
 	private int guestCount;
+	
+	private ListCustomerResponse customer;
 
 }

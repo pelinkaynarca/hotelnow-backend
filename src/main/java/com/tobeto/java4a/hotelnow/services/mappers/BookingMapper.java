@@ -17,6 +17,8 @@ public interface BookingMapper {
 	BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
 
 	@Mapping(target = "hotelId", source = "hotel.id")
+	@Mapping(target = "customer.countryName", source = "customer.country.name")
+	@Mapping(target = "customer.nationalityId", source = "customer.country.id")
 	ListBookingResponse listResponseFromBooking(Booking booking);
 
 	List<ListBookingResponse> listResponsesFromBookings(List<Booking> bookings);

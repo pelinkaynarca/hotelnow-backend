@@ -45,12 +45,42 @@ public class BookingsController extends BaseController {
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.getByHotelId(hotelId));
 	}
+	
+	@GetMapping("/pending-list")
+	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getPendings() {
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+				bookingService.getPendings());
+	}
+	
+	@GetMapping("/approved-list")
+	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getApproveds() {
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+				bookingService.getApproveds());
+	}
+	
+	@GetMapping("/cancelled-list")
+	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getCancelleds() {
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
+				bookingService.getCancelleds());
+	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<BaseResponse<AddBookingResponse>> add(@RequestBody @Valid AddBookingRequest request) {
 		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.add(request));
+	}
+	
+	@GetMapping("/approve/{bookingId}")
+	public ResponseEntity<BaseResponse<String>> approve(@PathVariable int bookingId) {
+		bookingService.approve(bookingId);
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, null);
+	}
+	
+	@GetMapping("/cancel/{bookingId}")
+	public ResponseEntity<BaseResponse<String>> cancel(@PathVariable int bookingId) {
+		bookingService.cancel(bookingId);
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, null);
 	}
 
 }
