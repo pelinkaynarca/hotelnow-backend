@@ -9,4 +9,6 @@ public interface CityService {
     List<ListOnlyCityResponse> getAll();
 
     List<ListOnlyCityResponse> getOnlyCitiesByCountryId(int countryId);
+
+    ListOnlyCityResponse getById(int id);
 }

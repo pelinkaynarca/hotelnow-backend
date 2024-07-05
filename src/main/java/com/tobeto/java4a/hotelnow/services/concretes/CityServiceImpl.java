@@ -29,4 +29,11 @@ public class CityServiceImpl implements CityService {
 		List<ListOnlyCityResponse> listOnlyCityResponses = CityMapper.INSTANCE.listOnlyResponsesFromCities(cities);
 		return listOnlyCityResponses;
 	}
+
+	@Override
+	public ListOnlyCityResponse getById(int id) {
+		City city = cityRepository.findById(id).orElse(null);
+		return CityMapper.INSTANCE.listOnlyResponseFromCity(city);
+	}
+
 }

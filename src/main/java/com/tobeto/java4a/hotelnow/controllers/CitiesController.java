@@ -43,4 +43,13 @@ public class CitiesController extends BaseController {
 			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, listOnlyCityResponses);
 		}
 	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<BaseResponse<ListOnlyCityResponse>> getById(@PathVariable int id) {
+		ListOnlyCityResponse cityResponse = cityService.getById(id);
+		if (cityResponse != null) {
+			return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, cityResponse);
+		}
+		return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_CITY_NOT_FOUND, null);
+	}
 }
