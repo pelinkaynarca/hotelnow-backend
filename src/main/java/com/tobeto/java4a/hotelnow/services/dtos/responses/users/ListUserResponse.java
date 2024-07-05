@@ -1,6 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.users;
 
 import com.tobeto.java4a.hotelnow.core.enums.Gender;
+import com.tobeto.java4a.hotelnow.entities.concretes.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,6 @@ public class ListUserResponse {
     private LocalDate birthDate;
 
     private Gender gender;
+
+    private Role role;
 }

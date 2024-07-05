@@ -43,6 +43,13 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public List<ListHotelResponse> getByNoStaffs() {
+        return hotelRepository.findByNoStaffs().stream()
+                .map(this::mapHotelToListHotelResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ListHotelResponse> getAll() {
         return hotelRepository.findAll().stream()
                 .map(this::mapHotelToListHotelResponse)

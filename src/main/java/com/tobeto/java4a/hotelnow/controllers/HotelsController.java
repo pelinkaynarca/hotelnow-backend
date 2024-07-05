@@ -32,6 +32,11 @@ public class HotelsController extends BaseController {
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelService.getAll());
     }
 
+    @GetMapping("no-staff")
+    public ResponseEntity<BaseResponse<List<ListHotelResponse>>> getNoStaff() {
+        return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, hotelService.getByNoStaffs());
+    }
+
     @GetMapping("/by-neighborhood-id/{neighborhoodId}")
     public ResponseEntity<BaseResponse<List<ListHotelResponse>>> getByNeighborhoodId(@PathVariable int neighborhoodId) {
         List<ListHotelResponse> hotelsToBeFound = hotelService.getByNeighborhoodId(neighborhoodId);

@@ -34,4 +34,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
     @Query("SELECT h FROM Hotel h JOIN h.neighborhood n JOIN n.district d JOIN d.city c WHERE c.name IN ('İzmir', 'Antalya', 'Muğla')")
     List<Hotel> findByPopularCitiesForSummer();
 
+    @Query("SELECT h FROM Hotel h WHERE h.staffs IS EMPTY")
+    List<Hotel> findByNoStaffs();
+
 }

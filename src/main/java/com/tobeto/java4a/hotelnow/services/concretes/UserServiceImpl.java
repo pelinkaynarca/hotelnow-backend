@@ -8,6 +8,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.users.UpdateUserRequest
 import com.tobeto.java4a.hotelnow.services.dtos.responses.users.AddUserResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.users.ListUserResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.users.UpdateUserResponse;
+import com.tobeto.java4a.hotelnow.services.mappers.UserMapper;
 import lombok.AllArgsConstructor;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -25,7 +27,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<ListUserResponse> getAll() {
-		return List.of();
+		return userRepository.findAll().stream()
+				.map(UserMapper.INSTANCE::listResponseFromUser)
+				.collect(Collectors.toList());
 	}
 
 	@Override

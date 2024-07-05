@@ -1,10 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes;
 
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,10 +25,10 @@ public class UpdateRoomTypeRequest {
     @Min(value = 1)
     private int size;
 
-    @NotBlank
+    @NotNull
     private int bedTypeId;
 
-    @NotBlank
+    @NotNull
     private int viewTypeId;
 
     @NotBlank
