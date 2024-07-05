@@ -33,3 +33,4 @@ build/
 .vscode/
 
 /src/main/resources/env.properties
+/src/main/java/com/tobeto/java4a/hotelnow/images
