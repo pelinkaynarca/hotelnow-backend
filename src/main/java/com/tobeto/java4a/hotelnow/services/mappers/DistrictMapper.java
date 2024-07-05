@@ -17,8 +17,10 @@ public interface DistrictMapper {
 
     DistrictMapper INSTANCE = Mappers.getMapper(DistrictMapper.class);
 
-    @Mapping(target = "neighborhoods", source = "neighborhoods")
-    ListDistrictResponse listResponseFromDistrict(District district, List<ListNeighborhoodResponse> neighborhoods);
+    @Mapping(target = "cityId", source = "city.id")
+    ListDistrictResponse listResponseFromDistrict(District district);
+
+    ListOnlyDistrictResponse listOnlyResponseFromDistrict(District district);
 
     List<ListOnlyDistrictResponse> listOnlyResponsesFromDistricts(List<District> districts);
 

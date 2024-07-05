@@ -3,6 +3,7 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 import com.tobeto.java4a.hotelnow.entities.concretes.District;
 import com.tobeto.java4a.hotelnow.repositories.DistrictRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.DistrictService;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.districts.ListDistrictResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.districts.ListOnlyDistrictResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.DistrictMapper;
 import lombok.AllArgsConstructor;
@@ -22,8 +23,7 @@ public class DistrictServiceImpl implements DistrictService {
         return DistrictMapper.INSTANCE.listOnlyResponsesFromDistricts(districts);
     }
 
-    /* might be deleted
-    @Override
+    /* @Override
     public List<ListDistrictResponse> getByCityId(int cityId) {
         return districtRepository.findByCityId(cityId).stream()
                 .map(district -> DistrictMapper.INSTANCE.listResponseFromDistrict(
@@ -31,8 +31,13 @@ public class DistrictServiceImpl implements DistrictService {
                         DistrictMapper.INSTANCE.mapNeighborhoodsToListNeighborhoodResponses(district.getNeighborhoods())
                 ))
                 .collect(Collectors.toList());
+    } */
+
+    @Override
+    public ListDistrictResponse getById(int id) {
+        District district = districtRepository.findById(id).orElse(null);
+        return DistrictMapper.INSTANCE.listResponseFromDistrict(district);
     }
-    */
 
     @Override
     public List<ListOnlyDistrictResponse> getOnlyDistrictsByCityId(int cityId) {

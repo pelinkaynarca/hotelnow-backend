@@ -3,6 +3,7 @@ package com.tobeto.java4a.hotelnow.controllers;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.services.abstracts.DistrictService;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.districts.ListDistrictResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.districts.ListOnlyDistrictResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,17 @@ public class DistrictsController extends BaseController {
         return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, districtService.getAll());
     }
 
-    /* might be deleted
-     @GetMapping("/by-city-id/{cityId}")
+    @GetMapping("/{id}")
+    public ResponseEntity<BaseResponse<ListDistrictResponse>> getById(@PathVariable int id) {
+        ListDistrictResponse districtToBeFound = districtService.getById(id);
+        if (districtToBeFound != null) {
+            return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, districtToBeFound);
+        }
+        return sendResponse(HttpStatus.NOT_FOUND, Messages.Error.CUSTOM_DISTRICT_NOT_FOUND, null);
+    }
+
+
+    /* @GetMapping("/by-city-id/{cityId}")
     public ResponseEntity<BaseResponse<List<ListDistrictResponse>>> getByCityId(@PathVariable int cityId) {
         List<ListDistrictResponse> districtsToBeFound = districtService.getByCityId(cityId);
         if (districtsToBeFound != null && !districtsToBeFound.isEmpty()) {
