@@ -1,5 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.hotels;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,18 +19,15 @@ public class UpdateHotelRequest {
     @Size(min = 2, max = 100)
     private String name;
 
-    @Min(1)
-    @Max(5)
-    private byte stars;
-
     @NotBlank
     @Size(min = 2, max = 100)
     private String address;
 
+    @Nullable
+    private Byte stars;
+
     @NotBlank
     private String description;
-
-    private boolean active;
 
     private LocalTime checkInTime;
 

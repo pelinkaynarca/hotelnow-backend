@@ -76,6 +76,14 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public List<ListHotelResponse> getByStarsGreaterThanEqual() {
+        byte minStars = 4;
+        return hotelRepository.findByStarsGreaterThanEqual(minStars).stream()
+                .map(this::mapHotelToListHotelResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ListHotelResponse> getByFilter(Integer cityId, Byte capacity, Byte stars) {
         return hotelRepository.findByFilter(cityId, capacity, stars).stream()
                 .map(this::mapHotelToListHotelResponse)
