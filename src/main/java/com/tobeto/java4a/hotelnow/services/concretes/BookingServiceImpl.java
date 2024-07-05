@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.javatuples.Pair;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
@@ -106,12 +105,11 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public AddBookingResponse add(AddBookingRequest request) {
 //		availableRoomsShouldExistBetweenCheckInAndCheckOutDates(request);
-		// Get logged in user
-		User loggedInUser = getLoggedInUser();
-		Customer customer = customerService.getById(loggedInUser.getId());
+		// Get logged in customer
+		Customer loggedInCustomer = customerService.getLoggedInCustomer();
 
 		// Save booking
-		Booking booking = BookingMapper.INSTANCE.bookingFromAddRequest(request, customer);
+		Booking booking = BookingMapper.INSTANCE.bookingFromAddRequest(request, loggedInCustomer);
 		Booking savedBooking = bookingRepository.save(booking);
 
 		// Save booked room types
@@ -132,7 +130,7 @@ public class BookingServiceImpl implements BookingService {
 
 		// Save the first booking history info
 		BookingHistory bookingHistory = new BookingHistory();
-		bookingHistory.setUser(loggedInUser);
+		bookingHistory.setUser(loggedInCustomer);
 		bookingHistory.setBooking(savedBooking);
 		bookingHistory.setStatus(BookingStatus.PEND);
 		List<BookingHistory> bookingHistories = List.of(bookingHistoryService.addBookingHistory(bookingHistory));
@@ -156,7 +154,7 @@ public class BookingServiceImpl implements BookingService {
 		if (bookingHistories.get(bookingHistories.size() - 1).getStatus() == BookingStatus.PEND) {
 			BookingHistory bookingHistory = new BookingHistory();
 			bookingHistory.setBooking(booking);
-			bookingHistory.setUser(getLoggedInUser());
+			bookingHistory.setUser(userService.getLoggedInUser());
 			bookingHistory.setEditedAt(LocalDateTime.now());
 			bookingHistory.setStatus(BookingStatus.APPR);
 			booking.getBookingHistories().add(bookingHistory);
@@ -179,7 +177,7 @@ public class BookingServiceImpl implements BookingService {
 		if (bookingHistories.get(bookingHistories.size() - 1).getStatus() == BookingStatus.PEND) {
 			BookingHistory bookingHistory = new BookingHistory();
 			bookingHistory.setBooking(booking);
-			bookingHistory.setUser(getLoggedInUser());
+			bookingHistory.setUser(userService.getLoggedInUser());
 			bookingHistory.setEditedAt(LocalDateTime.now());
 			bookingHistory.setStatus(BookingStatus.CANC);
 			booking.getBookingHistories().add(bookingHistory);
@@ -223,16 +221,10 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	private void loggedInUserMustBeManager() {
-		User user = getLoggedInUser();
+		User user = userService.getLoggedInUser();
 		if (!user.getAuthorities().contains(Role.MANAGER)) {
 			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
 		}
-	}
-
-	private User getLoggedInUser() {
-		String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User loggedInUser = (User) userService.loadUserByUsername(email);
-		return loggedInUser;
 	}
 	
 	//TODO business rule availableRoomsShouldExistBetweenCheckInAndCheckOutDates
