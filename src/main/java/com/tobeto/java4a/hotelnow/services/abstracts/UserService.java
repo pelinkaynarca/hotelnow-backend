@@ -15,6 +15,7 @@ public interface UserService extends UserDetailsService{
     List<ListUserResponse> getAll();
     ListUserResponse getResponseById(int id);
     User getById(int id);
+    User getLoggedInUser();
     AddUserResponse add(AddUserRequest request);
     UpdateUserResponse update(UpdateUserRequest request);
     void delete(int id);

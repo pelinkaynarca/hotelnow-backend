@@ -10,6 +10,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.users.ListUserResponse
 import com.tobeto.java4a.hotelnow.services.dtos.responses.users.UpdateUserResponse;
 import lombok.AllArgsConstructor;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getById(int id) {
 		return userRepository.findById(id).orElse(null);
+	}
+	
+	@Override
+	public User getLoggedInUser() {
+		int idOfLoggedInUser = (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		return getById(idOfLoggedInUser);
 	}
 
 	@Override
