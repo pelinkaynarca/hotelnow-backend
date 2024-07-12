@@ -1,4 +1,4 @@
-package com.tobeto.java4a.hotelnow.core.services;
+package com.tobeto.java4a.hotelnow.core.services.webservices;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,25 +19,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.tobeto.java4a.hotelnow.core.enums.Currency;
+import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
 
 @Service
-public class CurrencyService {
-
+public class TcmbCurrencyClient {
+	
 	@Value("${currency.tcmb.endpoint}")
 	private String TCMB_CURRENCY_ENDPOINT_URL;
-
-	public Double calculateForeignCurrencyEquivalentOfTLAmount(double tlAmount, Currency currency) {
-		if (currency == Currency.TRY) {
-			return tlAmount;
-		}
-
-		Double currentExchangeRate = getTurkishLiraEquivalentOfForeignCurrency(currency);
-		if (currentExchangeRate != null) {
-			return tlAmount / currentExchangeRate;
-		} else {
-			return null;
-		}
-	}
 
 	/**
 	 * converts foreign currency to turkish lira according to the current exchange rates of
@@ -62,22 +50,16 @@ public class CurrencyService {
 				Element element = (Element) nodes.item(i);
 				if (element.getAttribute("CurrencyCode").equalsIgnoreCase(currency.name())) {
 					return Double.parseDouble(getValueofElement(element, "BanknoteSelling"));
-//					getValueofElement(element, "BanknoteBuying");
 				}
 			}
 			xml.close();
-		} catch (MalformedURLException e) {
+		} catch (IOException | ParserConfigurationException | SAXException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
 		}
 		return null;
 	}
-
+	
 	private String getValueofElement(Element parentElement, String label) {
 		String returnValue = "";
 		Element requiredElement = (Element) parentElement.getElementsByTagName(label).item(0);
