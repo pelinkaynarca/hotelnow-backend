@@ -16,7 +16,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
     List<Hotel> findByStars(byte stars);
 
-    @Query(value = "SELECT h.* " +
+    @Query(value = "SELECT DISTINCT h.* " +
             "FROM hotels h " +
             "JOIN neighborhoods n ON h.neighborhood_id = n.id " +
             "JOIN districts d ON n.district_id = d.id " +
