@@ -2,7 +2,6 @@ package com.tobeto.java4a.hotelnow.core.services.webservices;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
