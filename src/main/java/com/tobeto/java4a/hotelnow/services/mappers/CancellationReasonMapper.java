@@ -16,7 +16,7 @@ public interface CancellationReasonMapper {
     ListCancellationReasonResponse listResponseFromCancellationReason(CancellationReason cancellationReason);
 
     @Mapping(target = "id" , ignore = true)
-    @Mapping(target = "bookingHistories" , ignore = true)
+    @Mapping(target = "bookings" , ignore = true)
     CancellationReason cancellationReasonFromAddRequest(AddCancellationReasonRequest cancellationReasonRequest);
 
     AddCancellationReasonResponse addResponseFromCancellationReason(CancellationReason savedCancellationReason);

@@ -1,10 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.concretes;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Service;
@@ -16,7 +13,7 @@ import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.BookedRoomType;
 import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
-import com.tobeto.java4a.hotelnow.entities.concretes.BookingHistory;
+import com.tobeto.java4a.hotelnow.entities.concretes.CancellationReason;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.entities.concretes.Payment;
 import com.tobeto.java4a.hotelnow.entities.concretes.Role;
@@ -25,8 +22,8 @@ import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.repositories.BookingRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookedRoomTypeService;
-import com.tobeto.java4a.hotelnow.services.abstracts.BookingHistoryService;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookingService;
+import com.tobeto.java4a.hotelnow.services.abstracts.CancellationReasonService;
 import com.tobeto.java4a.hotelnow.services.abstracts.CustomerService;
 import com.tobeto.java4a.hotelnow.services.abstracts.PaymentService;
 import com.tobeto.java4a.hotelnow.services.abstracts.RoomService;
@@ -34,8 +31,10 @@ import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
 import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookedroomtypes.AddBookedRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.AddBookingRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.CancelBookingRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.payments.AddPaymentRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.AddBookingResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.CancelBookingResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.ListBookingResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.BookedRoomTypeMapper;
 import com.tobeto.java4a.hotelnow.services.mappers.BookingMapper;
@@ -48,7 +47,6 @@ import lombok.RequiredArgsConstructor;
 public class BookingServiceImpl implements BookingService {
 
 	private final BookingRepository bookingRepository;
-	private final BookingHistoryService bookingHistoryService;
 	private final BookedRoomTypeService bookedRoomTypeService;
 	private final UserService userService;
 	private final CustomerService customerService;
@@ -56,6 +54,7 @@ public class BookingServiceImpl implements BookingService {
 	private final PaymentService paymentService;
 //	private final RoomTypeService roomTypeService;
 	private final RoomService roomService;
+	private final CancellationReasonService cancellationReasonService;
 
 	@Override
 	public Booking getById(int id) {
@@ -80,21 +79,21 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookings = bookingRepository.findByHotelId(hotelId);
 		return BookingMapper.INSTANCE.listResponsesFromBookings(bookings);
 	}
-	
+
 	@Override
 	public List<ListBookingResponse> getPendings() {
 		loggedInUserMustBeManager();
 		List<Booking> pendingBookingsOfHotel = getByStatus(BookingStatus.PEND);
 		return BookingMapper.INSTANCE.listResponsesFromBookings(pendingBookingsOfHotel);
 	}
-	
+
 	@Override
 	public List<ListBookingResponse> getApproveds() {
 		loggedInUserMustBeManager();
 		List<Booking> pendingBookingsOfHotel = getByStatus(BookingStatus.APPR);
 		return BookingMapper.INSTANCE.listResponsesFromBookings(pendingBookingsOfHotel);
 	}
-	
+
 	@Override
 	public List<ListBookingResponse> getCancelleds() {
 		loggedInUserMustBeManager();
@@ -110,6 +109,7 @@ public class BookingServiceImpl implements BookingService {
 
 		// Save booking
 		Booking booking = BookingMapper.INSTANCE.bookingFromAddRequest(request, loggedInCustomer);
+		booking.setStatus(BookingStatus.PEND);// Set Booking Status
 		Booking savedBooking = bookingRepository.save(booking);
 
 		// Save booked room types
@@ -128,14 +128,6 @@ public class BookingServiceImpl implements BookingService {
 				.addPayment(PaymentMapper.INSTANCE.paymentFromAddRequest(addPaymentRequest));
 		savedBooking.setPayment(savedPayment);
 
-		// Save the first booking history info
-		BookingHistory bookingHistory = new BookingHistory();
-		bookingHistory.setUser(loggedInCustomer);
-		bookingHistory.setBooking(savedBooking);
-		bookingHistory.setStatus(BookingStatus.PEND);
-		List<BookingHistory> bookingHistories = List.of(bookingHistoryService.addBookingHistory(bookingHistory));
-		savedBooking.setBookingHistories(bookingHistories);
-
 		return BookingMapper.INSTANCE.addResponseFromBooking(savedBooking);
 	}
 
@@ -144,106 +136,46 @@ public class BookingServiceImpl implements BookingService {
 		loggedInUserMustBeManager();
 
 		Booking booking = getById(bookingId);
-		List<BookingHistory> bookingHistories = booking.getBookingHistories();
-		// Sort booking histories by date
-		Collections.sort(bookingHistories, (bh1, bh2) -> {
-			long millis1 = bh1.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-			long millis2 = bh2.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-			return millis1 <= millis2 ? -1 : 1;
-		});
-		if (bookingHistories.get(bookingHistories.size() - 1).getStatus() == BookingStatus.PEND) {
-			BookingHistory bookingHistory = new BookingHistory();
-			bookingHistory.setBooking(booking);
-			bookingHistory.setUser(userService.getLoggedInUser());
-			bookingHistory.setEditedAt(LocalDateTime.now());
-			bookingHistory.setStatus(BookingStatus.APPR);
-			booking.getBookingHistories().add(bookingHistory);
-			bookingRepository.save(booking);
-		}
+		booking.setStatus(BookingStatus.APPR);
+		bookingRepository.save(booking);
 	}
-	
+
 	@Override
-	public void cancel(int bookingId) {
+	public CancelBookingResponse cancel(CancelBookingRequest request) {
 		loggedInUserMustBeManager();
 
-		Booking booking = getById(bookingId);
-		List<BookingHistory> bookingHistories = booking.getBookingHistories();
-		// Sort booking histories by date
-		Collections.sort(bookingHistories, (bh1, bh2) -> {
-			long millis1 = bh1.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-			long millis2 = bh2.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-			return millis1 <= millis2 ? -1 : 1;
-		});
-		if (bookingHistories.get(bookingHistories.size() - 1).getStatus() == BookingStatus.PEND) {
-			BookingHistory bookingHistory = new BookingHistory();
-			bookingHistory.setBooking(booking);
-			bookingHistory.setUser(userService.getLoggedInUser());
-			bookingHistory.setEditedAt(LocalDateTime.now());
-			bookingHistory.setStatus(BookingStatus.CANC);
-			booking.getBookingHistories().add(bookingHistory);
-			bookingRepository.save(booking);
+		Booking booking = getById(request.getId());
+		booking.setStatus(BookingStatus.CANC);
+		if (request.getReason() != null && !request.getReason().isBlank()) {
+			CancellationReason cancellationReason = new CancellationReason();
+			cancellationReason.setReason(request.getReason());
+			CancellationReason savedCancellationReason = cancellationReasonService
+					.addCancellationReason(cancellationReason);
+			booking.setCancellationReason(savedCancellationReason);
 		}
+		Booking savedBooking = bookingRepository.save(booking);
+		return BookingMapper.INSTANCE.cancelResponseFromBooking(savedBooking);
 	}
-	
+
 	private List<Booking> getByStatus(BookingStatus bookingStatus) {
 		Staff loggedInStaff = staffService.getLoggedInStaff();
-		List<Booking> allBookingsOfHotel = bookingRepository.findByHotelId(loggedInStaff.getHotel().getId());
-		List<Booking> filteredBookingsOfHotelByStatus = allBookingsOfHotel.stream().filter((b) -> {
-			List<BookingHistory> bookingHistories = b.getBookingHistories();
-			Collections.sort(bookingHistories, (bh1, bh2) -> {
-				long millis1 = bh1.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				long millis2 = bh2.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				return millis1 <= millis2 ? -1 : 1;
-			});
-			return bookingHistories.get(bookingHistories.size() - 1).getStatus() == bookingStatus;
-		}).toList();
-
-		// sort bookings in chronological descending order
-		filteredBookingsOfHotelByStatus.stream().sorted((b1, b2) -> {
-			List<BookingHistory> bookingHistories1 = b1.getBookingHistories();
-			Collections.sort(bookingHistories1, (bh1, bh2) -> {
-				long millis1 = bh1.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				long millis2 = bh2.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				return millis1 <= millis2 ? -1 : 1;
-			});
-			List<BookingHistory> bookingHistories2 = b2.getBookingHistories();
-			Collections.sort(bookingHistories2, (bh1, bh2) -> {
-				long millis1 = bh1.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				long millis2 = bh2.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				return millis1 <= millis2 ? -1 : 1;
-			});
-			BookingHistory lastBookingHistory1 = bookingHistories1.get(bookingHistories1.size() - 1);
-			BookingHistory lastBookingHistory2 = bookingHistories2.get(bookingHistories2.size() - 1);
-			return lastBookingHistory1.getEditedAt().isBefore(lastBookingHistory2.getEditedAt()) ? -1 : 1;
-		}).toList();
-
-		return filteredBookingsOfHotelByStatus;
+		List<Booking> bookingsOfHotelByStatus = bookingRepository.findByStatusAndHotelId(bookingStatus,
+				loggedInStaff.getHotel().getId());
+		return bookingsOfHotelByStatus;
 	}
-	
+
 	private void loggedInUserMustBeManager() {
 		User user = userService.getLoggedInUser();
 		if (!user.getAuthorities().contains(Role.MANAGER)) {
 			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
 		}
 	}
-	
-	//TODO business rule availableRoomsShouldExistBetweenCheckInAndCheckOutDates
+
+	// TODO business rule availableRoomsShouldExistBetweenCheckInAndCheckOutDates
 	private void availableRoomsShouldExistBetweenCheckInAndCheckOutDates(AddBookingRequest request) {
 		LocalDate checkInDate = request.getCheckInDate(), checkOutDate = request.getCheckOutDate();
 
-		List<Booking> allBookingsOfHotel = bookingRepository.findAllBookingsOfHotelBetweenDates(
-				request.getHotelId(), checkInDate, checkOutDate);
-		List<Booking> approvedBookingsOfHotel = allBookingsOfHotel.stream().filter((b) -> {
-			boolean isApprovedOrPending = false;
-			List<BookingHistory> bookingHistories = b.getBookingHistories();
-			Collections.sort(bookingHistories, (bh1, bh2) -> {
-				long millis1 = bh1.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				long millis2 = bh2.getEditedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-				return millis1 <= millis2 ? -1 : 1;
-			});
-			isApprovedOrPending = bookingHistories.get(bookingHistories.size() - 1).getStatus() != BookingStatus.CANC;
-			return isApprovedOrPending;
-		}).toList();
+		List<Booking> approvedBookingsOfHotel = getByStatus(BookingStatus.APPR);
 		List<List<BookedRoomType>> bookedRoomTypesPerBooking = approvedBookingsOfHotel.stream()
 				.map(b -> b.getBookedRoomTypes()).toList();
 		List<BookedRoomType> bookedRoomTypes = new ArrayList<BookedRoomType>();

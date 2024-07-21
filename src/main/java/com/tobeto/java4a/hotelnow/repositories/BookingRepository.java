@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
 import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
@@ -24,5 +25,8 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 			""")
 	List<Booking> findAllBookingsOfHotelBetweenDates(@Param("hotelId") int hotelId,
 			@Param("checkInDate") LocalDate checkInDate, @Param("checkOutDate") LocalDate checkOutDate);
+
+	@Query("select b from Booking b where b.hotel.id = :hotelId and b.status = :status")
+	List<Booking> findByStatusAndHotelId(@Param("status") BookingStatus status, @Param("hotelId") int hotelId);
 
 }

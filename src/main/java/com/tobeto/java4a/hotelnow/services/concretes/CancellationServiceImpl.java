@@ -13,34 +13,36 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 @AllArgsConstructor
 public class CancellationServiceImpl implements CancellationReasonService {
 
-    private CancellationReasonRepository cancellationReasonRepository;
+	private CancellationReasonRepository cancellationReasonRepository;
 
-    @Override
-    public List<ListCancellationReasonResponse> getAll() {
-        List<CancellationReason> cancellationReasons = cancellationReasonRepository.findAll();
-        return cancellationReasons.stream()
-                .map(CancellationReasonMapper.INSTANCE::listResponseFromCancellationReason)
-                .collect(Collectors.toList());
-    }
+	@Override
+	public List<ListCancellationReasonResponse> getAll() {
+		List<CancellationReason> cancellationReasons = cancellationReasonRepository.findAll();
+		return cancellationReasons.stream().map(CancellationReasonMapper.INSTANCE::listResponseFromCancellationReason)
+				.collect(Collectors.toList());
+	}
 
-    @Override
-    public ListCancellationReasonResponse getById(int id) {
-        CancellationReason cancellationReason = cancellationReasonRepository.findById(id).orElse(null);
-        return CancellationReasonMapper.INSTANCE.listResponseFromCancellationReason(cancellationReason);
-    }
+	@Override
+	public ListCancellationReasonResponse getById(int id) {
+		CancellationReason cancellationReason = cancellationReasonRepository.findById(id).orElse(null);
+		return CancellationReasonMapper.INSTANCE.listResponseFromCancellationReason(cancellationReason);
+	}
 
-    @Override
-    public AddCancellationReasonResponse add(AddCancellationReasonRequest request) {
-        CancellationReason cancellationReason = CancellationReasonMapper.INSTANCE.cancellationReasonFromAddRequest(request);
+	@Override
+	public AddCancellationReasonResponse add(AddCancellationReasonRequest request) {
+		CancellationReason cancellationReason = CancellationReasonMapper.INSTANCE
+				.cancellationReasonFromAddRequest(request);
 
-        CancellationReason savedCancellationReason = cancellationReasonRepository.save(cancellationReason);
-        return CancellationReasonMapper.INSTANCE.addResponseFromCancellationReason(savedCancellationReason);
-    }
+		CancellationReason savedCancellationReason = cancellationReasonRepository.save(cancellationReason);
+		return CancellationReasonMapper.INSTANCE.addResponseFromCancellationReason(savedCancellationReason);
+	}
+
+	@Override
+	public CancellationReason addCancellationReason(CancellationReason cancellationReason) {
+		return cancellationReasonRepository.save(cancellationReason);
+	}
 }
-
-

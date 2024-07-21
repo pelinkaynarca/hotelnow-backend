@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookingService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.AddBookingRequest;
+import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.CancelBookingRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.BaseResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.AddBookingResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.CancelBookingResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.ListBookingResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -45,23 +47,20 @@ public class BookingsController extends BaseController {
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.getByHotelId(hotelId));
 	}
-	
+
 	@GetMapping("/pending-list")
 	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getPendings() {
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
-				bookingService.getPendings());
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, bookingService.getPendings());
 	}
-	
+
 	@GetMapping("/approved-list")
 	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getApproveds() {
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
-				bookingService.getApproveds());
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, bookingService.getApproveds());
 	}
-	
+
 	@GetMapping("/cancelled-list")
 	public ResponseEntity<BaseResponse<List<ListBookingResponse>>> getCancelleds() {
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
-				bookingService.getCancelleds());
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY, bookingService.getCancelleds());
 	}
 
 	@PostMapping
@@ -70,17 +69,17 @@ public class BookingsController extends BaseController {
 		return sendResponse(HttpStatus.CREATED, Messages.Success.CUSTOM_LISTED_SUCCESSFULLY,
 				bookingService.add(request));
 	}
-	
+
 	@GetMapping("/approve/{bookingId}")
 	public ResponseEntity<BaseResponse<String>> approve(@PathVariable int bookingId) {
 		bookingService.approve(bookingId);
 		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, null);
 	}
-	
-	@GetMapping("/cancel/{bookingId}")
-	public ResponseEntity<BaseResponse<String>> cancel(@PathVariable int bookingId) {
-		bookingService.cancel(bookingId);
-		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY, null);
+
+	@PostMapping("/cancel")
+	public ResponseEntity<BaseResponse<CancelBookingResponse>> cancel(@RequestBody @Valid CancelBookingRequest request) {
+		return sendResponse(HttpStatus.OK, Messages.Success.CUSTOM_UPDATED_SUCCESSFULLY,
+				bookingService.cancel(request));
 	}
 
 }

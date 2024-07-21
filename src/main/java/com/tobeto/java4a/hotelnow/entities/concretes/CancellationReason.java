@@ -21,6 +21,6 @@ public class CancellationReason extends BaseEntity {
 	private String reason;
 
 	@OneToMany(mappedBy = "cancellationReason", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<BookingHistory> bookingHistories;
+	private List<Booking> bookings;
 
 }

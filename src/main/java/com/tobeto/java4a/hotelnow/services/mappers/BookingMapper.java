@@ -9,6 +9,7 @@ import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.AddBookingRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.AddBookingResponse;
+import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.CancelBookingResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.ListBookingResponse;
 
 @Mapper
@@ -30,10 +31,16 @@ public interface BookingMapper {
 	@Mapping(target = "payment", ignore = true)
 	@Mapping(target = "bookedAt", ignore = true)
 	@Mapping(target = "review", ignore = true)
-	@Mapping(target = "bookingHistories", ignore = true)
+	@Mapping(target = "cancellationReason", ignore = true)
+	@Mapping(target = "status", ignore = true)
 	@Mapping(target = "hotel.id", expression = "java(addBookingRequest.getHotelId())")
 	@Mapping(target = "bookedRoomTypes", ignore = true)
 	@Mapping(target = "customer", source = "customer")
 	Booking bookingFromAddRequest(AddBookingRequest addBookingRequest, Customer customer);
+	
+	@Mapping(target = "hotelId", source = "hotel.id")
+	@Mapping(target = "customer.countryName", source = "customer.country.name")
+	@Mapping(target = "customer.nationalityId", source = "customer.country.id")
+	CancelBookingResponse cancelResponseFromBooking(Booking booking);
 
 }

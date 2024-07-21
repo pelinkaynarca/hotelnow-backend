@@ -7,12 +7,15 @@ import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Generated;
 
+import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -44,6 +47,10 @@ public class Booking extends BaseEntity {
 
 	@Column(name = "guest_count", nullable = false)
 	private short guestCount;
+	
+	@Column(name = "status", length = 10, nullable = false)
+	@Enumerated(EnumType.STRING)
+	private BookingStatus status;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "customer_id")
@@ -52,6 +59,10 @@ public class Booking extends BaseEntity {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;
+	
+	@ManyToOne
+	@JoinColumn(name = "cancellation_reason_id")
+	private CancellationReason cancellationReason;
 
 	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Review review;
@@ -61,7 +72,4 @@ public class Booking extends BaseEntity {
 
 	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<BookedRoomType> bookedRoomTypes;
-	
-	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<BookingHistory> bookingHistories; 
 }
