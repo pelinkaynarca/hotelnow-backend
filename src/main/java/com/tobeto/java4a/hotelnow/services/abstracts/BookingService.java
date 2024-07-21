@@ -8,6 +8,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.CancelBookingR
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.AddBookingResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.CancelBookingResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.ListBookingResponse;
+import com.tobeto.java4a.hotelnow.services.enums.BookingStatus;
 
 public interface BookingService {
 
@@ -24,6 +25,8 @@ public interface BookingService {
 	List<ListBookingResponse> getApproveds();
 
 	List<ListBookingResponse> getCancelleds();
+	
+	List<Booking> getBookingsOfHotelByStatus(BookingStatus bookingStatus);
 
 	AddBookingResponse add(AddBookingRequest request);
 
