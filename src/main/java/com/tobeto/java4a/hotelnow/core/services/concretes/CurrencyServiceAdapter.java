@@ -1,9 +1,10 @@
 package com.tobeto.java4a.hotelnow.core.services.concretes;
 
 import org.springframework.stereotype.Service;
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
+
 import com.tobeto.java4a.hotelnow.core.services.abstracts.CurrencyService;
 import com.tobeto.java4a.hotelnow.core.services.webservices.TcmbCurrencyClient;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
 
 import lombok.RequiredArgsConstructor;
 

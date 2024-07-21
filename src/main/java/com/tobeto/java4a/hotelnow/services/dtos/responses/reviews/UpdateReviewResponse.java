@@ -1,6 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.reviews;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewStatus;
+import com.tobeto.java4a.hotelnow.services.enums.ReviewStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

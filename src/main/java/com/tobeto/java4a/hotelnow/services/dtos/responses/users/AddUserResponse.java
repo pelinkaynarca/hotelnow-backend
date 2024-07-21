@@ -1,12 +1,13 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.users;
 
-import com.tobeto.java4a.hotelnow.core.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+
+import com.tobeto.java4a.hotelnow.services.enums.Gender;
 
 @Getter
 @Setter

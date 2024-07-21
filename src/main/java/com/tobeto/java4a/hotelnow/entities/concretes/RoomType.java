@@ -1,7 +1,8 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

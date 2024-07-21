@@ -1,7 +1,8 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
-import com.tobeto.java4a.hotelnow.core.enums.Gender;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
+import com.tobeto.java4a.hotelnow.services.enums.Gender;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;

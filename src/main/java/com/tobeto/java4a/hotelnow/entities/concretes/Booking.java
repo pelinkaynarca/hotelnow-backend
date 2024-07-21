@@ -7,8 +7,8 @@ import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Generated;
 
-import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
+import com.tobeto.java4a.hotelnow.services.enums.BookingStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;

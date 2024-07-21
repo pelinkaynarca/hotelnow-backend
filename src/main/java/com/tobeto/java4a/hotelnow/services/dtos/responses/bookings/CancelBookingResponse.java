@@ -2,8 +2,9 @@ package com.tobeto.java4a.hotelnow.services.dtos.responses.bookings;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
+
 import com.tobeto.java4a.hotelnow.services.dtos.responses.customers.ListCustomerResponse;
+import com.tobeto.java4a.hotelnow.services.enums.BookingStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

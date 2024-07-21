@@ -1,6 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.payments;
 
-import com.tobeto.java4a.hotelnow.core.enums.PaymentStatus;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

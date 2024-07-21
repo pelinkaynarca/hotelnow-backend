@@ -17,8 +17,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
 
 @Service
 public class TcmbCurrencyClient {

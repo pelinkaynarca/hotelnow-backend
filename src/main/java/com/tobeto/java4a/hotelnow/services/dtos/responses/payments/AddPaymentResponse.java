@@ -2,9 +2,9 @@ package com.tobeto.java4a.hotelnow.services.dtos.responses.payments;
 
 import java.time.LocalDateTime;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
-import com.tobeto.java4a.hotelnow.core.enums.PaymentStatus;
-import com.tobeto.java4a.hotelnow.core.enums.PaymentType;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentStatus;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

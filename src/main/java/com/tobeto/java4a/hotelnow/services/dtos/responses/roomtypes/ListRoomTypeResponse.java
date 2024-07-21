@@ -1,9 +1,10 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypes;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.images.ListImageResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.rooms.ListRoomResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.roomtypefacilitydetailselections.ListRoomTypeFacilityDetailSelectionResponse;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

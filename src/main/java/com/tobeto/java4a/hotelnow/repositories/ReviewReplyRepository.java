@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewReplyStatus;
 import com.tobeto.java4a.hotelnow.entities.concretes.ReviewReply;
+import com.tobeto.java4a.hotelnow.services.enums.ReviewReplyStatus;
 
 public interface ReviewReplyRepository extends JpaRepository<ReviewReply, Integer> {
 

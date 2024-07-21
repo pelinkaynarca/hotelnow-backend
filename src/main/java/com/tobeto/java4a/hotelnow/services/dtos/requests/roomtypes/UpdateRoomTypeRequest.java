@@ -1,6 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.roomtypes;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
+
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

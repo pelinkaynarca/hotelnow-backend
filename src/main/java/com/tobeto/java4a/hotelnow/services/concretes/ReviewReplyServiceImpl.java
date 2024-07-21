@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewReplyStatus;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationException;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.ReviewReply;
@@ -21,6 +20,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.reviewreplies.UpdateRev
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.AddReviewReplyResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.ListReviewReplyResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.UpdateReviewReplyResponse;
+import com.tobeto.java4a.hotelnow.services.enums.ReviewReplyStatus;
 import com.tobeto.java4a.hotelnow.services.mappers.ReviewReplyMapper;
 
 import lombok.RequiredArgsConstructor;

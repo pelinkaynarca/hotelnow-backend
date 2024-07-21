@@ -1,8 +1,8 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.payments;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
-import com.tobeto.java4a.hotelnow.core.enums.PaymentStatus;
-import com.tobeto.java4a.hotelnow.core.enums.PaymentType;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentStatus;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentType;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

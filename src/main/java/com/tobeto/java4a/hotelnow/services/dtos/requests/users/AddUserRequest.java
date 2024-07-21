@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-import com.tobeto.java4a.hotelnow.core.enums.Gender;
+import com.tobeto.java4a.hotelnow.services.enums.Gender;
 
 @Getter
 @Setter

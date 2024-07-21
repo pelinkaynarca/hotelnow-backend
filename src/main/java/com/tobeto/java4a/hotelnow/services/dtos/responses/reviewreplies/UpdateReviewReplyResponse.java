@@ -2,7 +2,7 @@ package com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies;
 
 import java.time.LocalDateTime;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewReplyStatus;
+import com.tobeto.java4a.hotelnow.services.enums.ReviewReplyStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

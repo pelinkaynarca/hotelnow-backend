@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewStatus;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.entities.concretes.Review;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.reviews.AddReviewRequest;
@@ -14,6 +13,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.reviews.UpdateReviewReq
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.AddReviewResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.UpdateReviewResponse;
+import com.tobeto.java4a.hotelnow.services.enums.ReviewStatus;
 
 @Mapper
 public interface ReviewMapper {

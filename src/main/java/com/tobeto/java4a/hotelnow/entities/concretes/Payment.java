@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Generated;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
-import com.tobeto.java4a.hotelnow.core.enums.PaymentStatus;
-import com.tobeto.java4a.hotelnow.core.enums.PaymentType;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentStatus;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

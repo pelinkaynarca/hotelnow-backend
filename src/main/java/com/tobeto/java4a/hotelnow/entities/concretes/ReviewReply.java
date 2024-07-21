@@ -1,7 +1,8 @@
 package com.tobeto.java4a.hotelnow.entities.concretes;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewReplyStatus;
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
+import com.tobeto.java4a.hotelnow.services.enums.ReviewReplyStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

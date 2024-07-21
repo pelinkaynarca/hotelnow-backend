@@ -6,8 +6,6 @@ import java.util.List;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
-import com.tobeto.java4a.hotelnow.core.enums.PaymentStatus;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationException;
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
@@ -36,6 +34,8 @@ import com.tobeto.java4a.hotelnow.services.dtos.requests.payments.AddPaymentRequ
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.AddBookingResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.CancelBookingResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.bookings.ListBookingResponse;
+import com.tobeto.java4a.hotelnow.services.enums.BookingStatus;
+import com.tobeto.java4a.hotelnow.services.enums.PaymentStatus;
 import com.tobeto.java4a.hotelnow.services.mappers.BookedRoomTypeMapper;
 import com.tobeto.java4a.hotelnow.services.mappers.BookingMapper;
 import com.tobeto.java4a.hotelnow.services.mappers.PaymentMapper;

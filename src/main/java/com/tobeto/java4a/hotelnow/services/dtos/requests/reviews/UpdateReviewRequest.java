@@ -1,6 +1,6 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.reviews;
 
-import com.tobeto.java4a.hotelnow.core.enums.ReviewStatus;
+import com.tobeto.java4a.hotelnow.services.enums.ReviewStatus;
 
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,8 @@
 package com.tobeto.java4a.hotelnow.services.dtos.responses.users;
 
-import com.tobeto.java4a.hotelnow.core.enums.Gender;
 import com.tobeto.java4a.hotelnow.entities.concretes.Role;
+import com.tobeto.java4a.hotelnow.services.enums.Gender;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.tobeto.java4a.hotelnow.core.services.abstracts;
 
-import com.tobeto.java4a.hotelnow.core.enums.Currency;
+import com.tobeto.java4a.hotelnow.services.enums.Currency;
 
 public interface CurrencyService {
 

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.tobeto.java4a.hotelnow.core.enums.BookingStatus;
 import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
+import com.tobeto.java4a.hotelnow.services.enums.BookingStatus;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
