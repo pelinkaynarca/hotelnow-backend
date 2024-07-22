@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.javatuples.Pair;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
@@ -17,15 +18,17 @@ import com.tobeto.java4a.hotelnow.services.abstracts.RoomService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.AddBookingRequest;
 import com.tobeto.java4a.hotelnow.services.enums.BookingStatus;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 @Service
 public class BookingRules {
-	
+
 	private final BookingService bookingService;
 	private final RoomService roomService;
-	
+
+	public BookingRules(@Lazy BookingService bookingService, RoomService roomService) {
+		this.bookingService = bookingService;
+		this.roomService = roomService;
+	}
+
 	// TODO business rule availableRoomsShouldExistBetweenCheckInAndCheckOutDates
 	public void availableRoomsShouldExistBetweenCheckInAndCheckOutDates(AddBookingRequest request) {
 		LocalDate checkInDate = request.getCheckInDate(), checkOutDate = request.getCheckOutDate();
@@ -59,7 +62,7 @@ public class BookingRules {
 			}
 		});
 	}
-	
+
 	private int getIndexOfBookedRoomType(List<Pair<Integer, Integer>> pairs, int roomTypeId) {
 		int index = -1, indexCount = 0;
 		for (Pair<Integer, Integer> pair : pairs) {
@@ -71,5 +74,5 @@ public class BookingRules {
 		}
 		return index;
 	}
-	
+
 }
