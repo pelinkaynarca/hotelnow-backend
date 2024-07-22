@@ -9,6 +9,7 @@ import org.hibernate.annotations.Generated;
 
 import com.tobeto.java4a.hotelnow.entities.abstracts.BaseEntity;
 import com.tobeto.java4a.hotelnow.services.enums.BookingStatus;
+import com.tobeto.java4a.hotelnow.services.enums.CancellationReason;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
@@ -60,8 +61,8 @@ public class Booking extends BaseEntity {
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;
 	
-	@ManyToOne
-	@JoinColumn(name = "cancellation_reason_id")
+	@Column(name = "cancellation_reason", length = 25)
+	@Enumerated(EnumType.STRING)
 	private CancellationReason cancellationReason;
 
 	@OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

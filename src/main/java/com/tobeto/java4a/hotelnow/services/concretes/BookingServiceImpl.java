@@ -5,14 +5,12 @@ import org.springframework.stereotype.Service;
 
 import com.tobeto.java4a.hotelnow.entities.concretes.BookedRoomType;
 import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
-import com.tobeto.java4a.hotelnow.entities.concretes.CancellationReason;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.entities.concretes.Payment;
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.repositories.BookingRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookedRoomTypeService;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookingService;
-import com.tobeto.java4a.hotelnow.services.abstracts.CancellationReasonService;
 import com.tobeto.java4a.hotelnow.services.abstracts.CustomerService;
 import com.tobeto.java4a.hotelnow.services.abstracts.PaymentService;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
@@ -42,7 +40,6 @@ public class BookingServiceImpl implements BookingService {
 	private final StaffService staffService;
 	private final PaymentService paymentService;
 //	private final RoomTypeService roomTypeService;
-	private final CancellationReasonService cancellationReasonService;
 
 	private final UserRules userRules;
 
@@ -137,12 +134,8 @@ public class BookingServiceImpl implements BookingService {
 
 		Booking booking = getById(request.getId());
 		booking.setStatus(BookingStatus.CANC);
-		if (request.getReason() != null && !request.getReason().isBlank()) {
-			CancellationReason cancellationReason = new CancellationReason();
-			cancellationReason.setReason(request.getReason());
-			CancellationReason savedCancellationReason = cancellationReasonService
-					.addCancellationReason(cancellationReason);
-			booking.setCancellationReason(savedCancellationReason);
+		if (request.getReason() != null) {
+			booking.setCancellationReason(request.getReason());
 		}
 		Booking savedBooking = bookingRepository.save(booking);
 		return BookingMapper.INSTANCE.cancelResponseFromBooking(savedBooking);

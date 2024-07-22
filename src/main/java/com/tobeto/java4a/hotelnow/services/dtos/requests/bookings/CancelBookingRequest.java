@@ -1,5 +1,7 @@
 package com.tobeto.java4a.hotelnow.services.dtos.requests.bookings;
 
+import com.tobeto.java4a.hotelnow.services.enums.CancellationReason;
+
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +17,6 @@ public class CancelBookingRequest {
 	@Min(value = 1)
 	private int id;
 
-	private String reason;
+	private CancellationReason reason;
 
 }
