@@ -5,10 +5,7 @@ import java.util.List;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationException;
-import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.ReviewReply;
-import com.tobeto.java4a.hotelnow.entities.concretes.Role;
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.repositories.ReviewReplyRepository;
@@ -22,6 +19,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.ListRevi
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviewreplies.UpdateReviewReplyResponse;
 import com.tobeto.java4a.hotelnow.services.enums.ReviewReplyStatus;
 import com.tobeto.java4a.hotelnow.services.mappers.ReviewReplyMapper;
+import com.tobeto.java4a.hotelnow.services.rules.UserRules;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +30,8 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 	private final ReviewReplyRepository reviewReplyRepository;
 	private final UserService userService;
 	private final StaffService staffService;
+
+	private final UserRules userRules;
 
 	@Override
 	public ListReviewReplyResponse getResponseById(int id) {
@@ -71,7 +71,7 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 
 	@Override
 	public List<ListReviewReplyResponse> getPendingReplyResponses() {
-		loggedInUserMustBeAdmin();
+		userRules.loggedInUserMustBeAdmin();
 		List<ReviewReply> reviewReplies = reviewReplyRepository.findByStatus(ReviewReplyStatus.PEND);
 		List<ListReviewReplyResponse> listReviewReplyResponses = ReviewReplyMapper.INSTANCE
 				.listResponsesFromReviewReplies(reviewReplies);
@@ -92,17 +92,11 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 
 	@Override
 	public UpdateReviewReplyResponse update(UpdateReviewReplyRequest request) {
-		loggedInUserMustBeAdmin();
+		userRules.loggedInUserMustBeAdmin();
 		ReviewReply reviewReply = getById(request.getId());
 		reviewReply.setStatus(request.getStatus());
 		ReviewReply savedReviewReply = reviewReplyRepository.save(reviewReply);
 		return ReviewReplyMapper.INSTANCE.updateResponseFromReviewReply(savedReviewReply);
 	}
 
-	private void loggedInUserMustBeAdmin() {
-		List<Role> rolesOfLoggedInUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
-				.stream().map(r -> Role.valueOf(r.getAuthority())).toList();
-		if (!rolesOfLoggedInUser.contains(Role.ADMIN))
-			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
-	}
 }

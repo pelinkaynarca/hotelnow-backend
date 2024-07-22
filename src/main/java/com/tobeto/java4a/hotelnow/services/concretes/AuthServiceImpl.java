@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tobeto.java4a.hotelnow.core.services.JwtService;
-import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.BusinessException;
 import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.entities.concretes.User;
@@ -24,6 +23,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.login.LoginResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.register.RegisterResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.CustomerMapper;
 import com.tobeto.java4a.hotelnow.services.mappers.UserMapper;
+import com.tobeto.java4a.hotelnow.services.rules.UserRules;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +36,8 @@ public class AuthServiceImpl implements AuthService {
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationManager authenticationManager;
 	private final JwtService jwtService;
+	
+	private final UserRules userRules;
 
 	@Override
 	public LoginResponse login(LoginRequest request) {
@@ -61,20 +63,13 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public RegisterResponse register(RegisterRequest request) {
 //		passwordsMustBeSame(request.getPassword(), request.getRepassword());
-		userWithSameEmailShouldNotExist(request.getEmail());
+		userRules.userWithSameEmailShouldNotExist(request.getEmail());
 
 		Customer newCustomer = CustomerMapper.INSTANCE.customerFromRegisterRequest(request);
 		newCustomer.setPassword(passwordEncoder.encode(request.getPassword()));
 		Customer savedCustomer = customerService.addCustomer(newCustomer);
 
 		return CustomerMapper.INSTANCE.registerResponseFromCustomer(savedCustomer);
-	}
-
-	private void userWithSameEmailShouldNotExist(String email) {
-		User user = (User) userService.loadUserByUsername(email);
-		if (user != null) {
-			throw new BusinessException(Messages.Error.USER_WITH_SAME_EMAIL_EXISTS);
-		}
 	}
 
 }

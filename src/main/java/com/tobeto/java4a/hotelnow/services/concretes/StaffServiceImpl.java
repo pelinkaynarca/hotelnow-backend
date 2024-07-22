@@ -5,8 +5,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationException;
-import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.Role;
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
 import com.tobeto.java4a.hotelnow.repositories.StaffRepository;
@@ -18,6 +16,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.AddStaffRespons
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.ListStaffResponse;
 import com.tobeto.java4a.hotelnow.services.dtos.responses.staffs.UpdateStaffResponse;
 import com.tobeto.java4a.hotelnow.services.mappers.StaffMapper;
+import com.tobeto.java4a.hotelnow.services.rules.UserRules;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +26,8 @@ public class StaffServiceImpl implements StaffService {
 
 	private final StaffRepository staffRepository;
 	private final PasswordEncoder passwordEncoder;
+	
+	private final UserRules userRules;
 
 	@Override
 	public ListStaffResponse getResponseById(int id) {
@@ -42,14 +43,14 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public List<ListStaffResponse> getStaffsOfHotel() {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 		Staff loggedInStaff = getLoggedInStaff();
 		return getByHotelId(loggedInStaff.getHotel().getId());
 	}
 
 	@Override
 	public AddStaffResponse add(AddStaffRequest request) {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 		Staff staff = StaffMapper.INSTANCE.staffFromAddRequest(request);
 		Staff loggedInStaff = getLoggedInStaff();
 		staff.setHotel(loggedInStaff.getHotel());
@@ -59,7 +60,7 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public AddStaffResponse addForAdmin(AddStaffRequestForAdmin request) {
-		loggedInUserMustBeAdmin();
+		userRules.loggedInUserMustBeAdmin();
 		Staff staff = StaffMapper.INSTANCE.staffFromAddRequestForAdmin(request);
 		Staff savedStaff = addStaff(staff);
 		return StaffMapper.INSTANCE.addResponseFromStaff(savedStaff);
@@ -67,7 +68,7 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public UpdateStaffResponse update(UpdateStaffRequest request) {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 		Staff staff = StaffMapper.INSTANCE.staffFromUpdateRequest(request);
 		Staff savedStaff = staffRepository.save(staff);
 		return StaffMapper.INSTANCE.updateResponseFromStaff(savedStaff);
@@ -96,18 +97,5 @@ public class StaffServiceImpl implements StaffService {
 		Staff loggedInStaff = getById(idOfLoggedInStaff);
 		return loggedInStaff;
 	}
-
-	private void loggedInUserMustBeManager() {
-		List<Role> rolesOfLoggedInUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
-				.stream().map(r -> Role.valueOf(r.getAuthority())).toList();
-		if (!rolesOfLoggedInUser.contains(Role.MANAGER))
-			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
-	}
-
-	private void loggedInUserMustBeAdmin() {
-		List<Role> rolesOfLoggedInUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
-				.stream().map(r -> Role.valueOf(r.getAuthority())).toList();
-		if (!rolesOfLoggedInUser.contains(Role.ADMIN))
-			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
-	}
+	
 }

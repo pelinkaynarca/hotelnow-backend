@@ -3,16 +3,12 @@ package com.tobeto.java4a.hotelnow.services.concretes;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationException;
-import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.BookedRoomType;
 import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
 import com.tobeto.java4a.hotelnow.entities.concretes.CancellationReason;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.entities.concretes.Payment;
-import com.tobeto.java4a.hotelnow.entities.concretes.Role;
 import com.tobeto.java4a.hotelnow.entities.concretes.Staff;
-import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.repositories.BookingRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookedRoomTypeService;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookingService;
@@ -20,7 +16,6 @@ import com.tobeto.java4a.hotelnow.services.abstracts.CancellationReasonService;
 import com.tobeto.java4a.hotelnow.services.abstracts.CustomerService;
 import com.tobeto.java4a.hotelnow.services.abstracts.PaymentService;
 import com.tobeto.java4a.hotelnow.services.abstracts.StaffService;
-import com.tobeto.java4a.hotelnow.services.abstracts.UserService;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookedroomtypes.AddBookedRoomTypeRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.AddBookingRequest;
 import com.tobeto.java4a.hotelnow.services.dtos.requests.bookings.CancelBookingRequest;
@@ -33,7 +28,7 @@ import com.tobeto.java4a.hotelnow.services.enums.PaymentStatus;
 import com.tobeto.java4a.hotelnow.services.mappers.BookedRoomTypeMapper;
 import com.tobeto.java4a.hotelnow.services.mappers.BookingMapper;
 import com.tobeto.java4a.hotelnow.services.mappers.PaymentMapper;
-import com.tobeto.java4a.hotelnow.services.rules.BookingRules;
+import com.tobeto.java4a.hotelnow.services.rules.UserRules;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,14 +38,13 @@ public class BookingServiceImpl implements BookingService {
 
 	private final BookingRepository bookingRepository;
 	private final BookedRoomTypeService bookedRoomTypeService;
-	private final UserService userService;
 	private final CustomerService customerService;
 	private final StaffService staffService;
 	private final PaymentService paymentService;
 //	private final RoomTypeService roomTypeService;
 	private final CancellationReasonService cancellationReasonService;
 
-	private final BookingRules bookingRules;
+	private final UserRules userRules;
 
 	@Override
 	public Booking getById(int id) {
@@ -78,21 +72,21 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<ListBookingResponse> getPendings() {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 		List<Booking> pendingBookingsOfHotel = getBookingsOfHotelByStatus(BookingStatus.PEND);
 		return BookingMapper.INSTANCE.listResponsesFromBookings(pendingBookingsOfHotel);
 	}
 
 	@Override
 	public List<ListBookingResponse> getApproveds() {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 		List<Booking> pendingBookingsOfHotel = getBookingsOfHotelByStatus(BookingStatus.APPR);
 		return BookingMapper.INSTANCE.listResponsesFromBookings(pendingBookingsOfHotel);
 	}
 
 	@Override
 	public List<ListBookingResponse> getCancelleds() {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 		List<Booking> pendingBookingsOfHotel = getBookingsOfHotelByStatus(BookingStatus.CANC);
 		return BookingMapper.INSTANCE.listResponsesFromBookings(pendingBookingsOfHotel);
 	}
@@ -130,7 +124,7 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public void approve(int bookingId) {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 
 		Booking booking = getById(bookingId);
 		booking.setStatus(BookingStatus.APPR);
@@ -139,7 +133,7 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public CancelBookingResponse cancel(CancelBookingRequest request) {
-		loggedInUserMustBeManager();
+		userRules.loggedInUserMustBeManager();
 
 		Booking booking = getById(request.getId());
 		booking.setStatus(BookingStatus.CANC);
@@ -160,13 +154,6 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookingsOfHotelByStatus = bookingRepository.findByStatusAndHotelId(bookingStatus,
 				loggedInStaff.getHotel().getId());
 		return bookingsOfHotelByStatus;
-	}
-
-	private void loggedInUserMustBeManager() {
-		User user = userService.getLoggedInUser();
-		if (!user.getAuthorities().contains(Role.MANAGER)) {
-			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
-		}
 	}
 
 }

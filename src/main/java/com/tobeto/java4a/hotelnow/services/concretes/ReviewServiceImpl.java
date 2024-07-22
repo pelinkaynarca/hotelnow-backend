@@ -5,12 +5,9 @@ import java.util.List;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.java4a.hotelnow.core.utils.exceptions.types.AuthorizationException;
-import com.tobeto.java4a.hotelnow.core.utils.messages.Messages;
 import com.tobeto.java4a.hotelnow.entities.concretes.Booking;
 import com.tobeto.java4a.hotelnow.entities.concretes.Customer;
 import com.tobeto.java4a.hotelnow.entities.concretes.Review;
-import com.tobeto.java4a.hotelnow.entities.concretes.Role;
 import com.tobeto.java4a.hotelnow.entities.concretes.User;
 import com.tobeto.java4a.hotelnow.repositories.ReviewRepository;
 import com.tobeto.java4a.hotelnow.services.abstracts.BookingService;
@@ -25,6 +22,7 @@ import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.ListReviewResp
 import com.tobeto.java4a.hotelnow.services.dtos.responses.reviews.UpdateReviewResponse;
 import com.tobeto.java4a.hotelnow.services.enums.ReviewStatus;
 import com.tobeto.java4a.hotelnow.services.mappers.ReviewMapper;
+import com.tobeto.java4a.hotelnow.services.rules.UserRules;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +34,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private final BookingService bookingService;
 	private final UserService userService;
 	private final CustomerService customerService;
+	
+	private final UserRules userRules;
 
 	@Override
 	public ListReviewResponse getResponseById(int id) {
@@ -79,17 +79,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public UpdateReviewResponse update(UpdateReviewRequest request) {
-		loggedInUserMustBeAdmin();
+		userRules.loggedInUserMustBeAdmin();
 		Review review = getById(request.getId());
 		review.setStatus(request.getReviewStatus());
 		Review savedReview = reviewRepository.save(review);
 		return ReviewMapper.INSTANCE.updateResponseFromReview(savedReview);
 	}
-
-	private void loggedInUserMustBeAdmin() {
-		List<Role> rolesOfLoggedInUser = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
-				.stream().map(r -> Role.valueOf(r.getAuthority())).toList();
-		if (!rolesOfLoggedInUser.contains(Role.ADMIN))
-			throw new AuthorizationException(Messages.Error.AUTHORIZATION_VIOLATION);
-	}
+	
 }
